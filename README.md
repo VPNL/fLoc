@@ -201,11 +201,11 @@ Follow the instructions below to (1) setup the localizer code for your computers
 
 ## Code
 
-The *runme.m* wrapper function generates an object of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and experiment. A custom stimulus sequence is created for each run of the experiment and stored in an object of the class `fLocSequence`. 
+The *runme.m* wrapper function generates an object of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. A custom stimulus sequence is created for each run of the experiment and stored in an object of the class `fLocSequence`. 
 
 ### Using the runme function
 
-The `runme.m` function will prompt the experimenter for session information when called without input arguements. However, you can also specify this information upfront by including following input arguements in the specified order:
+The `runme.m` function will prompt the experimenter for session information when called without input arguements. However, you can also specify these settings in advance by including following input arguements in the specified order:
 
 1. *name* — session-specific identifier (e.g., participant initials)
 2. *trigger* - option to trigger scanner (0 = no, 1 = yes)
@@ -214,7 +214,7 @@ The `runme.m` function will prompt the experimenter for session information when
 5. *task_num* - which task to use (1 = 1-back, 2 = 2-back, 3 = oddball)
 6. *start_run* - run number to begin with (if experiment is interrupted)
 
-The `fLocSession` and `fLocSequence` objects for each participant are saved session-specific subdirectories in the repository data directory (`~/fLoc/data/*`). Stimulus parameter (`*.par`) files used for analysis of fMRI data are written for each run and are also stored in data subdirectories. 
+The `fLocSession` and `fLocSequence` objects for each participant are saved session-specific subdirectories in the repository data directory (i.e., `~/fLoc/data/*`). Data subdirectories also store stimulus parameter (`*.par`) files used for analyzing fMRI data are written for each run. 
 
 ### Using fLocSequence methods
 

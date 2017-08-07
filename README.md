@@ -1,6 +1,11 @@
 # fLoc
 Functional localizer experiment used to define category-selective cortical regions
 
+* * *
+*Technical notes:*
+The code in this repository is written in MATLAB (https://www.mathworks.com/)[MATLAB] (compatible with R2013a and later versions) and calls (http://psychtoolbox.org/)[Psychtoolbox-3] functions.
+* * *
+
 ## Experimental Design
 
 This repository contains stimuli and presentation code for a functional localizer experiment used to define category-selective cortical regions that respond preferentially to faces (e.g., fusiform face area), places (e.g., parahippocampal place area), bodies (e.g., extrastriate body area), or printed characters (e.g., visual word form area). 
@@ -10,6 +15,17 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 ### Stimulus Conditions
 
 Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
+
+| Bodies | Example images    | Cool              |
+| ------ |:-----------------:| -----------------:|
+| body   | ![body-1][body-1] | ![body-2][body-2] |
+| limb   | ![body-1][body-1] | ![limb-2][limb-2] |
+
+[body-1]: https://github.com/VPNL/fLoc/stimuli/body-1.jpg "body-1.jpg"
+[body-2]: https://github.com/VPNL/fLoc/stimuli/body-2.jpg "body-2.jpg"
+[limb-1]: https://github.com/VPNL/fLoc/stimuli/limb-1.jpg "limb-1.jpg"
+[limb-2]: https://github.com/VPNL/fLoc/stimuli/limb-2.jpg "limb-2.jpg"
+
 
 - Bodies
     + body — whole bodies with cropped heads
@@ -47,21 +63,21 @@ Follow the instructions below to first setup the code for your computers/equipme
 2. Modify input registration functions for keyboard, button box, and trigger:
     - *get_keyboard_num.m* - Change value of `keyboard_id` to the "Product ID number" of your local keyboard (line 9)
     - *get_box_num.m* - Change value of `box_id` to the "Product ID number" of the button box used at your scanner facilities (line 9)
-    - *start_scan.m* - Change 
+    - *start_scan.m* - Change specifications to be compatible with your local trigger box (line 6)
 3. Add Psychtoolbox to your MATLAB path.
 
 ### Execution
 
-1. Navigate to base experiment directory in MATLAB (~/fLoc/).
-2. Execute the runme.m wrapper function.
+1. Navigate to base experiment directory in MATLAB (`~/fLoc/`).
+2. Execute the `runme.m` wrapper function.
 3. Enter subject initials when prompted.
 4. Select triggering option:
-    - Enter 0 if not attempting to trigger scanner (e.g., while debugging)
-    - Enter 1 to automatically trigger scanner at onset of experiment
+    - Enter `0` if not attempting to trigger scanner (e.g., while debugging)
+    - Enter `1` to automatically trigger scanner at onset of experiment
 4. Select task for participant:
-    - Enter 1 for 1-back image repetition detection
-    - Enter 2 for 2-back image repetition detection
-    - Enter 3 for oddball detection
+    - Enter `1` for 1-back image repetition detection
+    - Enter `2` for 2-back image repetition detection
+    - Enter `3` for oddball detection
 5. Wait for task instructions screen to display.
 6. Press `g` to start experiment (and trigger scanner if option is selected).
 7. Wait for behavioral performance to display after each run.
@@ -69,13 +85,15 @@ Follow the instructions below to first setup the code for your computers/equipme
 
 ### Debugging
 
-- Press [Command + period] to halt experiment.
+- Press `[Command + period]` to halt experiment.
 - Enter sca to return to MATLAB command line.
-- Please report bugs on GitHub
+- Please report bugs on GitHub.
 
 ## Code
 
-The code in this repository is written in MATLAB (https://www.mathworks.com/)[MATLAB] (compatible with R2013a and later versions) and calls (http://psychtoolbox.org/)[Psychtoolbox-3] functions.
+
+
+
 
 ## Analysis
 

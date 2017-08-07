@@ -19,7 +19,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 | Bodies |                   |                   |                   |                   |                   |                   |
 | ------ |:-----------------:|:-----------------:|:-----------------:|:-----------------:|:-----------------:| :----------------:|
-| body   | [body-1] | ![body-2][body-2] | ![body-3][body-3] | ![body-4][body-4] | ![body-5][body-5] | ![body-6][body-6] |
+| body   | ![b1] | ![body-2][body-2] | ![body-3][body-3] | ![body-4][body-4] | ![body-5][body-5] | ![body-6][body-6] |
 | limb   | ![limb-1][limb-1] | ![limb-2][limb-2] | ![limb-3][limb-3] | ![limb-4][limb-4] | ![limb-5][limb-5] | ![limb-6][limb-6] |
 
 [body-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"

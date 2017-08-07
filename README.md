@@ -4,7 +4,7 @@ Functional localizer experiment used to define category-selective cortical regio
 * * *
 *Technical notes:*
 
-The code in this repository is written in [MATLAB](https://www.mathworks.com/) (compatible with R2013a and later versions) and calls [Psychtoolbox-3](http://psychtoolbox.org/) functions.
+The code in this repository is written in [MATLAB](https://www.mathworks.com/) (compatible with R2013a and later versions) and calls functions from [Psychtoolbox-3](http://psychtoolbox.org/).
 * * *
 
 ## Experimental Design

@@ -17,9 +17,25 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
 
+- Bodies
+    + body — whole bodies with cropped heads
+    + limb — isolated arms, legs, hands, and feet
+- Characters
+    + word - pronounceable English pseudowords
+    + number - uncommon numbers
+- Faces
+    + adult - portraits of adult faces
+    + child - portraits of child faces
+- Objects
+    + car - four-wheel motor vehicles
+    + instrument - musical string instruments
+- Places
+    + house - outdoor views of buildings
+    + corridor - indoor views of hallways
+
 |                |             |             |             |             |             |             |
 | -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| **Bodies** |             |             |             |             |             |             |
+| **Bodies**     |             |             |             |             |             |             |
 | body           | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
 | limb           | ![li1][li1] | ![li1][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
 |                |             |             |             |             |             |             |
@@ -110,22 +126,6 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 [co5]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-5.jpg "corridor-4.jpg"
 [co6]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-6.jpg "corridor-6.jpg"
 
-- Bodies
-    + body — whole bodies with cropped heads
-    + limb — isolated arms, legs, hands, and feet
-- Characters
-    + word - pronounceable English pseudowords
-    + number - uncommon numbers
-- Faces
-    + adult - portraits of adult faces
-    + child - portraits of child faces
-- Objects
-    + car - four-wheel motor vehicles
-    + instrument - musical string instruments
-- Places
-    + house - outdoor views of buildings
-    + corridor - indoor views of hallways
-
 #### Task
 
 To ensure that participants remain alert and attentive throughout the experiment, a task is selected while executing the localizer. Three options are available:
@@ -134,11 +134,11 @@ To ensure that participants remain alert and attentive throughout the experiment
 - 2-back - detect image repetition with one intervening stimulus
 - Oddball - detect replacement of a stimulus with scrambled image
 
-Task probes (i.e., image repetitions or oddballs) are inserted randomly in half of the stimulus blocks. By default participants are alloted 1 second to respond to a task probe, and responses outside of this time window are counted as false alarms. Behavioral data displayed at the end of each run summarize the hit rate (percentage of task probes detected within the time limit) and the false alarm count (number of responses outside of task-relevant time windows) for the preceding run.
+Task probes (i.e., image repetitions or oddballs) are inserted randomly in half of the stimulus blocks. By default participants are alloted 1 second to respond to a task probe, and responses outside of this time window are counted as false alarms. Behavioral data displayed at the end of each run summarize the hit rate (percentage of task probes detected within the time limit) and the false alarm count (number of responses outside of task-relevant time windows).
 
 ## Instructions
 
-Follow the instructions below to first setup the code for your computers/equipment and then run the localizer.
+Follow the instructions below to (1) setup the localizer code for your computers/equipment and (2) execute the experiment.
 
 ### Setup
 
@@ -173,10 +173,6 @@ Follow the instructions below to first setup the code for your computers/equipme
 - Please report bugs on GitHub.
 
 ## Code
-
-
-
-
 
 ## Analysis
 

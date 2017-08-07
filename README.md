@@ -27,7 +27,18 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 | word           | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
 | number         | ![nu1][nu1] | ![nu2][nu2] | ![nu3][nu3] | ![nu4][nu4] | ![nu5][nu5] | ![nu6][nu6] |
 |                |             |             |             |             |             |             |
-
+| **Faces**      |             |             |             |             |             |             |
+| adult          | ![ad1][ad1] | ![ad2][ad2] | ![ad3][ad3] | ![ad4][ad4] | ![ad5][ad5] | ![ad6][ad6] |
+| child          | ![ch1][ch1] | ![ch2][ch2] | ![ch3][ch3] | ![ch4][ch4] | ![ch5][ch5] | ![ch6][ch6] |
+|                |             |             |             |             |             |             |
+| **Objects**    |             |             |             |             |             |             |
+| car            | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
+| instrument     | ![in1][in1] | ![in2][in2] | ![in3][in3] | ![in4][in4] | ![in5][in5] | ![in6][in6] |
+|                |             |             |             |             |             |             |
+| **Places**     |             |             |             |             |             |             |
+| house          | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
+| corridor       | ![co1][co1] | ![co2][co2] | ![co3][co3] | ![co4][co4] | ![co5][co5] | ![co6][co6] |
+|                |             |             |             |             |             |             |
 
 [bo1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
 [bo2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"
@@ -57,7 +68,47 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 [nu5]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-5.jpg "number-5.jpg"
 [nu6]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-6.jpg "number-6.jpg"
 
+[ad1]: https://github.com/VPNL/fLoc/blob/master/stimuli/adult/adult-1.jpg "adult-1.jpg"
+[ad2]: https://github.com/VPNL/fLoc/blob/master/stimuli/adult/adult-2.jpg "adult-2.jpg"
+[ad3]: https://github.com/VPNL/fLoc/blob/master/stimuli/adult/adult-3.jpg "adult-3.jpg"
+[ad4]: https://github.com/VPNL/fLoc/blob/master/stimuli/adult/adult-4.jpg "adult-4.jpg"
+[ad5]: https://github.com/VPNL/fLoc/blob/master/stimuli/adult/adult-5.jpg "adult-4.jpg"
+[ad6]: https://github.com/VPNL/fLoc/blob/master/stimuli/adult/adult-6.jpg "adult-6.jpg"
 
+[ch1]: https://github.com/VPNL/fLoc/blob/master/stimuli/child/child-1.jpg "child-1.jpg"
+[ch2]: https://github.com/VPNL/fLoc/blob/master/stimuli/child/child-2.jpg "child-2.jpg"
+[ch3]: https://github.com/VPNL/fLoc/blob/master/stimuli/child/child-3.jpg "child-3.jpg"
+[ch4]: https://github.com/VPNL/fLoc/blob/master/stimuli/child/child-4.jpg "child-4.jpg"
+[ch5]: https://github.com/VPNL/fLoc/blob/master/stimuli/child/child-5.jpg "child-4.jpg"
+[ch6]: https://github.com/VPNL/fLoc/blob/master/stimuli/child/child-6.jpg "child-6.jpg"
+
+[ca1]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-1.jpg "car-1.jpg"
+[ca2]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-2.jpg "car-2.jpg"
+[ca3]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-3.jpg "car-3.jpg"
+[ca4]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-4.jpg "car-4.jpg"
+[ca5]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-5.jpg "car-4.jpg"
+[ca6]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-6.jpg "car-6.jpg"
+
+[in1]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-1.jpg "instrument-1.jpg"
+[in1]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-2.jpg "instrument-2.jpg"
+[in3]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-3.jpg "instrument-3.jpg"
+[in4]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-4.jpg "instrument-4.jpg"
+[in5]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-5.jpg "instrument-4.jpg"
+[in6]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-6.jpg "instrument-6.jpg"
+
+[ho1]: https://github.com/VPNL/fLoc/blob/master/stimuli/house/house-1.jpg "house-1.jpg"
+[ho2]: https://github.com/VPNL/fLoc/blob/master/stimuli/house/house-2.jpg "house-2.jpg"
+[ho3]: https://github.com/VPNL/fLoc/blob/master/stimuli/house/house-3.jpg "house-3.jpg"
+[ho4]: https://github.com/VPNL/fLoc/blob/master/stimuli/house/house-4.jpg "house-4.jpg"
+[ho5]: https://github.com/VPNL/fLoc/blob/master/stimuli/house/house-5.jpg "house-4.jpg"
+[ho6]: https://github.com/VPNL/fLoc/blob/master/stimuli/house/house-6.jpg "house-6.jpg"
+
+[co1]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-1.jpg "corridor-1.jpg"
+[co2]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-2.jpg "corridor-2.jpg"
+[co3]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-3.jpg "corridor-3.jpg"
+[co4]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-4.jpg "corridor-4.jpg"
+[co5]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-5.jpg "corridor-4.jpg"
+[co6]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-6.jpg "corridor-6.jpg"
 
 - Bodies
     + body — whole bodies with cropped heads

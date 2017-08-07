@@ -2,11 +2,8 @@
 Functional localizer experiment used to define category-selective cortical regions
 
 * * *
-
-*Technical notes:*
-
+*Notes:*
 The code in this repository is written in [MATLAB](https://www.mathworks.com/) (compatible with R2013a and later versions) and calls functions from [Psychtoolbox-3](http://psychtoolbox.org/).
-
 * * *
 
 *Contents:*

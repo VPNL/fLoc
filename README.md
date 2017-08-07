@@ -17,8 +17,9 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
 
-| **Bodies**     |             |             |             |             |             |             |
+| Condition      |             |             |             |             |             |             |
 | -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+| **Bodies** |             |             |             |             |             |             |
 | body           | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
 | limb           | ![li1][li1] | ![li1][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
 |                |             |             |             |             |             |             |

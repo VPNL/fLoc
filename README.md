@@ -17,13 +17,15 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
 
-| Bodies     |             |             |             |             |             |             |
-| ---------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| body       | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
-| limb       | ![li1][li1] | ![li1][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
-| Characters |             |             |             |             |             |             |
-| ---------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| body       | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
+| **Bodies**     |             |             |             |             |             |             |
+| -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+| body           | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
+| limb           | ![li1][li1] | ![li1][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
+|                |             |             |             |             |             |             |
+| **Characters** |             |             |             |             |             |             |
+| word           | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
+| number         | ![nu1][nu1] | ![nu2][nu2] | ![nu3][nu3] | ![nu4][nu4] | ![nu5][nu5] | ![nu6][nu6] |
+|                |             |             |             |             |             |             |
 
 
 [bo1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
@@ -40,19 +42,19 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 [li5]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-5.jpg "limb-5.jpg"
 [li6]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-6.jpg "limb-6.jpg"
 
-[word-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-1.jpg "word-1.jpg"
-[word-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-2.jpg "word-2.jpg"
-[word-3]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-3.jpg "word-3.jpg"
-[word-4]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-4.jpg "word-4.jpg"
-[word-5]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-5.jpg "word-4.jpg"
-[word-6]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-6.jpg "word-6.jpg"
+[wo1]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-1.jpg "word-1.jpg"
+[wo2]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-2.jpg "word-2.jpg"
+[wo3]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-3.jpg "word-3.jpg"
+[wo4]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-4.jpg "word-4.jpg"
+[wo5]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-5.jpg "word-4.jpg"
+[wo6]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-6.jpg "word-6.jpg"
 
-[numb-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-1.jpg "number-1.jpg"
-[numb-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-2.jpg "number-2.jpg"
-[numb-3]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-3.jpg "number-3.jpg"
-[numb-4]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-4.jpg "number-4.jpg"
-[numb-5]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-5.jpg "number-5.jpg"
-[numb-6]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-6.jpg "number-6.jpg"
+[nu1]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-1.jpg "number-1.jpg"
+[nu2]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-2.jpg "number-2.jpg"
+[nu3]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-3.jpg "number-3.jpg"
+[nu4]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-4.jpg "number-4.jpg"
+[nu5]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-5.jpg "number-5.jpg"
+[nu6]: https://github.com/VPNL/fLoc/blob/master/stimuli/number/number-6.jpg "number-6.jpg"
 
 
 

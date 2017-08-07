@@ -17,15 +17,22 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
 
-| Bodies | Example images    | Cool              |
-| ------ |:-----------------:| -----------------:|
-| body   | ![body-1][body-1] | ![body-2][body-2] |
-| limb   | ![body-1][body-1] | ![limb-2][limb-2] |
+| Bodies | Example images    |                   |                   |                   |                   |
+| ------ |:-----------------:|:-----------------:|:-----------------:|:-----------------:| -----------------:|
+| body   | ![body-1][body-1] | ![body-2][body-2] | ![body-3][body-3] | ![body-4][body-4] | ![body-5][body-5] |
+| limb   | ![body-1][body-1] | ![limb-2][limb-2] | ![limb-3][limb-3] | ![limb-4][limb-4] | ![limb-5][limb-5] |
 
 [body-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
 [body-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"
+[body-3]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-3.jpg "body-3.jpg"
+[body-4]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-4.jpg "body-4.jpg"
+[body-5]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-5.jpg "body-4.jpg"
+
 [limb-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-1.jpg "limb-1.jpg"
 [limb-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-2.jpg "limb-2.jpg"
+[limb-3]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-3.jpg "limb-3.jpg"
+[limb-4]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-4.jpg "limb-4.jpg"
+[limb-5]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-5.jpg "limb-5.jpg"
 
 
 - Bodies

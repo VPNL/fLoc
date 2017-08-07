@@ -17,30 +17,28 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
 
-| Bodies |                   |                   |                   |                   |                   |                   |
-| ------ |:-----------------:|:-----------------:|:-----------------:|:-----------------:|:-----------------:| :----------------:|
-| body   | ![b1] | ![body-2][body-2] | ![body-3][body-3] | ![body-4][body-4] | ![body-5][body-5] | ![body-6][body-6] |
-| limb   | ![limb-1][limb-1] | ![limb-2][limb-2] | ![limb-3][limb-3] | ![limb-4][limb-4] | ![limb-5][limb-5] | ![limb-6][limb-6] |
-
-[body-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
-[body-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"
-[body-3]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-3.jpg "body-3.jpg"
-[body-4]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-4.jpg "body-4.jpg"
-[body-5]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-5.jpg "body-4.jpg"
-[body-6]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-6.jpg "body-6.jpg"
-
-[limb-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-1.jpg "limb-1.jpg"
-[limb-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-2.jpg "limb-2.jpg"
-[limb-3]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-3.jpg "limb-3.jpg"
-[limb-4]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-4.jpg "limb-4.jpg"
-[limb-5]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-5.jpg "limb-5.jpg"
-[limb-6]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-6.jpg "limb-6.jpg"
+| Bodies     |             |             |             |             |             |             |
+| ---------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+| body       | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
+| limb       | ![li1][li1] | ![li1][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
+| Characters |             |             |             |             |             |             |
+| ---------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+| body       | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
 
 
-| Characters |                   |                   |                   |                   |                   |                   |
-| ---------- |:-----------------:|:-----------------:|:-----------------:|:-----------------:|:-----------------:| :----------------:|
-| word       | ![word-1][word-1] | ![word-2][word-2] | ![word-3][word-3] | ![word-4][word-4] | ![word-5][word-5] | ![word-6][word-6] |
-| number     | ![numb-1][numb-1] | ![numb-2][numb-2] | ![numb-3][numb-3] | ![numb-4][numb-4] | ![numb-5][numb-5] | ![numb-6][numb-6] |
+[bo1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
+[bo2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"
+[bo3]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-3.jpg "body-3.jpg"
+[bo4]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-4.jpg "body-4.jpg"
+[bo5]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-5.jpg "body-4.jpg"
+[bo6]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-6.jpg "body-6.jpg"
+
+[li1]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-1.jpg "limb-1.jpg"
+[li2]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-2.jpg "limb-2.jpg"
+[li3]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-3.jpg "limb-3.jpg"
+[li4]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-4.jpg "limb-4.jpg"
+[li5]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-5.jpg "limb-5.jpg"
+[li6]: https://github.com/VPNL/fLoc/blob/master/stimuli/limb/limb-6.jpg "limb-6.jpg"
 
 [word-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-1.jpg "word-1.jpg"
 [word-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/word/word-2.jpg "word-2.jpg"

@@ -2,9 +2,31 @@
 Functional localizer experiment used to define category-selective cortical regions
 
 * * *
+
 *Technical notes:*
 
 The code in this repository is written in [MATLAB](https://www.mathworks.com/) (compatible with R2013a and later versions) and calls functions from [Psychtoolbox-3](http://psychtoolbox.org/).
+
+* * *
+
+*Contents:*
+
+1. [Experimental Design](#experimental-design)
+    1. [Stimulus Conditions](#stimulus-conditions)
+    2. [Example images](#example-images)
+    3. [Task](#task)
+    4. [Debugging](#debugging)
+
+2. [Instructions](#instructions)
+    1. [Setup](#setup)
+    2. [Execution](#execution)
+
+3. [Code](#code)
+
+4. [Analysis](#analysis)
+
+5. [Citation](#citation)
+
 * * *
 
 ## Experimental Design
@@ -128,7 +150,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 [co5]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-5.jpg "corridor-4.jpg"
 [co6]: https://github.com/VPNL/fLoc/blob/master/stimuli/corridor/corridor-6.jpg "corridor-6.jpg"
 
-#### Task
+### Task
 
 To ensure that participants remain alert and attentive throughout the experiment, a task is selected while executing the localizer. Three options are available:
 

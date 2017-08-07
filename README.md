@@ -13,11 +13,11 @@ The code in this repository calls functions from [Psychtoolbox-3](http://psychto
     1. [Stimulus Conditions](#stimulus-conditions)
     2. [Example images](#example-images)
     3. [Task](#task)
-    4. [Debugging](#debugging)
 
 2. [Instructions](#instructions)
     1. [Setup](#setup)
     2. [Execution](#execution)
+    3. [Debugging](#debugging)
 
 3. [Code](#code)
 

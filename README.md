@@ -55,7 +55,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 ### Example Images
 
-| Condition1    |             |             |             |             |             |             |
+| Category 1     |             |             |             |             |             |             |
 | -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies**     |             |             |             |             |             |             |
 | body           | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |

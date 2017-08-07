@@ -4,7 +4,7 @@ Functional localizer experiment used to define category-selective cortical regio
 * * *
 *Technical notes:*
 
-The code in this repository is written in MATLAB (https://www.mathworks.com/)[MATLAB] (compatible with R2013a and later versions) and calls (http://psychtoolbox.org/)[Psychtoolbox-3] functions.
+The code in this repository is written in [MATLAB](https://www.mathworks.com/) (compatible with R2013a and later versions) and calls [Psychtoolbox-3](http://psychtoolbox.org/) functions.
 * * *
 
 ## Experimental Design
@@ -106,7 +106,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 [ca6]: https://github.com/VPNL/fLoc/blob/master/stimuli/car/car-6.jpg "car-6.jpg"
 
 [in1]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-1.jpg "instrument-1.jpg"
-[in1]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-2.jpg "instrument-2.jpg"
+[in2]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-2.jpg "instrument-2.jpg"
 [in3]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-3.jpg "instrument-3.jpg"
 [in4]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-4.jpg "instrument-4.jpg"
 [in5]: https://github.com/VPNL/fLoc/blob/master/stimuli/instrument/instrument-5.jpg "instrument-4.jpg"

@@ -147,7 +147,8 @@ classdef fLocSession
                 if strcmp(stim_names{ii}, 'baseline')
                     img_ptrs(ii) = 0;
                 else
-                    img = imread(fullfile(stim_dir, stim_names{ii}));
+                    cat_dir = stim_names{ii}(1:find(stim_names{ii} == '-') - 1);
+                    img = imread(fullfile(stim_dir, cat_dir, stim_names{ii}));
                     img_ptrs(ii) = Screen('MakeTexture', window_ptr, img);
                 end
             end

@@ -55,13 +55,13 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 ### Example Images
 
-| Condition 1: Bodies    |             |             |             |             |             |             |
+| Condition1    |             |             |             |             |             |             |
 | -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies**     |             |             |             |             |             |             |
 | body           | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
 | limb           | ![li1][li1] | ![li1][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
 
-| Condition 2    |             |             |             |             |             |             |
+| Condition2    |             |             |             |             |             |             |
 | -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Characters** |             |             |             |             |             |             |
 | word           | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |

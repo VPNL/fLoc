@@ -33,6 +33,8 @@ Each of the five stimulus conditions in the localizer is associated with two rel
     + house - outdoor views of buildings
     + corridor - indoor views of hallways
 
+### Example Images
+
 |                |             |             |             |             |             |             |
 | -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies**     |             |             |             |             |             |             |

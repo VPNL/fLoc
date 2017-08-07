@@ -22,10 +22,10 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 | body   | ![body-1][body-1] | ![body-2][body-2] |
 | limb   | ![body-1][body-1] | ![limb-2][limb-2] |
 
-[body-1]: https://github.com/VPNL/fLoc/stimuli/body-1.jpg "body-1.jpg"
-[body-2]: https://github.com/VPNL/fLoc/stimuli/body-2.jpg "body-2.jpg"
-[limb-1]: https://github.com/VPNL/fLoc/stimuli/limb-1.jpg "limb-1.jpg"
-[limb-2]: https://github.com/VPNL/fLoc/stimuli/limb-2.jpg "limb-2.jpg"
+[body-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
+[body-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"
+[limb-1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-1.jpg "limb-1.jpg"
+[limb-2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/limb-2.jpg "limb-2.jpg"
 
 
 - Bodies

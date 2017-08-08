@@ -1,6 +1,5 @@
 # fLoc
-Functional localizer experiment used to define category-selective cortical regions
-
+Functional localizer experiment used to define category-selective cortical regions as published in [Stigliani et al JNS 2015](http://www.jneurosci.org/content/35/36/12412)
 * * *
 *Notes:*
 
@@ -34,11 +33,11 @@ The code in this repository calls functions from [Psychtoolbox-3](http://psychto
 
 This repository contains stimuli and presentation code for a functional localizer experiment used to define category-selective cortical regions that respond preferentially to faces (e.g., [fusiform face area](https://www.ncbi.nlm.nih.gov/pubmed/9151747)), places (e.g., [parahippocampal place area](https://www.ncbi.nlm.nih.gov/pubmed/9560155)), bodies (e.g., [extrastriate body area](https://www.ncbi.nlm.nih.gov/pubmed/11577239)), or printed characters (e.g., [visual word form area](https://www.ncbi.nlm.nih.gov/pubmed/10648437)). 
 
-The localizer uses a mini-block design in which 12 stimuli of the same category are presented in each **6 second block** (500 ms/image). For each **4 minute run**, a novel stimulus sequence is generated that randomizes the order of five stimulus conditions (faces, places, bodies, characters, and objects) and a blank baseline condition. We recommend collecting at least **4 runs of data** per subject (16 minutes total) to have sufficient power to define these and other regions of interest.
+The localizer uses a mini-block design in which 12 stimuli of the same category are presented in each **6 second block** (500 ms/image). For each **4 minute run**, a novel stimulus sequence is generated that randomizes the order of five stimulus conditions (faces, places, bodies, characters, and objects) and a blank baseline condition. We recommend collecting at least **4 runs of data** per subject (16 minutes total) to have sufficient power to define regions of interest.
 
 ### Stimulus Conditions
 
-Each of the five stimulus conditions in the localizer is associated with two related image categories with 144 images per category (see [`~/fLoc/stimuli/*`](https://github.com/VPNL/fLoc/tree/master/stimuli) for entire database):
+Each of the five stimulus conditions in the localizer is associated with two related image subcategories with 144 images per subcategory (see [`~/fLoc/stimuli/*`](https://github.com/VPNL/fLoc/tree/master/stimuli) for entire database):
 
 - Bodies
     + body — whole bodies with cropped heads
@@ -62,7 +61,7 @@ The localizer code will prompt you to select which stimulus set to use when exec
 
 #### Option 1
 
-| *Standard* categories  |             |             |             |             |             |             |
+| *Default* categories  |             |             |             |             |             |             |
 | ---------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** `body`     | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
 | **Characters:** `word` | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |

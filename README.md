@@ -55,15 +55,15 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 ### Image Sets
 
-The localizer code will prompy you to select which image sets/s to use when executing the experiment. Three options are provided:
+The localizer code will prompy you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence.m` class file (see below). Three options are provided by default:
 
-| *Standard* stimulus set |             |             |             |             |             |             |
-| ----------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| **Bodies:** body        | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
-| **Characters:** word    | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
-| **Faces:** adult        | ![ad1][ad1] | ![ad2][ad2] | ![ad3][ad3] | ![ad4][ad4] | ![ad5][ad5] | ![ad6][ad6] |
-| **Objects:** car        | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
-| **Places:** house       | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
+1. | *Standard* stimulus set |             |             |             |             |             |             |
+   | ----------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+   | **Bodies:** body        | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
+   | **Characters:** word    | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
+   | **Faces:** adult        | ![ad1][ad1] | ![ad2][ad2] | ![ad3][ad3] | ![ad4][ad4] | ![ad5][ad5] | ![ad6][ad6] |
+   | **Objects:** car        | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
+   | **Places:** house       | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
 
 | *Alternate* stimulus set |             |             |             |             |             |             |
 | ------------------------ |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|

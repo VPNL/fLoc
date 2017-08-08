@@ -58,6 +58,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 The localizer code will prompy you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence.m` class file (see below). Three options are provided by default:
 
 - Option 1:
+
 | *Standard* stimulsu set |             |             |             |             |             |             |
 | ----------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** body        | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
@@ -67,6 +68,7 @@ The localizer code will prompy you to select which stimulus set to use when exec
 | **Places:** house       | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
 
 - Option 2:
+
 | *Alternate* stimulus set |             |             |             |             |             |             |
 | ------------------------ |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** limb         | ![li1][li1] | ![li2][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
@@ -76,6 +78,7 @@ The localizer code will prompy you to select which stimulus set to use when exec
 | **Places:** corridor     | ![co1][co1] | ![co2][co2] | ![co3][co3] | ![co4][co4] | ![co5][co5] | ![co6][co6] |
 
 - Option 3:
+
 | *Both* stimulus sets          |             |             |             |             |             |             |
 | ----------------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** body & limb       | ![bo1][bo1] | ![li1][li1] | ![bo2][bo2] | ![li2][li2] | ![bo3][bo3] | ![li3][li3] |

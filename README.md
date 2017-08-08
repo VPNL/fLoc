@@ -79,13 +79,13 @@ The localizer code will prompy you to select which stimulus set to use when exec
 
 #### Option 3
 
-| *Both* sets of categories     |             |             |             |             |             |             |
-| ----------------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| **Bodies:** body & limb       | ![bo1][bo1] | ![li1][li1] | ![bo2][bo2] | ![li2][li2] | ![bo3][bo3] | ![li3][li3] |
-| **Characters:** word & number | ![wo1][wo1] | ![nu1][nu1] | ![wo2][wo2] | ![nu2][nu2] | ![wo3][wo3] | ![nu3][nu3] |
-| **Faces:** adult & child      | ![ad1][ad1] | ![ch1][ch1] | ![ad2][ad2] | ![ch2][ch2] | ![ad3][ad3] | ![ch3][ch3] |
-| **Objects:** car & instrument | ![ca1][ca1] | ![in1][in1] | ![ca2][ca2] | ![in2][in2] | ![ca3][ca3] | ![in3][in3] |
-| **Places:** house & corridor  | ![ho1][ho1] | ![co1][co1] | ![ho2][ho2] | ![co2][co2] | ![ho3][ho3] | ![co3][co3] |
+| *Both* categories               |             |             |             |             |             |             |
+| ------------------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+| **Bodies:** `body` `limb`       | ![bo1][bo1] | ![li1][li1] | ![bo2][bo2] | ![li2][li2] | ![bo3][bo3] | ![li3][li3] |
+| **Characters:** `word` `number` | ![wo1][wo1] | ![nu1][nu1] | ![wo2][wo2] | ![nu2][nu2] | ![wo3][wo3] | ![nu3][nu3] |
+| **Faces:** `adult` `child`      | ![ad1][ad1] | ![ch1][ch1] | ![ad2][ad2] | ![ch2][ch2] | ![ad3][ad3] | ![ch3][ch3] |
+| **Objects:** `car` `instrument` | ![ca1][ca1] | ![in1][in1] | ![ca2][ca2] | ![in2][in2] | ![ca3][ca3] | ![in3][in3] |
+| **Places:** `house` `corridor`  | ![ho1][ho1] | ![co1][co1] | ![ho2][ho2] | ![co2][co2] | ![ho3][ho3] | ![co3][co3] |
 
 [bo1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
 [bo2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"

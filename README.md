@@ -169,11 +169,11 @@ Task probes (i.e., image repetitions or oddballs) are inserted randomly in half 
 
 ## Instructions
 
-Follow the instructions below to (1) setup the localizer code for your computers/equipment and (2) execute the experiment.
+Follow the instructions below to setup the localizer code for your computers and equipment and then execute the experiment.
 
 ### Setup
 
-1. Navigate to the functions directory (`~/fLoc/functions/`)
+1. Navigate to the functions directory (`~/fLoc/functions/`).
 2. Modify input registration functions for keyboard, button box, and trigger:
     - *get_keyboard_num.m* - Change value of `keyboard_id` to the "Product ID number" of your local keyboard (line 9)
     - *get_box_num.m* - Change value of `box_id` to the "Product ID number" of the button box used at your scanner facilities (line 9)
@@ -184,23 +184,23 @@ Follow the instructions below to (1) setup the localizer code for your computers
 
 1. Navigate to base experiment directory in MATLAB (`~/fLoc/`).
 2. Execute the `runme.m` wrapper function.
-3. Enter subject initials when prompted.
-4. Select triggering option:
-    - Enter `0` if not attempting to trigger scanner (e.g., while debugging)
-    - Enter `1` to automatically trigger scanner at onset of experiment
-5. Select stimulus set:
-    - Enter `1` for the standard set (body, word, adult, car, house)
-    - Enter `2` for the alternate set (limb, number, child, instrument, corridor)
-    - Enter `3` for both sets (presented in alternation in separate runs)
-6. Specify the numebr of runs to execute.
-7. Select task for participant:
-    - Enter `1` for 1-back image repetition detection
-    - Enter `2` for 2-back image repetition detection
-    - Enter `3` for oddball detection
-5. Wait for task instructions screen to display.
-6. Press `g` to start experiment (and trigger scanner if option is selected).
-7. Wait for behavioral performance to display after each run.
-8. Press `g` to continue experiment and start execution of next run.
+    1. Enter participant's initials or other session identifier when prompted.
+    2. Select triggering option:
+      - Enter `0` if not attempting to trigger scanner (e.g., while debugging)
+      - Enter `1` to automatically trigger scanner at onset of experiment
+    3. Select stimulus set:
+      - Enter `1` for the standard set (body, word, adult, car, house)
+      - Enter `2` for the alternate set (limb, number, child, instrument, corridor)
+      - Enter `3` for both sets (presented in alternation in separate runs)
+    4. Specify the numebr of runs to execute.
+    5. Select task for participant:
+      - Enter `1` for 1-back image repetition detection
+      - Enter `2` for 2-back image repetition detection
+      - Enter `3` for oddball detection
+3. Wait for task instructions screen to display.
+4. Press `g` to start experiment (and trigger scanner if option is selected).
+5. Wait for behavioral performance to display after each run.
+6. Press `g` to continue experiment and start execution of next run.
 
 ### Debugging
 

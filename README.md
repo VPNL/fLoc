@@ -20,6 +20,9 @@ The code in this repository calls functions from [Psychtoolbox-3](http://psychto
     3. [Debugging](#debugging)
 
 3. [Code](#code)
+    1. [Using the runme fucntion](#using-the-runme-function)
+    2. [Using fLocSequence methods](#using-flocsequence-methods)
+    3. [Using fLocSession methods](#using-flocsession-methods)
 
 4. [Analysis](#analysis)
 
@@ -29,13 +32,13 @@ The code in this repository calls functions from [Psychtoolbox-3](http://psychto
 
 ## Experimental Design
 
-This repository contains stimuli and presentation code for a functional localizer experiment used to define category-selective cortical regions that respond preferentially to faces (e.g., fusiform face area), places (e.g., parahippocampal place area), bodies (e.g., extrastriate body area), or printed characters (e.g., visual word form area). 
+This repository contains stimuli and presentation code for a functional localizer experiment used to define category-selective cortical regions that respond preferentially to faces (e.g., [fusiform face area](https://www.ncbi.nlm.nih.gov/pubmed/9151747)), places (e.g., [parahippocampal place area](https://www.ncbi.nlm.nih.gov/pubmed/9560155)), bodies (e.g., [extrastriate body area](https://www.ncbi.nlm.nih.gov/pubmed/11577239)), or printed characters (e.g., [visual word form area](https://www.ncbi.nlm.nih.gov/pubmed/10648437)). 
 
 The localizer uses a mini-block design in which 12 stimuli of the same category are presented in each **6 second block** (500 ms/image). For each **4 minute run**, a novel stimulus sequence is generated that randomizes the order of five stimulus conditions (faces, places, bodies, characters, and objects) and a blank baseline condition. We recommend collecting at least **4 runs of data** per subject (16 minutes total) to have sufficient power to define these and other regions of interest.
 
 ### Stimulus Conditions
 
-Each of the five stimulus conditions in the localizer is associated with two related image categories with 144 images per set (see `~/fLoc/stimuli/*` for entire database):
+Each of the five stimulus conditions in the localizer is associated with two related image categories with 144 images per category (see [`~/fLoc/stimuli/*`](https://github.com/VPNL/fLoc/tree/master/stimuli) for entire database):
 
 - Bodies
     + body — whole bodies with cropped heads
@@ -55,7 +58,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 ### Image Sets
 
-The localizer code will prompt you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence.m` class file (see below for more details). Three options are provided by default:
+The localizer code will prompt you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence` class file (see below for more details). Three options are provided by default:
 
 #### Option 1
 
@@ -159,7 +162,7 @@ The localizer code will prompt you to select which stimulus set to use when exec
 
 ### Task
 
-To ensure that participants remain alert and attentive throughout the experiment, a task is selected while executing the localizer. Three options are available:
+To ensure that participants remain alert throughout the experiment, a behavioral task is selected while executing the localizer code. Three options are available:
 
 - 1-back - detect back-to-back image repetition
 - 2-back - detect image repetition with one intervening stimulus
@@ -183,7 +186,7 @@ Follow the instructions below to setup the localizer code for your computers and
 ### Execution
 
 1. Navigate to base experiment directory in MATLAB (`~/fLoc/`).
-2. Execute the `runme.m` wrapper function and enter the following information when prompted:
+2. Execute the `runme` wrapper function and enter the following information when prompted:
     1. Participant's initials or other session-specific identifier
     2. Triggering option:
       - Enter `0` if not attempting to trigger scanner (e.g., while debugging)
@@ -210,11 +213,11 @@ Follow the instructions below to setup the localizer code for your computers and
 
 ## Code
 
-The *runme.m* wrapper function generates an object of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. A custom stimulus sequence is created for each run of the experiment and stored in an object of the class `fLocSequence`. Both of these class files are stored in the respository functions directory (`~/fLoc/functions/`) and can be edited to further customize the localizer.
+The *runme.m* wrapper function generates an object `session` of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. A custom stimulus sequence is created for each run of the experiment and stored in an object `seq` of the class `fLocSequence`. Both class files are stored in the respository functions directory (`~/fLoc/functions/`) and can be edited to further customize the design of the localizer.
 
 ### Using the runme function
 
-The `runme.m` function will prompt the experimenter for session information when called without input arguements. Alternatively, you can specify these settings in advance by including following input arguements:
+The `runme` function in the base experiment directory will prompt the experimenter for session information when called without input arguements. Alternatively, you can specify these settings in advance by including following input arguements:
 
 1. *name* — session-specific identifier (e.g., participant initials)
 2. *trigger* - option to trigger scanner (0 = no, 1 = yes)

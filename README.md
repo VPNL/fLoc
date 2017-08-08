@@ -183,17 +183,17 @@ Follow the instructions below to setup the localizer code for your computers and
 ### Execution
 
 1. Navigate to base experiment directory in MATLAB (`~/fLoc/`).
-2. Execute the `runme.m` wrapper function.
-    1. Enter participant's initials or other session identifier when prompted.
-    2. Select triggering option:
+2. Execute the `runme.m` wrapper function and enter the following information when prompted:
+    1. Participant's initials or other session-specific identifier
+    2. Triggering option:
       - Enter `0` if not attempting to trigger scanner (e.g., while debugging)
-      - Enter `1` to automatically trigger scanner at onset of experiment
-    3. Select stimulus set:
+      - Enter `1` to automatically trigger scanner at onsets of experiments
+    3. Stimulus set:
       - Enter `1` for the standard set (body, word, adult, car, house)
       - Enter `2` for the alternate set (limb, number, child, instrument, corridor)
       - Enter `3` for both sets (presented in alternation in separate runs)
-    4. Specify the numebr of runs to execute.
-    5. Select task for participant:
+    4. Number of runs to execute
+    5. Task for participant:
       - Enter `1` for 1-back image repetition detection
       - Enter `2` for 2-back image repetition detection
       - Enter `3` for oddball detection
@@ -210,11 +210,11 @@ Follow the instructions below to setup the localizer code for your computers and
 
 ## Code
 
-The *runme.m* wrapper function generates an object of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. A custom stimulus sequence is created for each run of the experiment and stored in an object of the class `fLocSequence`. 
+The *runme.m* wrapper function generates an object of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. A custom stimulus sequence is created for each run of the experiment and stored in an object of the class `fLocSequence`. Both of these class files are stored in the respository functions directory (`~/fLoc/functions/`) and can be edited to further customize the localizer.
 
 ### Using the runme function
 
-The `runme.m` function will prompt the experimenter for session information when called without input arguements. However, you can also specify these settings in advance by including following input arguements in the specified order:
+The `runme.m` function will prompt the experimenter for session information when called without input arguements. Alternatively, you can specify these settings in advance by including following input arguements:
 
 1. *name* — session-specific identifier (e.g., participant initials)
 2. *trigger* - option to trigger scanner (0 = no, 1 = yes)
@@ -223,7 +223,7 @@ The `runme.m` function will prompt the experimenter for session information when
 5. *task_num* - which task to use (1 = 1-back, 2 = 2-back, 3 = oddball)
 6. *start_run* - run number to begin with (if experiment is interrupted)
 
-The `fLocSession` and `fLocSequence` objects for each participant are saved session-specific subdirectories in the repository data directory (i.e., `~/fLoc/data/*`). Data subdirectories also store stimulus parameter (`*.par`) files used for analyzing fMRI data are written for each run. 
+The `fLocSession` and `fLocSequence` objects for each participant are saved session-specific subdirectories in the repository data directory (i.e., `~/fLoc/data/*`). Data subdirectories also store stimulus parameter (`*.par`) files that are written for each run and used for analyzing the fMRI data. 
 
 ### Using fLocSequence methods
 

@@ -35,7 +35,7 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 ### Stimulus Conditions
 
-Each of the five stimulus conditions in the localizer is associated with two related stimulus sets with 144 images per set (see below for examples):
+Each of the five stimulus conditions in the localizer is associated with two related image categories with 144 images per set (see `~/fLoc/stimuli/*` for entire database):
 
 - Bodies
     + body — whole bodies with cropped heads
@@ -55,7 +55,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 ### Image Sets
 
-The localizer code will prompy you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence.m` class file (see below). Three options are provided by default:
+The localizer code will prompt you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence.m` class file (see below for more details). Three options are provided by default:
 
 #### Option 1
 

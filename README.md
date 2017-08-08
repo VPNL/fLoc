@@ -35,7 +35,7 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 ### Stimulus Conditions
 
-Each of the five stimulus conditions in the localizer is associated with two related stimulus sets (144 images per set):
+Each of the five stimulus conditions in the localizer is associated with two related stimulus sets with 144 images per set (see below for examples):
 
 - Bodies
     + body — whole bodies with cropped heads

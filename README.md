@@ -57,7 +57,7 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 
 The localizer code will prompy you to select which stimulus set to use when executing the experiment. You can further customize which image categories to include by editing the `fLocSequence.m` class file (see below). Three options are provided by default:
 
-- Option 1:
+#### Option 1
 
 | *Standard* stimulsu set |             |             |             |             |             |             |
 | ----------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
@@ -67,7 +67,7 @@ The localizer code will prompy you to select which stimulus set to use when exec
 | **Objects:** car        | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
 | **Places:** house       | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
 
-- Option 2:
+#### Option 2
 
 | *Alternate* stimulus set |             |             |             |             |             |             |
 | ------------------------ |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
@@ -77,38 +77,15 @@ The localizer code will prompy you to select which stimulus set to use when exec
 | **Objects:** instrument  | ![in1][in1] | ![in2][in2] | ![in3][in3] | ![in4][in4] | ![in5][in5] | ![in6][in6] |
 | **Places:** corridor     | ![co1][co1] | ![co2][co2] | ![co3][co3] | ![co4][co4] | ![co5][co5] | ![co6][co6] |
 
-- Option 3:
+#### Option 3
 
 | *Both* stimulus sets          |             |             |             |             |             |             |
 | ----------------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** body & limb       | ![bo1][bo1] | ![li1][li1] | ![bo2][bo2] | ![li2][li2] | ![bo3][bo3] | ![li3][li3] |
-| **Characters:** word & number | ![nu1][nu1] | ![nu1][nu1] | ![nu2][nu2] | ![nu2][nu2] | ![nu3][nu3] | ![nu3][nu3] |
-| **Faces:** adult & child      | ![ch1][ch1] | ![ch1][ch1] | ![ch2][ch2] | ![ch2][ch2] | ![ch3][ch3] | ![ch3][ch3] |
-| **Objects:** car & instrument | ![in1][in1] | ![in1][in1] | ![in2][in2] | ![in2][in2] | ![in3][in3] | ![in3][in3] |
-| **Places:** house & corridor  | ![co1][co1] | ![co1][co1] | ![co2][co2] | ![co2][co2] | ![co3][co3] | ![co3][co3] |
-
-|                |             |             |             |             |             |             |
-| -------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| **Bodies**     |             |             |             |             |             |             |
-| body           | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
-| limb           | ![li1][li1] | ![li2][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
-|                |             |             |             |             |             |             |
-| **Characters** |             |             |             |             |             |             |
-| word           | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
-| number         | ![nu1][nu1] | ![nu2][nu2] | ![nu3][nu3] | ![nu4][nu4] | ![nu5][nu5] | ![nu6][nu6] |
-|                |             |             |             |             |             |             |
-| **Faces**      |             |             |             |             |             |             |
-| adult          | ![ad1][ad1] | ![ad2][ad2] | ![ad3][ad3] | ![ad4][ad4] | ![ad5][ad5] | ![ad6][ad6] |
-| child          | ![ch1][ch1] | ![ch2][ch2] | ![ch3][ch3] | ![ch4][ch4] | ![ch5][ch5] | ![ch6][ch6] |
-|                |             |             |             |             |             |             |
-| **Objects**    |             |             |             |             |             |             |
-| car            | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
-| instrument     | ![in1][in1] | ![in2][in2] | ![in3][in3] | ![in4][in4] | ![in5][in5] | ![in6][in6] |
-|                |             |             |             |             |             |             |
-| **Places**     |             |             |             |             |             |             |
-| house          | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
-| corridor       | ![co1][co1] | ![co2][co2] | ![co3][co3] | ![co4][co4] | ![co5][co5] | ![co6][co6] |
-|                |             |             |             |             |             |             |
+| **Characters:** word & number | ![wo1][wo1] | ![nu1][nu1] | ![wo2][wo2] | ![nu2][nu2] | ![wo3][wo3] | ![nu3][nu3] |
+| **Faces:** adult & child      | ![ad1][ad1] | ![ch1][ch1] | ![ad2][ad2] | ![ch2][ch2] | ![ad3][ad3] | ![ch3][ch3] |
+| **Objects:** car & instrument | ![ca1][ca1] | ![in1][in1] | ![ca2][ca2] | ![in2][in2] | ![ca3][ca3] | ![in3][in3] |
+| **Places:** house & corridor  | ![ho1][ho1] | ![co1][co1] | ![ho2][ho2] | ![co2][co2] | ![ho3][ho3] | ![co3][co3] |
 
 [bo1]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-1.jpg "body-1.jpg"
 [bo2]: https://github.com/VPNL/fLoc/blob/master/stimuli/body/body-2.jpg "body-2.jpg"

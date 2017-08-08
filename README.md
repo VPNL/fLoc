@@ -59,17 +59,17 @@ The localizer code will prompy you to select which stimulus set to use when exec
 
 #### Option 1
 
-| *Standard* stimulus set |             |             |             |             |             |             |
-| ----------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
-| **Bodies:** `body`      | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
-| **Characters:** `word`  | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
-| **Faces:** `adult`      | ![ad1][ad1] | ![ad2][ad2] | ![ad3][ad3] | ![ad4][ad4] | ![ad5][ad5] | ![ad6][ad6] |
-| **Objects:** `car`      | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
-| **Places:** `house`     | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
+| *Standard* categories  |             |             |             |             |             |             |
+| ---------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
+| **Bodies:** `body`     | ![bo1][bo1] | ![bo2][bo2] | ![bo3][bo3] | ![bo4][bo4] | ![bo5][bo5] | ![bo6][bo6] |
+| **Characters:** `word` | ![wo1][wo1] | ![wo2][wo2] | ![wo3][wo3] | ![wo4][wo4] | ![wo5][wo5] | ![wo6][wo6] |
+| **Faces:** `adult`     | ![ad1][ad1] | ![ad2][ad2] | ![ad3][ad3] | ![ad4][ad4] | ![ad5][ad5] | ![ad6][ad6] |
+| **Objects:** `car`     | ![ca1][ca1] | ![ca2][ca2] | ![ca3][ca3] | ![ca4][ca4] | ![ca5][ca5] | ![ca6][ca6] |
+| **Places:** `house`    | ![ho1][ho1] | ![ho2][ho2] | ![ho3][ho3] | ![ho4][ho4] | ![ho5][ho5] | ![ho6][ho6] |
 
 #### Option 2
 
-| *Alternate* stimulus set  |             |             |             |             |             |             |
+| *Alternate* categories    |             |             |             |             |             |             |
 | ------------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** `limb`        | ![li1][li1] | ![li2][li2] | ![li3][li3] | ![li4][li4] | ![li5][li5] | ![li6][li6] |
 | **Characters:** `number`  | ![nu1][nu1] | ![nu2][nu2] | ![nu3][nu3] | ![nu4][nu4] | ![nu5][nu5] | ![nu6][nu6] |
@@ -79,7 +79,7 @@ The localizer code will prompy you to select which stimulus set to use when exec
 
 #### Option 3
 
-| *Both* stimulus sets          |             |             |             |             |             |             |
+| *Both* sets of categories     |             |             |             |             |             |             |
 | ----------------------------- |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:| :----------:|
 | **Bodies:** body & limb       | ![bo1][bo1] | ![li1][li1] | ![bo2][bo2] | ![li2][li2] | ![bo3][bo3] | ![li3][li3] |
 | **Characters:** word & number | ![wo1][wo1] | ![nu1][nu1] | ![wo2][wo2] | ![nu2][nu2] | ![wo3][wo3] | ![nu3][nu3] |

@@ -214,8 +214,7 @@ Follow the instructions below to setup the localizer code for your computer and 
 
 The `runme` wrapper function generates an object `session` of the class `fLocSession` that is used to both run the experiment and store information about the participant, stimulus, and task performance. This creates a custom stimulus sequence for each run of the experiment that is stored in an object `seq` of the class `fLocSequence`.  Both class files used by the localizer can be found in the respository functions directory (`~/fLoc/functions/`) and edited to further customize the design of the localizer. 
  
-Data files are saved in session-specific subdirectories in `~/fLoc/data/` that are labeled with ID strings incorporating the session name, date, task, and number of runs (e.g., `AS_09-Aug-2017_oddball_4runs`). Each data subdirectory contains files beginning with a session ID and suffixed with either `_fLocSession.mat` (for storing session information) or `_fLocSequence.mat` (for storing stimulus information). Data subdirectories also store stimulus parameter (`.par`) files that are written for each run and used for analyzing fMRI data. By default the `.par` files are written in a format compatible with [vistasoft](https://github.com/vistalab/vistasoft). 
-
+Data files are saved in session-specific subdirectories in `~/fLoc/data/` that are labeled with ID strings incorporating the session name, date, task, and number of runs (e.g., `AS_09-Aug-2017_oddball_4runs`). That is, each data subdirectory contains files beginning with a session ID and suffixed with either `_fLocSession.mat` (for storing session information) or `_fLocSequence.mat` (for storing stimulus information). 
 
 ### Using the runme function
 
@@ -227,6 +226,8 @@ The `runme` function in the base experiment directory will prompt the experiment
 4. *num_runs* - number of runs (stimuli repeat after two runs per set)
 5. *task_num* - which task to use (1 = 1-back, 2 = 2-back, 3 = oddball)
 6. *start_run* - run number to begin with (if experiment is interrupted)
+
+Data subdirectories also store stimulus parameter (`.par`) files that are written for each run and used for analyzing the fMRI data. The par files are written in a format compatible with [VISTASOFT](https://github.com/vistalab/vistasoft)
 
 ### Using fLocSequence methods
 

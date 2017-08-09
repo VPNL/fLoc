@@ -206,17 +206,17 @@ Follow the instructions below to setup the localizer code for your computers and
 
 ### Debugging
 
-- Press `[Command + period]` to halt experiment.
+- Press `[Command + period]` to halt experiment on a mac or `[Cntl + period]` on a pc.
 - Enter sca to return to MATLAB command line.
 - Please report bugs on GitHub.
 
 ## Code
 
-The *runme.m* wrapper function generates an object `session` of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. A custom stimulus sequence is created for each run of the experiment and stored in an object `seq` of the class `fLocSequence`. Both class files are stored in the respository functions directory (`~/fLoc/functions/`) and can be edited to further customize the design of the localizer.
+The *runme.m* wrapper function generates an object `session` of the class `fLocSession` that is used to both run the experiment and also store information about the participant, stimulus, and task performance. Data files are saved in session-specific data directories (`~/fLoc/data/*`) labeled by initials, date, task, and number of runs (e.g., `AS_08-08-2017_oddball_4runs`). A custom stimulus sequence is created for each run of the experiment and stored in the same directory as an object `seq` of the class `fLocSequence` labeled by the same stem with a `_fLocSequence.mat` suffix. Both class files are stored in the respository functions directory (`~/fLoc/functions/`) and can be edited to further customize the design of the localizer.
 
 ### Using the runme function
 
-The `runme` function in the base experiment directory will prompt the experimenter for session information when called without input arguements. Alternatively, you can specify these settings in advance by including following input arguements:
+The `runme` function in the base experiment directory will prompt the experimenter for session information when called without input arguments. Alternatively, you can specify these settings in advance by including following input arguments:
 
 1. *name* — session-specific identifier (e.g., participant initials)
 2. *trigger* - option to trigger scanner (0 = no, 1 = yes)
@@ -225,7 +225,7 @@ The `runme` function in the base experiment directory will prompt the experiment
 5. *task_num* - which task to use (1 = 1-back, 2 = 2-back, 3 = oddball)
 6. *start_run* - run number to begin with (if experiment is interrupted)
 
-The `fLocSession` and `fLocSequence` objects for each participant are saved session-specific subdirectories in the repository data directory (i.e., `~/fLoc/data/*`). Data subdirectories also store stimulus parameter (`*.par`) files that are written for each run and used for analyzing the fMRI data. 
+Data subdirectories also store stimulus parameter (`*.par`) files that are written for each run and used for analyzing the fMRI data. 
 
 ### Using fLocSequence methods
 

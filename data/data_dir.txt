@@ -1,0 +1,2 @@
+The repositry data directory contains a subdirectory for each session of the fLoc experiment.
+Each session directory contains files that store information about the participant, stimulus sequence, and experiment. 

@@ -225,7 +225,7 @@ The `runme` function in the base experiment directory will prompt the experiment
 5. *task_num* - which task to use (1 = 1-back, 2 = 2-back, 3 = oddball)
 6. *start_run* - run number to begin with (if experiment is interrupted)
 
-Data subdirectories also store stimulus parameter (`*.par`) files that are written for each run and used for analyzing the fMRI data. 
+Data subdirectories also store stimulus parameter (`*.par`) files that are written for each run and used for analyzing the fMRI data. The par files are written in a format compatible with [VISTASOFT](https://github.com/vistalab/vistasoft)
 
 ### Using fLocSequence methods
 

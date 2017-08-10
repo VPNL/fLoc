@@ -1,5 +1,6 @@
 # fLoc
-Functional localizer experiment used to define category-selective cortical regions as published in [Stigliani et al., (2015)](http://www.jneurosci.org/content/35/36/12412)
+Functional localizer experiment used to define category-selective cortical regions
+Published in [Stigliani et al. (2015)](http://www.jneurosci.org/content/35/36/12412)
 * * *
 *Notes:*
 
@@ -24,6 +25,8 @@ The code in this repository calls functions from [Psychtoolbox-3](http://psychto
     3. [Using fLocSession methods](#using-flocsession-methods)
 
 4. [Analysis](#analysis)
+    1. [General Linear Model](#general-linear-model)
+    2. [Regions of Interest](#regions-of-interest)
 
 5. [Citation](#citation)
 
@@ -37,7 +40,7 @@ The localizer uses a mini-block design in which 12 stimuli of the same category 
 
 ### Stimulus Conditions
 
-Each of the five stimulus conditions in the localizer is associated with two related image subcategories with 144 images per subcategory (see [`~/fLoc/stimuli/*`](https://github.com/VPNL/fLoc/tree/master/stimuli) for entire database):
+Each of the five stimulus conditions in the localizer is associated with two related image subcategories with 144 images per subcategory (see [`~/fLoc/stimuli/`](https://github.com/VPNL/fLoc/tree/master/stimuli) for entire database):
 
 - Bodies
     + body — whole bodies with cropped heads
@@ -54,6 +57,12 @@ Each of the five stimulus conditions in the localizer is associated with two rel
 - Places
     + house — outdoor views of buildings
     + corridor — indoor views of hallways
+
+The specific image categories packaged with the localizer were selected to contain common sets of parts, such that all images from a given category are different configurations of the same basic components. This is intended to minimize differences in within-category similarity across image sets. 
+
+To normalize the low-level properties of stimuli from different categories, we placed each exemplar on a phase-scrambled version of another randomly selected image from the database. We also matched the mean luminance and histograms of grayscale values of each image using the [SHINE toolbox](http://www.mapageweb.umontreal.ca/gosselif/SHINE/). 
+
+For more details on stimulus controls, see [Stigliani et al. (2015)](http://www.jneurosci.org/content/35/36/12412).
 
 ### Image Sets
 
@@ -171,7 +180,7 @@ Task probes (i.e., image repetitions or oddballs) are inserted randomly in half 
 
 ## Instructions
 
-Follow the instructions below to setup the localizer code for your computer and equipment and then execute the experiment.
+Follow the instructions below to setup the localizer code for your computer and equipment and then execute the experiment using the `runme` function ([`~/fLoc/runme.m`](https://github.com/VPNL/fLoc/blob/master/runme.m)).
 
 ### Setup
 
@@ -212,9 +221,9 @@ Follow the instructions below to setup the localizer code for your computer and 
 
 ## Code
 
-The `runme` wrapper function generates an object `session` of the class `fLocSession` that is used to both run the experiment and store information about the participant, stimulus, and task performance. This creates a custom stimulus sequence for each run of the experiment that is stored in an object `seq` of the class `fLocSequence`.  Both class files used by the localizer can be found in the respository functions directory (`~/fLoc/functions/`) and edited to further customize the design of the localizer. 
+The `runme` wrapper function generates an object `session` of the class `fLocSession` that is used to both run the experiment and store information about the participant, stimulus, and task performance. This generates a custom stimulus sequence for each run of the experiment that is stored in an object `seq` of the class `fLocSequence`.  Both class files are located in [`~/fLoc/functions/`](https://github.com/VPNL/TemporalChannels/blob/master/functions) and can be edited to customize the experimental design. 
  
-Data files are saved in session-specific subdirectories in `~/fLoc/data/` that are labeled with ID strings incorporating the session name, date, task, and number of runs (e.g., `AS_09-Aug-2017_oddball_4runs`). Each data subdirectory contains files beginning with a session ID and suffixed with either `_fLocSession.mat` (for storing session information) or `_fLocSequence.mat` (for storing stimulus information). Data subdirectories also store stimulus parameter (`.par`) files that are written for each run and used for analyzing fMRI data. By default the `.par` files are written in a format compatible with [vistasoft](https://github.com/vistalab/vistasoft). 
+Data files are saved in session-specific subdirectories in `~/fLoc/data/` that are labeled with ID strings concatenating the session name, date, task, and number of runs (e.g., `AS_09-Aug-2017_oddball_4runs`). Each data subdirectory stores `.mat` files suffixed with `_fLocSession.mat` (which contain session information) and `_fLocSequence.mat` (which contain stimulus information). Data subdirectories also store stimulus parameter (`.par`) files that are written for each run and used for analyzing fMRI data (`.par` files are written in a format compatible with [vistasoft](https://github.com/vistalab/vistasoft) by default). 
 
 
 ### Using the runme function
@@ -228,10 +237,70 @@ The `runme` function in the base experiment directory will prompt the experiment
 5. *task_num* - which task to use (1 = 1-back, 2 = 2-back, 3 = oddball)
 6. *start_run* - run number to begin with (if experiment is interrupted)
 
+As described in more detail below, if the experiment is interupted you can also load the participant's `*_fLocSession.mat` file from their data directory and enter `run_exp(session, start_run)` to execute all runs from *start_run* to *num_runs*. 
+
 ### Using fLocSequence methods
 
 ### Using fLocSession methods
 
 ## Analysis
 
+### General Linear Model
+
+Stimulus parameter (`.par`) files saved in session data subdirectories contain information needed to generate the design matrix for a General Linear Model (GLM):
+
+1. Trial onset time (seconds from end of countdown)
+2. Condition number (0 = baseline)
+3. Condition name
+4. Condition plotting color (RGB values from 0 to 1)
+
+After acquiring and preprocessing functional data, a General Linear Model (GLM) is fit to the time series of each voxel to estimate *β* values of response amplitude to different stimulus categories (e.g., [Worsley et al., 2002](https://www.ncbi.nlm.nih.gov/pubmed/11771969)). For preprocessing we recommend performing motion correction, detrending, and transforming time series data to percent signal change without spatial smoothing.
+
+### Regions of Interest
+
+Category-selective regions are defined by statistically contrasting *β* values of categories belonging to a given stimulus domain vs. all other categories in each voxel and thresholding resulting maps (e.g., t-value > 3):
+
+- Character-selective regions
+    + [`word` `number`] > [`body` `limb` `child` `adult` `corridor` `house car` `instrument`]
+    + selective voxels typically clustered around the inferior occipital sulcus (IOS) and along the occipitotemporal sulcus (OTS)
+- Body-selective regions
+    + [`body` `limb`] > [`word` `number` `child` `adult` `corridor` `house` `car` `instrument`]
+    + selective voxels typically clustered around the lateral occipital sulcus (LOS), inferior temporal gyrus (ITG), and occipitotemporal sulcus (OTS)
+- Face-selective regions
+    + [`child` `adult`] > [`word` `number` `body` `limb` `corridor` `house` `car` `instrument`]
+- selective voxels typically clustered around the inferior occipital gyrus (IOG), posterior fusiform gyrus (Fus), and mid-fusiform sulcus (MFS)
+- Place-selective regions
+    + [`corridor` `house`] > [`word` `number` `body` `limb` `child` `adult` `car` `instrument`]
+    + selective voxels typically clustered around the transverse occipital sulcus (TOS) and collateral sulcus (CoS)
+- Object-selective regions
+    + [`car` `instrument`] > [`word` `number` `body` `limb` `child` `adult` `corridor` `house`]
+    + selective voxels are not typically clustered in occipitotemporal cortex when contrasted against characters, bodies, faces, and places
+    + object-selective regions in lateral occipital cortex can be defined in a separate experiment (contrasting objects > scrambled objects)
+
+| Lateral Occipital Cortex | Posterior Ventral Temporal Cortex | Mid Ventral Temporal Cortex |
+| -------------------- --- |:---------------------------------:|:---------------------------:|
+| ![loc][loc]              | ![pvtc][pvtc]                     | ![mvtc][mvtc]               |
+
+[loc]: https://github.com/VPNL/fLoc/blob/master/examples/LOC_ROIs.png"
+[pvtc]: https://github.com/VPNL/fLoc/blob/master/examples/pVTC_ROIs.png"
+[mvtc]: https://github.com/VPNL/fLoc/blob/master/examples/mVTC_ROIs.png"
+
+Category-selective regions defined in three anatomical sections of occipitotemporal cortex are shown above on the inflated cortical surface of a single subject with anatomical labels overlaid on significant sulci and gyri (see reference to labels above). *Green*: place-selective, *Blue*: body-selective, *Black*: character-selective, *Red*: face-selective. 
+
 ## Citation
+
+To acknowledge using our localizer or stimulus set, you might include a sentence like one of the following:
+
+"We defined regions of interest using the fLoc functional localizer (Stigliani et al., 2015)..."
+
+"We used stimuli included in the fLoc functional localizer package (Stigliani et al., 2015)..."
+
+### Article
+
+Stigliani, A., Weiner, K. S., & Grill-Spector, K. (2015). Temporal processing capacity in high-level visual cortex is domain specific. *Journal of Neuroscience*, *35*(36), 12412-12424. 
+[html](http://www.jneurosci.org/content/35/36/12412.short) | [pdf](http://vpnl.stanford.edu/papers/StiglianiJNS2015.pdf)
+
+### Contact
+
+Anthony Stigliani: astiglia [at] stanford [dot] edu
+Kalanit Grill-Spector: kalanit [at] stanford [dot] edu

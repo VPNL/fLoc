@@ -282,11 +282,11 @@ Category-selective regions are defined by statistically contrasting *β* values 
 
 | Lateral Occipital Cortex | Posterior Ventral Temporal Cortex | Mid Ventral Temporal Cortex |
 | ------------------------ |:---------------------------------:|:---------------------------:|
-| ![loc][loc]              | ![pvtc][pvtc]                     | ![mvtc][mvtc]               |
+| ![lotc][lotc]            | ![pvtc][pvtc]                     | ![mvtc][mvtc]               |
 
-[loc]: https://github.com/VPNL/fLoc/blob/master/examples/LOC_ROIs.png"
-[pvtc]: https://github.com/VPNL/fLoc/blob/master/examples/pVTC_ROIs.png"
-[mvtc]: https://github.com/VPNL/fLoc/blob/master/examples/mVTC_ROIs.png"
+[lotc]: https://github.com/VPNL/fLoc/blob/master/examples/LOTC_ROIs.png "LOTC_ROIs.png"
+[pvtc]: https://github.com/VPNL/fLoc/blob/master/examples/pVTC_ROIs.png "pVTC_ROIs.png"
+[mvtc]: https://github.com/VPNL/fLoc/blob/master/examples/mVTC_ROIs.png "mVTC_ROIs.png"
 
 Category-selective regions defined in three anatomical sections of occipitotemporal cortex are shown above on the inflated cortical surface of a single subject with anatomical labels overlaid on significant sulci and gyri (see reference to labels above). *Green*: place-selective, *Blue*: body-selective, *Black*: character-selective, *Red*: face-selective. 
 

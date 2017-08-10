@@ -252,10 +252,10 @@ As described in more detail below, if the experiment is interupted you can also 
 
 Stimulus parameter (`.par`) files saved in session data subdirectories contain information needed to generate the design matrix for a General Linear Model (GLM):
 
-1. Trial onset time (seconds from )
-2. Condition number (0 = baseline)
-3. Condition name
-4. Condition plotting color (RGB values from 0 to 1)
+1. Trial onset time (time relative to the start of the experiment in **seconds**)
+2. Condition **number** (0 = baseline)
+3. Condition **name**
+4. Condition plotting **color** (RGB values from 0 to 1)
 
 After acquiring and preprocessing functional data, a General Linear Model (GLM) is fit to the time series of each voxel to estimate *β* values of response amplitude to different stimulus categories (e.g., [Worsley et al., 2002](https://www.ncbi.nlm.nih.gov/pubmed/11771969)). For preprocessing we recommend performing motion correction, detrending, and transforming time series data to percent signal change without spatial smoothing.
 
@@ -281,10 +281,10 @@ Category-selective regions are defined by statistically contrasting *β* values 
     + object-selective regions in lateral occipital cortex can be defined in a separate experiment (contrasting objects > scrambled objects)
 
 | Lateral Occipital Cortex | Posterior Ventral Temporal Cortex | Mid Ventral Temporal Cortex |
-| -------------------- --- |:---------------------------------:|:---------------------------:|
+| ------------------------ |:---------------------------------:|:---------------------------:|
 | ![loc][loc]              | ![pvtc][pvtc]                     | ![mvtc][mvtc]               |
 
-[loc]: https://github.com/VPNL/fLoc/blob/master/examples/LOC_ROIs.png"
+[loc]: https://github.com/VPNL/fLoc/blob/master/examples/LOTC_ROIs.png"
 [pvtc]: https://github.com/VPNL/fLoc/blob/master/examples/pVTC_ROIs.png"
 [mvtc]: https://github.com/VPNL/fLoc/blob/master/examples/mVTC_ROIs.png"
 
@@ -306,4 +306,5 @@ Stigliani, A., Weiner, K. S., & Grill-Spector, K. (2015). Temporal processing ca
 ### Contact
 
 Anthony Stigliani: astiglia [at] stanford [dot] edu
+
 Kalanit Grill-Spector: kalanit [at] stanford [dot] edu

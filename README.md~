@@ -266,7 +266,7 @@ end
 
 #### Adding stimulus conditions
 
-We strongly recommend including each of the five main stimulus conditions in the localizer (bodies, characters, faces, objects, places) regardless of the specific region/s you are interested in defining, as this provides a stronger test of selectivity compared to only comparing responses between a few categories. To include other stimulus conditions in the localizer, create a new fork of the repository and follow the instructions below: 
+We strongly recommend including each of the five main stimulus conditions (bodies, characters, faces, objects, places) in the localizer regardless of the specific region/s you are interested in defining, as this provides a stronger test of selectivity compared to only contrasting responses between a few categories. To include other stimulus conditions in the localizer, create a new fork of the repository and follow the instructions below: 
 
 1. Add a new image category to the stimulus database: 
     1. Collect 144 examples of a new stimulus category of your choice (e.g., `hammer` for the condition *Tools*). 

@@ -1,7 +1,6 @@
 # fLoc
-Functional localizer experiment used to define category-selective cortical regions
+Functional localizer experiment used to define category-selective cortical regions (see [Stigliani et al. (2015)](http://www.jneurosci.org/content/35/36/12412))
 
-Published in [Stigliani et al. (2015)](http://www.jneurosci.org/content/35/36/12412)
 * * *
 *Notes:*
 

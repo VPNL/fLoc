@@ -288,7 +288,7 @@ Other aspects of the experimental design can be modified by changing constant pr
 
 ### Using fLocSession methods
 
-## Analysis
+## Analysisss
 
 ### General linear model
 

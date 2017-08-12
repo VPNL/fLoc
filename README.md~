@@ -282,8 +282,8 @@ We strongly recommend including each of the five main stimulus conditions (bodie
 
 Other aspects of the experimental design can be modified by changing constant properties in the `fLocSequence` class file.
 
-- *Stimulus duty cycle* — the duration of each stimulus cycle (stimulus duration + interstimulus interval) is set in `stim_duty_cycle`.
-- *Stimuli per block* — the number of stimuli in a block is set in `stim_per_block`. This parameter will also affect dependent properties such as run duration (`run_dur`).
+- *Stimulus duty cycle* — the duration of each stimulus cycle (stimulus duration + ISI) can be modified by editing the constant property `fLocSequence.stim_duty_cycle`.
+- *Stimuli per block* — the number of stimuli in a block is set in the constant property `fLocSequence.stim_per_block`. This will also affect dependent properties such as run duration (`run_dur`).
 - *Interstimulus inverval* — the duration of the interstimulus interval is set depending on task in `fLocSequence`'s `get.isi_dur` method.
 
 ### Using fLocSession methods

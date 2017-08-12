@@ -31,7 +31,7 @@ end
 % option to trigger scanner
 if nargin < 2
     trigger = -1;
-    while ~ismember(trigger, [0 1])
+    while ~ismember(trigger, 0:1)
         trigger = input('Trigger scanner? (0 = no, 1 = yes) : ');
     end
 end
@@ -39,7 +39,7 @@ end
 % which stimulus set/s to use
 if nargin < 3
     stim_set = -1;
-    while ~ismember(stim_set, [1 2 3])
+    while ~ismember(stim_set, 1:3)
         stim_set = input('Which stimulus set? (1 = standard, 2 = alternate, 3 = both) : ');
     end
 end
@@ -55,7 +55,7 @@ end
 % which task to use
 if nargin < 5
     task_num = -1;
-    while ~ismember(task_num, [1 2 3])
+    while ~ismember(task_num, 1:3)
         task_num = input('Which task? (1 = 1-back, 2 = 2-back, 3 = oddball) : ');
     end
 end

@@ -94,15 +94,18 @@ classdef fLocSequence
         
         % get image sets for each run given selection
         function run_sets = get.run_sets(seq)
-            if seq.stim_set == 1
-                run_sets = repmat(seq.stim_set1, seq.num_runs, 1);
-            elseif seq.stim_set == 2
-                run_sets = repmat(seq.stim_set2, seq.num_runs, 1);
-            else
-                run_sets = [seq.stim_set1; seq.stim_set2];
-                cat_iters = ceil(seq.num_runs / 2);
-                run_sets = repmat(run_sets, cat_iters, 1);
-                run_sets = run_sets(1:seq.num_runs, :);
+            switch seq.stim_set
+                case 1
+                    run_sets = repmat(seq.stim_set1, seq.num_runs, 1);
+                case 2
+                    run_sets = repmat(seq.stim_set2, seq.num_runs, 1);
+                case 3
+                    run_sets = [seq.stim_set1; seq.stim_set2];
+                    cat_iters = ceil(seq.num_runs / 2);
+                    run_sets = repmat(run_sets, cat_iters, 1);
+                    run_sets = run_sets(1:seq.num_runs, :);
+                otherwise
+                    error('Invalid stim_set argument.');
             end
         end
         

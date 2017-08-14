@@ -201,13 +201,13 @@ classdef fLocSession
                 Screen('Flip', window_ptr);
                 % collect responses
                 ii_press = []; ii_keys = [];
-                [keys, ie] = record_keys(start_time + (tt - 1) * sdc, stim_dur, k);
+                [keys, ie] = record_keys(start_time + (ii - 1) * sdc, stim_dur, k);
                 ii_keys = [ii_keys keys]; ii_press = [ii_press ie];
                 % display ISI if necessary
                 if isi_dur > 0
                     Screen('FillRect', window_ptr, bcol);
                     draw_fixation(window_ptr, center, fcol);
-                    [keys, ie] = record_keys(start_time + (tt - 1) * sdc + stim_dur, isi_dur, k);
+                    [keys, ie] = record_keys(start_time + (ii - 1) * sdc + stim_dur, isi_dur, k);
                     ii_keys = [ii_keys keys]; ii_press = [ii_press ie];
                     Screen('Flip', window_ptr);
                 end
@@ -217,7 +217,7 @@ classdef fLocSession
             % store responses
             session.responses(run_num).keys = resp_keys;
             session.responses(run_num).press = resp_press;
-            fname = [session.id '_task_run' num2str(run_num) '.mat'];
+            fname = [session.id '_backup_run' num2str(run_num) '.mat'];
             fpath = fullfile(session.exp_dir, 'data', session.id, fname);
             save(fpath, 'resp_keys', 'resp_press', '-v7.3');
             % analyze response data and display performance
@@ -234,7 +234,7 @@ classdef fLocSession
             DrawFormattedText(window_ptr, score_str, 'center', 'center', tcol);
             Screen('Flip', window_ptr);
             % save updated session object and wait to execute next run
-            fname = [session.id 'fLocSession.mat'];
+            fname = [session.id '_fLocSession.mat'];
             fpath = fullfile(session.exp_dir, 'data', session.id, fname);
             save(fpath, 'session', '-v7.3');
             get_key('g', session.keyboard);
@@ -245,7 +245,7 @@ classdef fLocSession
         % quantify performance in stimulus task
         function session = score_task(session, run_num)
             sdc = session.sequence.stim_duty_cycle;
-            wait_dur = session.wait_dur; fpw = wait_dur / sdc;
+            fpw = session.wait_dur / sdc;
             % get response time windows for task probes
             resp_presses = session.responses(run_num).press;
             resp_correct = session.sequence.task_probes(:, run_num);

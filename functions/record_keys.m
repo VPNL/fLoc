@@ -29,7 +29,7 @@ end
 
 % label null responses and store multiple presses as an array
 if isempty(keys)
-    keys = 'none';
+    keys = [];
     is_empty = 1;
 elseif iscell(keys)
     keys = num2str(cell2mat(keys));

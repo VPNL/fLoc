@@ -134,14 +134,14 @@ classdef fLocSession
             sdc = session.sequence.stim_duty_cycle;
             stim_dur = session.sequence.stim_dur;
             isi_dur = session.sequence.isi_dur;
+            stim_names = session.sequence.stim_names(:, run_num);
+            stim_dir = fullfile(session.exp_dir, 'stimuli');
+            tcol = session.text_color; bcol = session.blank_color; fcol = session.fix_color;
             resp_keys = {}; resp_press = zeros(length(stim_names), 1);
             % setup screen and load all stimuli in run
             [window_ptr, center] = do_screen;
             center_x = center(1); center_y = center(2); s = session.stim_size / 2;
             stim_rect = [center_x - s center_y - s center_x + s center_y + s];
-            stim_names = session.sequence.stim_names(:, run_num);
-            stim_dir = fullfile(session.exp_dir, 'stimuli');
-            tcol = session.text_color; bcol = session.blank_color; fcol = session.fix_color;
             img_ptrs = [];
             for ii = 1:length(stim_names)
                 if strcmp(stim_names{ii}, 'baseline')
@@ -154,8 +154,16 @@ classdef fLocSession
             end
             % start experiment triggering scanner if applicable
             if session.trigger == 0
+                Screen('FillRect', window_ptr, bcol);
+                Screen('Flip', window_ptr);
+                DrawFormattedText(window_ptr, session.instructions, 'center', 'center', tcol);
+                Screen('Flip', window_ptr);
                 get_key('g', session.keyboard);
             elseif session.trigger == 1
+                Screen('FillRect', window_ptr, bcol);
+                Screen('Flip', window_ptr);
+                DrawFormattedText(window_ptr, session.instructions, 'center', 'center', tcol, 'flipHorizontal', 1);
+                Screen('Flip', window_ptr);
                 while 1
                     get_key('g', session.keyboard);
                     [status, ~] = start_scan;

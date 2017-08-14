@@ -71,7 +71,7 @@ end
 % setup fLocSession and save session information
 session = fLocSession(name, trigger, stim_set, num_runs, task_num);
 session = load_seqs(session);
-session_dir = (fullfile(session.project_dir, 'data', session.id));
+session_dir = (fullfile(session.exp_dir, 'data', session.id));
 if ~exist(session_dir, 'dir') == 7
     mkdir(session_dir);
 end

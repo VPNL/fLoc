@@ -212,7 +212,7 @@ classdef fLocSession
                     Screen('Flip', window_ptr);
                 end
                 resp_keys{ii} = ii_keys;
-                resp_press(ii) = max(ii_press);
+                resp_press(ii) = min(ii_press);
             end
             % store responses
             session.responses(run_num).keys = resp_keys;

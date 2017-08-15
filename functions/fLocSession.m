@@ -162,7 +162,7 @@ classdef fLocSession
             elseif session.trigger == 1
                 Screen('FillRect', window_ptr, bcol);
                 Screen('Flip', window_ptr);
-                DrawFormattedText(window_ptr, session.instructions, 'center', 'center', tcol, 'flipHorizontal', 1);
+                DrawFormattedText(window_ptr, session.instructions, 'center', 'center', tcol); % 'flipHorizontal', 1);
                 Screen('Flip', window_ptr);
                 while 1
                     get_key('g', session.keyboard);
@@ -188,7 +188,7 @@ classdef fLocSession
                 rem_time = cnt_time - GetSecs;
             end
             % main display loop
-            start_time = GetSecs; fcnt = 0;
+            start_time = GetSecs;
             for ii = 1:length(stim_names)
                 % display blank screen if baseline and image if stimulus
                 if strcmp(stim_names{ii}, 'baseline')
@@ -233,10 +233,6 @@ classdef fLocSession
             score_str = [hit_str '\n' fa_str];
             DrawFormattedText(window_ptr, score_str, 'center', 'center', tcol);
             Screen('Flip', window_ptr);
-            % save updated session object and wait to execute next run
-            fname = [session.id '_fLocSession.mat'];
-            fpath = fullfile(session.exp_dir, 'data', session.id, fname);
-            save(fpath, 'session', '-v7.3');
             get_key('g', session.keyboard);
             ShowCursor;
             Screen('CloseAll');

@@ -4,7 +4,7 @@ function [keys, is_empty] = record_keys(start_time, dur, device_num)
 % Edited by AS 8/2014
 
 % wait until keys are released
-keys = []; rk_start = GetSecs;
+keys = [];
 while KbCheck(device_num)
     if (GetSecs - start_time) > dur
         break
@@ -29,7 +29,6 @@ end
 
 % label null responses and store multiple presses as an array
 if isempty(keys)
-    keys = [];
     is_empty = 1;
 elseif iscell(keys)
     keys = num2str(cell2mat(keys));

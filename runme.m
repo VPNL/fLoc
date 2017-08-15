@@ -79,8 +79,11 @@ fpath = fullfile(session_dir, [session.id '_fLocSession.mat']);
 save(fpath, 'session', '-v7.3');
 
 % execute all runs from start_run to num_runs and save parfiles
+fname = [session.id '_fLocSession.mat'];
+fpath = fullfile(session.exp_dir, 'data', session.id, fname);
 for rr = start_run:num_runs
-    run_exp(session, rr);
+    session = run_exp(session, rr);
+    save(fpath, 'session', '-v7.3');
 end
 write_parfiles(session);
 

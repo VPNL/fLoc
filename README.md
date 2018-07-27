@@ -25,7 +25,8 @@ The code in this package uses functions from [Psychtoolbox-3](http://psychtoolbo
 
 4. [Analysis](#analysis)
     1. [General Linear Model](#general-linear-model)
-    2. [Regions of Interest](#regions-of-interest)
+    2. [Analysis with vistasoft](#analysis-with-vistasoft)
+    3. [Regions of Interest](#regions-of-interest)
 
 5. [Citation](#citation)
 
@@ -297,6 +298,27 @@ Stimulus parameter (`.par`) files saved in session data subdirectories contain i
 4. Condition plotting **color** (RGB values from 0 to 1)
 
 After acquiring and preprocessing functional data, a General Linear Model (GLM) is fit to the time series of each voxel to estimate *β* values of response amplitude to different stimulus categories (e.g., [Worsley et al., 2002](https://www.ncbi.nlm.nih.gov/pubmed/11771969)). For preprocessing we recommend performing motion correction, detrending, and transforming time series data to percent signal change without spatial smoothing.
+
+### Analysis with vistasoft
+
+To analyze fMRI data from the localizer experiment using functions from [vistasoft](https://github.com/vistalab/vistasoft):
+
+1. Clone the vistasoft repository on your machine and add to your MATLAB path.
+2. Organize all fMRI data files (.nii), stimulus parameter files (.par), and optional anatomical MRI scans (.nii) in a session directory within `~/fLoc/fMRI/`:
+    1. fMRI data files should be titled `Run#.nii.gz` with run numbers incrementing from one (e.g., `Run1.nii.gz`).
+    2. Stimulus parameter files should be titled `*_run#.par` with run numbers incrementing from one (e.g., `script_fLoc_run1.par`).
+    3. Optional anatomical inplane MRI scan titled `*Inplane*.nii.gz` can also be included in session directory. 
+    4. Optional anatomical whole-brain MRI scan titled `t1.nii.gz` can also be included in `3Danatomy' folder within session directory (e.g., `~/fLoc/fMRI/*/3Danatomy/t1.nii.gz`). 
+3. After organizing data in the fMRI session directory, GLM analysis in vistasoft can be automated using the function `fLocAnalysis(session, clip, constrasts)` included in this respository with the following inputs:
+    1. *session* — name of organized session directory to analyze in `~/fLoc/fMRI/` (string).
+    2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
+    3. *contrasts* — optional user-defined statistical contrasts (struct) with fields `contrasts.active` and `contrasts.control` containing condition numbers used in `.par` files. 
+4. `fLocAnalyis` automates the following data processing and analysis procedures:
+    1. Initialize vistasoft session directory.
+    2. Perform within-subject motion compensation (and check for motion > 2 voxels). 
+    3. Perform between-subject motion compensation (and check for motion > 2 voxels).
+    4. Fit GLM in each voxel across all runs of the localizer.
+    5. Generate vistasoft-compative parameter maps of GLM betas, residual variance, proportion of variance explained, statistical contrasts comparing betas for each condition vs. all other conditions, and custom statistical contrast maps. 
 
 ### Regions of interest
 

@@ -1,4 +1,6 @@
 data/*
+!data/data_dir.txt
 fMRI/*
+!fMRI/fmri_dir.txt
 *.mat
 *.par

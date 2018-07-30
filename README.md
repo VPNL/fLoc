@@ -308,18 +308,20 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     1. fMRI data files should be titled `Run#.nii.gz` with run numbers incrementing from one (e.g., `Run1.nii.gz`).
     2. Stimulus parameter files should be titled `*_run#.par` with run numbers incrementing from one (e.g., `s01_01-Jan-2018_oddball_run1.par`).
     3. Optional anatomical inplane MRI scan titled `*Inplane*.nii.gz` should be included in session directory if possible (e.g., `~/fLoc/data/*/Inplane.nii.gz`). 
-    4. Optional anatomical whole-brain MRI scan titled `t1.nii.gz` should be included in `3Danatomy' folder (e.g., `~/fLoc/data/*/3Danatomy/t1.nii.gz`). 
-3. Run automated fMRI data analysis pipeline by calling `fLocAnalysis(session, clip, constrasts)` with the following inputs:
+    4. Optional anatomical whole-brain MRI scan titled `t1.nii.gz` should be included in `3Danatomy` folder (e.g., `~/fLoc/data/*/3Danatomy/t1.nii.gz`). 
+3. Run automated fMRI data analysis pipeline by calling `fLocAnalysis(session, clip, constrasts)` with inputs:
     1. *session* — name of session directory to analyze in `~/fLoc/data/` (string).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
-    3. *contrasts* (optional) — user-defined statistical contrasts (struct) with fields `contrasts.active` and `contrasts.control` containing condition numbers used in `.par` files. 
+    3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
+        1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
+        2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
 4. `fLocAnalyis` automates the following data processing and analysis procedures:
     1. Initialize vistasoft session directory.
     2. Perform within-subject motion compensation (and check for motion > 2 voxels). 
     3. Perform between-subject motion compensation (and check for motion > 2 voxels).
     4. Fit GLM in each voxel across all runs of the localizer.
-    5. Generate vistasoft-compative parameter maps of GLM betas, residual variance, proportion of variance explained, statistical contrasts comparing betas for each condition vs. all other conditions, and custom statistical contrast maps. 
-5. To view a parameter map overload on the subject's anatomy:
+    5. Generate vistasoft-compative parameter maps of GLM betas, residual variance, proportion of variance explained, and statistical contrasts comparing betas for active vs. control conditions. 
+5. To view a parameter map overlaid on the subject's anatomy:
     1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
     2. Call `mrVista` to open a vistasoft inplane view.
     3. Select `Load parameter map` from the File menu and select a `.mat` file from `~/fLoc/data/*/GLMs/`.

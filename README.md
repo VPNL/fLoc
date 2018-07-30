@@ -329,7 +329,8 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 5. To view a parameter map overlaid on the subject's anatomy:
     1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
     2. Call `mrVista` to open a vistasoft inplane view.
-    3. Select `Load parameter map` from the File menu and select a `.mat` file from `~/fLoc/data/*/GLMs/`.
+    3. Change the "Data type" from Original to GLMs.
+    4. Select `Load parameter map` from the File menu and select a `.mat` file from `~/fLoc/data/*/GLMs/`.
 
 ### Regions of interest
 

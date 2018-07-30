@@ -303,22 +303,26 @@ After acquiring and preprocessing functional data, a General Linear Model (GLM) 
 
 To analyze fMRI data from the localizer experiment using functions from [vistasoft](https://github.com/vistalab/vistasoft):
 
-1. Clone the vistasoft repository on your machine and add to your MATLAB path.
-2. Organize all fMRI data files (.nii), stimulus parameter files (.par), and optional anatomical MRI scans (.nii) in a session directory within `~/fLoc/fMRI/`:
+1. Clone the vistasoft and fLoc repositories on your machine and add to your MATLAB path.
+2. Organize all fMRI data files (`.nii.gz`) and optional anatomical MRI scans (`.nii.gz`) in the appropriate session directory in `~/fLoc/data/` containing session-specific stimulus parameter (`.par`) files:
     1. fMRI data files should be titled `Run#.nii.gz` with run numbers incrementing from one (e.g., `Run1.nii.gz`).
-    2. Stimulus parameter files should be titled `*_run#.par` with run numbers incrementing from one (e.g., `script_fLoc_run1.par`).
-    3. Optional anatomical inplane MRI scan titled `*Inplane*.nii.gz` can also be included in session directory. 
-    4. Optional anatomical whole-brain MRI scan titled `t1.nii.gz` can also be included in `3Danatomy' folder within session directory (e.g., `~/fLoc/fMRI/*/3Danatomy/t1.nii.gz`). 
-3. After organizing data in the fMRI session directory, GLM analysis in vistasoft can be automated using the function `fLocAnalysis(session, clip, constrasts)` included in this respository with the following inputs:
-    1. *session* — name of organized session directory to analyze in `~/fLoc/fMRI/` (string).
+    2. Stimulus parameter files should be titled `*_run#.par` with run numbers incrementing from one (e.g., `s01_01-Jan-2018_oddball_run1.par`).
+    3. Optional anatomical inplane MRI scan titled `*Inplane*.nii.gz` should be included in session directory if possible (e.g., `~/fLoc/data/*/Inplane.nii.gz`). 
+    4. Optional anatomical whole-brain MRI scan titled `t1.nii.gz` should be included in `3Danatomy' folder (e.g., `~/fLoc/data/*/3Danatomy/t1.nii.gz`). 
+3. Run automated fMRI data analysis pipeline by calling `fLocAnalysis(session, clip, constrasts)` with the following inputs:
+    1. *session* — name of session directory to analyze in `~/fLoc/data/` (string).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
-    3. *contrasts* — optional user-defined statistical contrasts (struct) with fields `contrasts.active` and `contrasts.control` containing condition numbers used in `.par` files. 
+    3. *contrasts* (optional) — user-defined statistical contrasts (struct) with fields `contrasts.active` and `contrasts.control` containing condition numbers used in `.par` files. 
 4. `fLocAnalyis` automates the following data processing and analysis procedures:
     1. Initialize vistasoft session directory.
     2. Perform within-subject motion compensation (and check for motion > 2 voxels). 
     3. Perform between-subject motion compensation (and check for motion > 2 voxels).
     4. Fit GLM in each voxel across all runs of the localizer.
     5. Generate vistasoft-compative parameter maps of GLM betas, residual variance, proportion of variance explained, statistical contrasts comparing betas for each condition vs. all other conditions, and custom statistical contrast maps. 
+5. To view a parameter map overload on the subject's anatomy:
+    1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
+    2. Call `mrVista` to open a vistasoft inplane view.
+    3. Select `Load parameter map` from the File menu and select a `.mat` file from `~/fLoc/data/*/GLMs/`.
 
 ### Regions of interest
 

@@ -3,7 +3,7 @@ function fLocAnalysis(session, clip, contrasts)
 % implemented with vistasoft (https://github.com/vistalab/vistasoft). 
 % 
 % INPUTS
-% sessions: name of session in ~fLoc/fMRI/ to analyze (string)
+% sessions: name of session in ~fLoc/data/ to analyze (string)
 % clip: number of TRs to clip from the beginning of each run (int)
 % contrasts (optional): custom user-defined contrasts (struct)
 %   contrasts(N).active  -- active condition numbers for Nth contrast
@@ -13,8 +13,9 @@ function fLocAnalysis(session, clip, contrasts)
 % By default the code generates voxel-wise parameters maps of GLM betas, 
 % model residual error, variance explained, and contrast maps comparing
 % betas for each condition vs. all other conditions (t-values). 
-% Parameter maps are saved as .mat files in ~/fLoc/fMRI/*/GLMs/ and can be 
-% viewed by calling 'mrVista' function in the fully processed session directory. 
+% Parameter maps are saved as .mat files in ~/fLoc/data/*/GLMs/ and can be 
+% viewed by calling 'mrVista' in the fully processed session directory and 
+% loading a parameter map from the file menu. 
 % 
 % AS 7/2018
 
@@ -23,7 +24,7 @@ function fLocAnalysis(session, clip, contrasts)
 
 % check for missing or empty inputs
 if nargin < 1 || isempty(session)
-    error('Specify a session directory in ~/fLoc/fMRI to analyze.');
+    error('Specify a session directory in ~/fLoc/data/ to analyze.');
 end
 if nargin < 2 || isempty(clip)
     error('Specify how many TRs to clip from beginning of each run.')
@@ -37,15 +38,15 @@ if isempty(which('mrVista'))
 end
 
 % standardize and validate session argument
-data_dir = fullfile(fileparts(fileparts(mfilename('fullpath'))), 'fMRI');
+data_dir = fullfile(fileparts(fileparts(mfilename('fullpath'))), 'data');
 dd = dir(data_dir); all_sessions = {dd([dd.isdir]).name};
 if length(all_sessions) < 3
-    error('No valid session data directories found in ~/fLoc/fMRI/.');
+    error('No valid session data directories found in ~/fLoc/data/.');
 else
     all_sessions = all_sessions(3:end);
 end
 if sum(strcmp(session, all_sessions)) ~= 1
-    error(['Session ' session{ss} ' not found in ~/fLoc/fMRI/.']);
+    error(['Session ' session{ss} ' not found in ~/fLoc/data/.']);
 end
 
 % look for parfiles corresponding to each run of fMRI data

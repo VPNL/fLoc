@@ -1,2 +1,0 @@
-The repositry data directory contains a subdirectory for each session of the fLoc experiment.
-Each directory contains the fMRI data (.nii) and stimulus sequence files (.par) for that session. 

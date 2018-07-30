@@ -320,7 +320,12 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     2. Perform within-subject motion compensation (and check for motion > 2 voxels). 
     3. Perform between-subject motion compensation (and check for motion > 2 voxels).
     4. Fit GLM in each voxel across all runs of the localizer.
-    5. Generate vistasoft-compative parameter maps of GLM betas, residual variance, proportion of variance explained, and statistical contrasts comparing betas for active vs. control conditions. 
+    5. Generate vistasoft-compatible maps of the following model parameters:
+        1. GLM betas (one map file per predictor in GLM design matrix)
+        2. Residual variance of GLM (one map file per session)
+        3. Proportion of variance explained (one map file per session)
+        4. Default statistical contrasts comparing betas for each condition vs. all other conditions (one map per condition). 
+        5. Custom statistical contrasts comparing betas for active vs. control conditions (one map per user-defined contrast). 
 5. To view a parameter map overlaid on the subject's anatomy:
     1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
     2. Call `mrVista` to open a vistasoft inplane view.

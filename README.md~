@@ -315,14 +315,14 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
-5. A log file named `fLocAnalysis_log.txt` is written in each session directory as the analysis progresses. This log file contains a high-level description of the progress of the analysis. 
-6. To run the automated fMRI data analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, constrasts)` with the following arguments:
+5. To run the automated fMRI data analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, constrasts)` with the following arguments:
     1. *sessions* — names of session directories to analyze in `~/fLoc/data/` (array).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
     3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
-7. For group analysis, a log file named `vistasoft_log.txt` is also written in each session directory. This log file captures vistasoft outputs otherwise printed to the command line. 
+6. A log file named `fLocAnalysis_log.txt` is written in each session directory as the analysis progresses. This log file contains a high-level description of the progress of the analysis. 
+7. For group analysis, a log file named `vistasoft_log.txt` is also written in each session directory. This log file captures all vistasoft screen output. Examine the contents of this log file to help diagnose errors. 
 8. To view a parameter map overlaid on the subject's anatomy:
     1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
     2. Call `mrVista` to open a vistasoft inplane view.

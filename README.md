@@ -349,19 +349,31 @@ Category-selective regions are defined by statistically contrasting *β* values 
 - Character-selective regions
     + [`word` `number`] > [`body` `limb` `child` `adult` `corridor` `house car` `instrument`]
     + selective voxels typically clustered around the inferior occipital sulcus (IOS) and along the occipitotemporal sulcus (OTS)
+    + ![Character selectivity map][charactermap]
 - Body-selective regions
     + [`body` `limb`] > [`word` `number` `child` `adult` `corridor` `house` `car` `instrument`]
     + selective voxels typically clustered around the lateral occipital sulcus (LOS), inferior temporal gyrus (ITG), and occipitotemporal sulcus (OTS)
+    + ![Body selectivity map][bodymap]
 - Face-selective regions
     + [`child` `adult`] > [`word` `number` `body` `limb` `corridor` `house` `car` `instrument`]
-- selective voxels typically clustered around the inferior occipital gyrus (IOG), posterior fusiform gyrus (Fus), and mid-fusiform sulcus (MFS)
+    + selective voxels typically clustered around the inferior occipital gyrus (IOG), posterior fusiform gyrus (Fus), and mid-fusiform sulcus (MFS)
+    + ![Face selectivity map][facemap]
 - Place-selective regions
     + [`corridor` `house`] > [`word` `number` `body` `limb` `child` `adult` `car` `instrument`]
     + selective voxels typically clustered around the transverse occipital sulcus (TOS) and collateral sulcus (CoS)
+    + ![Place selectivity map][placemap]
 - Object-selective regions
     + [`car` `instrument`] > [`word` `number` `body` `limb` `child` `adult` `corridor` `house`]
     + selective voxels are not typically clustered in occipitotemporal cortex when contrasted against characters, bodies, faces, and places
     + object-selective regions in lateral occipital cortex can be defined in a separate experiment (contrasting objects > scrambled objects)
+    + ![Object selectivity map][objectmap]
+
+[charactermap]: https://github.com/VPNL/fLoc/blob/master/examples/characters_vs_all.png "characters_vs_all.png"
+[bodymap]: https://github.com/VPNL/fLoc/blob/master/examples/bodies_vs_all.png "bodies_vs_all.png"
+[facemap]: https://github.com/VPNL/fLoc/blob/master/examples/faces_vs_all.png "faces_vs_all.png"
+[placemap]: https://github.com/VPNL/fLoc/blob/master/examples/places_vs_all.png "places_vs_all.png"
+[objectmap]: https://github.com/VPNL/fLoc/blob/master/examples/objects_vs_all.png "objects_vs_all.png"
+
 
 | Lateral Occipital Cortex | Posterior Ventral Temporal Cortex | Mid Ventral Temporal Cortex |
 | ------------------------ |:---------------------------------:|:---------------------------:|

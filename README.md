@@ -299,7 +299,7 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 3. Optionally, put anatomical MRI scans (`.nii.gz`) in the same session directory:
     1. An anatomical inplane  scan named `*Inplane*.nii.gz` should be included if possible (e.g., `~/fLoc/data/s01/Inplane.nii.gz`). 
     2. A high-resolution whole-brain scan named `t1.nii.gz` can also be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
-4. The function `[fLocAnalyis](https://github.com/VPNL/fLoc/blob/master/functions/fLocGroupAnalysis.m)` automates the following data processing and analysis procedures for a single session:
+4. The function [`fLocAnalyis`](https://github.com/VPNL/fLoc/blob/master/functions/fLocGroupAnalysis.m) automates the following data processing and analysis procedures for a single session:
     1. Initialize vistasoft session directory in `~/fLoc/data/[session]`.
     2. Perform within-run motion compensation (and check for motion > 2 voxels). 
     3. Perform between-runs motion compensation (and check for motion > 2 voxels).

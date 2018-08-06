@@ -1,4 +1,4 @@
-function err = fLocAnalysis(session, clip, contrasts)
+rfunction err = fLocAnalysis(session, clip, contrasts)
 % Automated analysis of fMRI data from fLoc funcional localizer experiment 
 % using vistasoft functions (https://github.com/vistalab/vistasoft). 
 % 

@@ -300,11 +300,11 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     1. An anatomical inplane  scan named `*Inplane*.nii.gz` should be included if possible (e.g., `~/fLoc/data/s01/Inplane.nii.gz`). 
     2. A high-resolution whole-brain scan named `t1.nii.gz` can also be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
 4. The function `fLocAnalyis` automates the following data processing and analysis procedures for a single session:
-    1. Initialize vistasoft session directory in '~/fLoc/data/[session]'.
+    1. Initialize vistasoft session directory in `~/fLoc/data/[session]`.
     2. Perform within-run motion compensation (and check for motion > 2 voxels). 
-    3. Perform between-run motion compensation (and check for motion > 2 voxels).
+    3. Perform between-runs motion compensation (and check for motion > 2 voxels).
     4. Fit GLM in each voxel across all runs of the localizer.
-    5. Generate vistasoft-compatible maps of the following model parameters:
+    5. Generate vistasoft-compatible brain maps of the following model parameters:
         1. GLM betas (one map file per predictor in GLM design matrix)
         2. Residual variance of GLM (one map file per session)
         3. Proportion of variance explained (one map file per session)

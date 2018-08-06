@@ -325,7 +325,7 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
 8. For group analysis, a log file named `vistasoft_log.txt` is also written in each session directory. This log file captures vistasoft outputs otherwise printed to the command line. 
 9. To view a parameter map overlaid on the subject's anatomy:
-    1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
+    1. Navigate the to the appropriate session directory in `~/fLoc/data/`.
     2. Enter `mrVista` in the command line to open a vistasoft inplane view.
     3. Change the *Data type* (upper-right menu in GUI) from *Original* to *GLMs*.
     4. Select *Load parameter map* from the *File* menu and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).

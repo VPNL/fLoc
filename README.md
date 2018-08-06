@@ -316,8 +316,8 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
-6. A log file named `fLocAnalysis_log.txt` is written in each session directory as the analysis progresses. This log file contains a high-level description of the progress of the analysis. 
-7. To run the automated fMRI data analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, constrasts)` with the following arguments:
+6. A log file named `fLocAnalysis_log.txt` is written in each session directory as the analysis progresses. This log file contains a high-level description of completed stages of the analysis. 
+7. To run the automated analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, constrasts)` with the following arguments:
     1. *sessions* — names of session directories to analyze in `~/fLoc/data/` (array).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
     3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
@@ -326,9 +326,9 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 8. For group analysis, a log file named `vistasoft_log.txt` is also written in each session directory. This log file captures vistasoft outputs otherwise printed to the command line. 
 9. To view a parameter map overlaid on the subject's anatomy:
     1. Navigate the to the appropriate session directory in (`~/fLoc/data/`).
-    2. Call `mrVista` to open a vistasoft inplane view.
-    3. Change the "Data type" from Original to GLMs.
-    4. Select `Load parameter map` from the File menu and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).
+    2. Enter `mrVista` in the command line to open a vistasoft inplane view.
+    3. Change the *Data type* (upper-right menu in GUI) from *Original* to *GLMs*.
+    4. Select *Load parameter map* from the *File* menu and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).
 
 ### General linear model
 

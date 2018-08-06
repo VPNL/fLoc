@@ -5,7 +5,7 @@ Functional localizer experiment used to define category-selective cortical regio
 *Notes:*
 
 The code in this package uses functions from [Psychtoolbox-3](http://psychtoolbox.org/) and is compatible with [MATLAB](https://www.mathworks.com/) R2016b and later versions.
-The repetition time (TR) of fMRI data for the localizer experiment must be a factor of its block duration (4 seconds by default).
+The repetition time (TR) of fMRI data for the localizer experiment must be a factor of its block duration (4 s by default).
 * * *
 
 *Contents:*

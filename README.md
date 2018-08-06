@@ -331,7 +331,7 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     3. Change the *Data type* (upper-right menu in GUI) from *Original* to *GLMs*.
     4. Select *Load parameter map* from the *File* menu and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).
 
-*Note for VPNL users: If analyzing MUX data from the CNI, always clip 2 TRs from beginning of each run. For non-MUX data, clip (countdown duration)/(TR duration) TRs from each run. In both cases, stimulus parameter files begin at the end of the countdown. *
+*Note for VPNL users: If analyzing MUX data from the CNI, always clip 2 TRs from beginning of each run. For non-MUX data, clip (countdown duration)/(TR duration) TRs from each run. In both cases, stimulus parameter files begin at the end of the countdown.*
 
 ### General linear model
 

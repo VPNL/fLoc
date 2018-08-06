@@ -296,9 +296,9 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 2. Put all fMRI data files (`.nii.gz`) in the appropriate session directory in `~/fLoc/data/` with session-specific stimulus parameter (`.par`) files (e.g., `~/fLoc/data/s01/script_fLoc_run1.par`):
     1. fMRI data file names should end with `_run#.nii.gz` with run numbers incrementing from one (e.g., `~/fLoc/data/s01/fLoc_run1.nii.gz`).
     2. Stimulus parameter files should end with `_run#.par` with run numbers incrementing from one (e.g., `~/fLoc/data/s01/script_fLoc_run1.par`).
-3. Optionally, put optional anatomical MRI scans (`.nii.gz`) in the same session directory:
+3. Optionally, put anatomical MRI scans (`.nii.gz`) in the same session directory:
     3. An anatomical inplane MRI scan named `*Inplane*.nii.gz` should be included if possible (e.g., `~/fLoc/data/s01/Inplane.nii.gz`). 
-    4. A whole-brain anatomical MRI scan named `t1.nii.gz` can be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
+    4. A whole-brain anatomical MRI scan named `t1.nii.gz` can also be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
 4. The function `fLocAnalyis` automates the following data processing and analysis procedures for a single session:
     1. Initialize vistasoft session directory.
     2. Perform within-subject motion compensation (and check for motion > 2 voxels). 

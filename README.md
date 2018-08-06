@@ -349,7 +349,7 @@ Category-selective regions are defined by statistically contrasting *β* values 
 - Character-selective regions
     + [`word` `number`] > [`body` `limb` `child` `adult` `corridor` `house car` `instrument`]
     + selective voxels typically clustered around the inferior occipital sulcus (IOS) and along the occipitotemporal sulcus (OTS)
-    + ![Character selectivity map][charactermap]{:width="500px"}
+    + ![Character selectivity map][charactermap]
 - Body-selective regions
     + [`body` `limb`] > [`word` `number` `child` `adult` `corridor` `house` `car` `instrument`]
     + selective voxels typically clustered around the lateral occipital sulcus (LOS), inferior temporal gyrus (ITG), and occipitotemporal sulcus (OTS)

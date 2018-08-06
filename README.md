@@ -313,7 +313,7 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
         5. Custom statistical contrasts comparing betas for active vs. control conditions (one map per user-defined contrast). 
 5. To run the automated fMRI data analysis pipeline for a single session, use `fLocAnalysis(session, clip, constrasts)` with the following arguments:
     1. *session* — name of session directory to analyze in `~/fLoc/data/` (string).
-    2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
+    2. *clip* — number of TRs to clip from the beginning of each localizer run (int). 
     3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
@@ -330,6 +330,8 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     2. Enter `mrVista` in the command line to open a vistasoft inplane view.
     3. Change the *Data type* (upper-right menu in GUI) from *Original* to *GLMs*.
     4. Select *Load parameter map* from the *File* menu and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).
+
+*Note for VPNL users: If analyzing MUX data from the CNI, always clip 2 TRs from beginning of each run. For non-MUX data, clip (countdown duration)/(TR duration) TRs from each run. In both cases, stimulus parameter files begin at the end of the countdown. *
 
 ### General linear model
 

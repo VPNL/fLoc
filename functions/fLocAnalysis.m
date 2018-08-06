@@ -10,14 +10,14 @@ function err = fLocAnalysis(session, clip, contrasts)
 %      contrasts(N).control -- control condition numbers for Nth contrast
 %
 % OUTPUTS
-% 1) err: 1 if analysis terminates with an error, 0 if completed
+% 1) err: 1 if analysis terminated with an error, 0 if analysis completed
 % 
-% By default the code generates voxel-wise parameters maps of GLM betas, 
-% model residual error, variance explained, and contrast maps comparing
-% betas for each condition vs. all other conditions (t-values). 
-% Parameter maps are saved as .mat files in ~/fLoc/data/*/GLMs/ and can be 
-% viewed by calling 'mrVista' in the fully processed session directory and 
-% loading a parameter map from the file menu. 
+% By default the code generates the following voxel-wise parameters maps: 
+% Beta values, model residual error, proportion of variance explained, and
+% GLM contrasts (t-values). All parameter maps are saved as .mat files in 
+% ~/fLoc/data/*/Inplane/GLMs/ and can be viewed in vistasoft. The code also
+% writes a file named "fLocAnalysis_log.txt" that logs progress of the 
+% analysis in vistasoft.
 % 
 % AS 7/2018
 

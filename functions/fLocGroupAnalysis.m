@@ -15,11 +15,9 @@ function fLocGroupAnalysis(sessions, clip, contrasts)
 % 
 % Parameter maps:
 % By default the code generates the following voxel-wise parameters maps: 
-% Beta values, Model residual error, proportion of variance explained, and
+% Beta values, model residual error, proportion of variance explained, and
 % GLM contrasts (t-values). All parameter maps are saved as .mat files in 
-% ~/fLoc/data/*/GLMs/ and can be viewed by calling 'mrVista' in a fully 
-% processed session directory, setting the "Data Type" to GLMs, and then 
-% loading a parameter map from the file menu. 
+% ~/fLoc/data/*/Inplane/GLMs/ and can be viewed in vistasoft. 
 % 
 % Logfiles:
 % The group analysis code generates two logfiles in each session directory:

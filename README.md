@@ -298,17 +298,17 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     2. Stimulus parameter files should end with `_run#.par` with run numbers incrementing from one (e.g., `~/fLoc/data/s01/script_fLoc_run1.par`).
 3. Optionally, put anatomical MRI scans (`.nii.gz`) in the same session directory:
     1. An anatomical inplane  scan named `*Inplane*.nii.gz` should be included if possible (e.g., `~/fLoc/data/s01/Inplane.nii.gz`). 
-    2. A high-resolution anatomical whole-brain scan named `t1.nii.gz` can also be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
+    2. A high-resolution whole-brain scan named `t1.nii.gz` can also be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
 4. The function `fLocAnalyis` automates the following data processing and analysis procedures for a single session:
-    1. Initialize vistasoft session directory.
-    2. Perform within-subject motion compensation (and check for motion > 2 voxels). 
-    3. Perform between-subject motion compensation (and check for motion > 2 voxels).
+    1. Initialize vistasoft session directory in '~/fLoc/data/[session]'.
+    2. Perform within-run motion compensation (and check for motion > 2 voxels). 
+    3. Perform between-run motion compensation (and check for motion > 2 voxels).
     4. Fit GLM in each voxel across all runs of the localizer.
     5. Generate vistasoft-compatible maps of the following model parameters:
         1. GLM betas (one map file per predictor in GLM design matrix)
         2. Residual variance of GLM (one map file per session)
         3. Proportion of variance explained (one map file per session)
-        4. Default statistical contrasts comparing betas for each condition vs. all other conditions (one map per condition). 
+        4. Default statistical contrasts comparing betas for each condition vs. all other conditions (one map per non-baseline condition). 
         5. Custom statistical contrasts comparing betas for active vs. control conditions (one map per user-defined contrast). 
 5. To run the automated fMRI data analysis pipeline for a single session, use `fLocAnalysis(session, clip, constrasts)` with the following arguments:
     1. *session* — name of session directory to analyze in `~/fLoc/data/` (string).

@@ -1,4 +1,4 @@
-rfunction err = fLocAnalysis(session, clip, contrasts)
+function err = fLocAnalysis(session, clip, contrasts)
 % Automated analysis of fMRI data from fLoc funcional localizer experiment 
 % using vistasoft functions (https://github.com/vistalab/vistasoft). 
 % 
@@ -282,6 +282,6 @@ if isstruct(contrasts)
 end
 fprintf(lid, 'fLocAnalsis for %s is complete! \n', session);
 fprintf('fLocAnalsis for %s is complete! \n', session); fclose(lid);
-clear('all'); err = 0;
+err = 0;
 
 end

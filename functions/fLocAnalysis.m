@@ -197,12 +197,14 @@ fprintf(lid, 'Removing spikes from voxel time series. \n\n');
 fprintf('Removing spikes from voxel time series. \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
-    copyfile(fullfile(fdir, [fstem '.nii.gz']), fullfile(fdir, [fstem '_raw.nii.gz']));
-    nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
-    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (nii.tr / 1000));
-    tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
-    nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
-    MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));
+    if ~exist(fulfile(fdir, [fstem '_raw.nii.gz']), 'file') == 2
+        copyfile(fullfile(fdir, [fstem '.nii.gz']), fullfile(fdir, [fstem '_raw.nii.gz']));
+        nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
+        [x, y, z, t] = size(nii.vol); swin = ceil(3 / (nii.tr / 1000));
+        tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
+        nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
+        MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));
+    end
 end
 
 

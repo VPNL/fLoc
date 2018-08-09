@@ -49,7 +49,7 @@ else
     all_sessions = all_sessions(3:end);
 end
 if sum(strcmp(session, all_sessions)) ~= 1
-    error(['Session ' session{ss} ' not found in ~/fLoc/data/.']);
+    error(['Session ' session ' not found in ~/fLoc/data/.']);
 end
 
 % look for parfiles corresponding to each run of fMRI data

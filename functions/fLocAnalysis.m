@@ -193,6 +193,8 @@ fprintf('Between-scan motion compensation complete. QA checks passed. \n\n');
 
 % remove spikes from each run of data with median filter
 fdir = fullfile(session_dir, 'Inplane', 'MotionComp_RefScan1', 'TSeries');
+fprintf(lid, 'Removing spikes from voxel time series. \n\n');
+fprintf('Removing spikes from voxel time series. \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
     copyfile(fullfile(fdir, [fstem '.nii.gz']), fullfile(fdir, [fstem '_raw.nii.gz']));
@@ -219,11 +221,11 @@ for rr = 1:rcnt
     fid = fopen(parfiles{rr}, 'r');
     while ~feof(fid)
         ln = fgetl(fid); cnt = cnt + 1;
-        if isempty(ln); return; end
-        ln(ln == sprintf('\t')) = ''; prts = deblank(strsplit(ln, ' '));
+        if isempty(ln); return; end; ln(ln == sprintf('\t')) = '';
+        prts = deblank(strsplit(ln, ' ')); prts(cellfun(@isempty, prts)) = [];
         onsets(cnt) = str2double(prts{1});
-        cond_nums(cnt) = str2double(prts{3});
-        conds{cnt} = prts{4};
+        cond_nums(cnt) = str2double(prts{2});
+        conds{cnt} = prts{3};
     end
     fclose(fid);
 end

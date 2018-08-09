@@ -197,7 +197,7 @@ fprintf(lid, 'Removing spikes from voxel time series. \n\n');
 fprintf('Removing spikes from voxel time series. \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
-    if ~exist(fulfile(fdir, [fstem '_raw.nii.gz']), 'file') == 2
+    if ~exist(fullfile(fdir, [fstem '_raw.nii.gz']), 'file') == 2
         copyfile(fullfile(fdir, [fstem '.nii.gz']), fullfile(fdir, [fstem '_raw.nii.gz']));
         nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
         [x, y, z, t] = size(nii.vol); swin = ceil(3 / (nii.tr / 1000));

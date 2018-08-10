@@ -75,7 +75,6 @@ if rcnt < 1
     fclose(lid); return;
 else
     for rr = 1:rcnt
-        copyfile(niifiles{rr}, strrep(niifiles{rr}, '.nii.gz', '_raw.nii.gz'));
         nii = niftiApplyCannonicalXform(niftiRead(niifiles{rr}));
         niftiWrite(nii, niifiles{rr});
     end

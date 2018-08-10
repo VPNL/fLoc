@@ -7,7 +7,7 @@ function fLocGroupAnalysis(sessions, clip, stc_flag, contrasts)
 % INPUTS
 % 1) sessions: names of sessions in ~/fLoc/data/ to analyze (cell array)
 % 2) clip: number of TRs to clip from the beginning of each run (int)
-% 3) stc_flag: slice time correction flag (logical, default = true)
+% 3) stc_flag: slice time correction flag (logical; default = 0, no STC)
 % 4) contrasts (optional): custom user-defined contrasts (struct)
 %      contrasts(N).active  -- active condition numbers for Nth contrast
 %      contrasts(N).control -- control condition numbers for Nth contrast

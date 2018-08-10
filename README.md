@@ -332,8 +332,8 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 9. To view a parameter map overlaid on the subject's anatomy:
     1. Navigate the to the appropriate session directory in `~/fLoc/data/`.
     2. Enter `mrVista` in the command line to open a vistasoft inplane view.
-    3. Change the *Data type* (upper-right menu in GUI) from *Original* to *GLMs*.
-    4. Select *Load parameter map* from the *File* menu and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).
+    3. Change the *Data Type* (upper-right menu in GUI) from *Original* to *GLMs*.
+    4. Click *File -> Parameter Map -> Load Parameter Map* and select a `.mat` file from the session GLMs directory (e.g., `~/fLoc/data/s01/Inplane/GLMs/face_vs_all.mat`).
 
 *Note for VPNL users:* If analyzing MUX data from the CNI, always clip 2 TRs from beginning of each run. For non-MUX data, clip (countdown duration)/(TR duration) TRs from each run. In both cases, stimulus parameter files begin at the end of the countdown. 
 

@@ -75,6 +75,7 @@ else
         nii = niftiApplyCannonicalXform(niftiRead(niifiles{rr}));
         niftiWrite(nii, niifiles{rr});
     end
+    nslices = size(nii.data, 3);
 end
 niifiles = cellfun(@(X) fullfile(session_dir, X), niifiles, 'uni', false);
 pfs = fns(contains(fns, '.par')); parfiles = cell(1, rcnt); 
@@ -149,6 +150,18 @@ if exist(fullfile(session_dir, 'Inplane'), 'dir') ~= 7
     mrInit(params);
 end
 hi = initHiddenInplane('Original', 1);
+
+% do slice timing correction assuming interleaved slice acquisition
+fprintf(lid, 'Starting slice timing correction... \n');
+fprintf('Starting slice timing correction... \n');
+if ~exist(fullfile(session_dir, 'Inplane', 'Timed'), 'dir') ~= 7
+    slice_order = [1:2:nslices 2:2:nslices];
+    hi = AdjustSliceTiming(hi, 1:rcnt, 'Timed', slice_order);
+    saveSession; close all;
+end
+fprintf(lid, 'Slice timing correction complete. \n\n');
+fprintf('Slice timing correction complete. \n\n');
+hi = initHiddenInplane('Timed', 1);
 
 % do within-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting within-scan motion compensation... \n');

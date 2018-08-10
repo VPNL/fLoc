@@ -302,27 +302,30 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
     2. A high-resolution whole-brain scan named `t1.nii.gz` can also be included in a `3Danatomy` subfolder (e.g., `~/fLoc/data/s01/3Danatomy/t1.nii.gz`). 
 4. The function [`fLocAnalyis`](https://github.com/VPNL/fLoc/blob/master/functions/fLocGroupAnalysis.m) automates the following data processing and analysis procedures for a single session:
     1. Initialize vistasoft session directory in `~/fLoc/data/[session]`.
-    2. Perform within-run motion compensation (and check for motion > 2 voxels). 
-    3. Perform between-runs motion compensation (and check for motion > 2 voxels).
-    4. Remove spikes from time series using median filter.
-    5. Fit GLM in each voxel across all runs of the localizer.
-    6. Generate vistasoft-compatible brain maps of the following model parameters:
+    2. Perform slice timing correction (assuming interleaved slice acquisition). 
+    3. Perform within-run motion compensation (and check for motion > 2 voxels). 
+    4. Perform between-runs motion compensation (and check for motion > 2 voxels).
+    5. Remove spikes from time series using median filter.
+    6. Fit GLM in each voxel across all runs of the localizer.
+    7. Generate vistasoft-compatible brain maps of the following model parameters:
         1. GLM betas (one map file per predictor in GLM design matrix)
         2. Residual variance of GLM (one map file per session)
         3. Proportion of variance explained (one map file per session)
         4. Default statistical contrasts comparing betas for each condition vs. all other conditions (one map per non-baseline condition). 
         5. Custom statistical contrasts comparing betas for active vs. control conditions (one map per user-defined contrast). 
-5. To run the automated fMRI data analysis pipeline for a single session, use `fLocAnalysis(session, clip, constrasts)` with the following arguments:
+5. To run the automated fMRI data analysis pipeline for a single session, use `fLocAnalysis(session, clip, stc_flag, constrasts)` with the following arguments:
     1. *session* — name of session directory to analyze in `~/fLoc/data/` (string).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int). 
-    3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
+    3. *stc_flag* — flag controlling slice time correction (logical, default = 0). 
+    4. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
 6. A log file named `fLocAnalysis_log.txt` is written in each session directory as the analysis progresses. This log file contains a high-level description of completed stages of the analysis. 
-7. To run the automated analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, constrasts)` with the following arguments:
+7. To run the automated analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, stc_flag, constrasts)` with the following arguments:
     1. *sessions* — names of session directories to analyze in `~/fLoc/data/` (array).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
-    3. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
+    3. *stc_flag* — flag controlling slice time correction (logical, default = 0). 
+    4. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
 8. For group analysis, a log file named `vistasoft_log.txt` is also written in each session directory. This log file captures vistasoft outputs otherwise printed to the command line. 

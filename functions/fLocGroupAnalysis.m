@@ -1,4 +1,4 @@
-function fLocGroupAnalysis(sessions, clip, contrasts)
+function fLocGroupAnalysis(sessions, clip, stc_flag, contrasts)
 % Automated group analysis of fMRI data from fLoc localizer experiment 
 % using vistasoft functions (https://github.com/vistalab/vistasoft). If
 % there is an error, the code terminates the analysis of that session but
@@ -7,7 +7,8 @@ function fLocGroupAnalysis(sessions, clip, contrasts)
 % INPUTS
 % 1) sessions: names of sessions in ~/fLoc/data/ to analyze (cell array)
 % 2) clip: number of TRs to clip from the beginning of each run (int)
-% 3) contrasts (optional): custom user-defined contrasts (struct)
+% 3) stc_flag: slice time correction flag (logical, default = true)
+% 4) contrasts (optional): custom user-defined contrasts (struct)
 %      contrasts(N).active  -- active condition numbers for Nth contrast
 %      contrasts(N).control -- control condition numbers for Nth contrast
 %
@@ -40,7 +41,10 @@ elseif length(clip) == 1
 elseif length(clip) ~= length(sessions)
     error('Length of clip argument is inconsistent with number of sessions.');
 end
-if nargin < 3 || isempty(contrasts)
+if nargin < 3 || isempty(stc_falg)
+    stc_flag = 1;
+end
+if nargin < 4 || isempty(contrasts)
     contrasts = [];
 end
 
@@ -55,7 +59,7 @@ start_dir = pwd; err_vec = zeros(1, length(sessions));
 for ss = 1:length(sessions)
     try
         fprintf('\nStarting analysis of session %s. \n', sessions{ss});
-        [T, err_vec(ss)] = evalc('fLocAnalysis(sessions{ss}, clip(ss), contrasts)');
+        [T, err_vec(ss)] = evalc('fLocAnalysis(sessions{ss}, clip(ss), stc_flag, contrasts)');
         fid = fopen('vistasoft_log.txt', 'w+'); fprintf(fid, '%s', T); fclose(fid);
     catch
         err_vec(ss) = 1;

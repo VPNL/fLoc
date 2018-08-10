@@ -1,11 +1,12 @@
-function err = fLocAnalysis(session, clip, contrasts)
+function err = fLocAnalysis(session, clip, stc_flag, contrasts)
 % Automated analysis of fMRI data from fLoc funcional localizer experiment 
 % using vistasoft functions (https://github.com/vistalab/vistasoft). 
 % 
 % INPUTS
 % 1) session: name of session in ~/fLoc/data/ to analyze (string)
 % 2) clip: number of TRs to clip from the beginning of each run (int)
-% 3) contrasts (optional): custom user-defined contrasts (struct)
+% 3) stc_flag: slice time correction flag (logical, default = true)
+% 4) contrasts (optional): custom user-defined contrasts (struct)
 %      contrasts(N).active  -- active condition numbers for Nth contrast
 %      contrasts(N).control -- control condition numbers for Nth contrast
 %
@@ -32,7 +33,10 @@ end
 if nargin < 2 || isempty(clip)
     error('Missing "clip" argument: specify how many TRs to clip from beginning of each run.')
 end
-if nargin < 3 || isempty(contrasts)
+if nargin < 3 || isempty(stc_flag)
+    stc_flag = 1;
+end
+if nargin < 4 || isempty(contrasts)
     contrasts = [];
 end
 if isempty(which('mrVista'))
@@ -111,7 +115,6 @@ keep_frames = [clip(:) repmat(-1, length(clip), 1)];
 %% Initialize session and preprocess fMRI data
 
 % setup analysis parameters for GLM
-params = [];
 params = mrInitDefaultParams;
 params.doAnalParams = 1;
 params.doSkipFrames = 1;
@@ -141,6 +144,8 @@ if sum(inplane_check) == 0
     params.inplane = fullfile(session_dir, 'PseudoInplane.nii.gz');
 else
     params.inplane = fullfile(session_dir, ff{find(inplane_check, 1)});
+    nii = niftiApplyCannonicalXform(niftiRead(params.inplane));
+    niftiWrite(nii, params.inplane);
 end
 
 % inititalize vistasoft session and open hidden inplane view
@@ -152,16 +157,22 @@ end
 hi = initHiddenInplane('Original', 1);
 
 % do slice timing correction assuming interleaved slice acquisition
-fprintf(lid, 'Starting slice timing correction... \n');
-fprintf('Starting slice timing correction... \n');
-if ~exist(fullfile(session_dir, 'Inplane', 'Timed'), 'dir') ~= 7
-    slice_order = [1:2:nslices 2:2:nslices];
-    hi = AdjustSliceTiming(hi, 1:rcnt, 'Timed', slice_order);
-    saveSession; close all;
+if stc_flag
+    fprintf(lid, 'Starting slice timing correction... \n');
+    fprintf('Starting slice timing correction... \n');
+    if ~exist(fullfile(session_dir, 'Inplane', 'Timed'), 'dir') ~= 7
+        load(fullfile(session_dir, 'mrSESSION'));
+        for rr = 1:rcnt
+            mrSESSION.functionals(rr).sliceOrder = [1:2:nslices 2:2:nslices];
+        end
+        saveSession; hi = initHiddenInplane('Original', 1);
+        hi = AdjustSliceTiming(hi, 0, 'Timed');
+        saveSession; close all;
+    end
+    fprintf(lid, 'Slice timing correction complete. \n\n');
+    fprintf('Slice timing correction complete. \n\n');
+    hi = initHiddenInplane('Timed', 1);
 end
-fprintf(lid, 'Slice timing correction complete. \n\n');
-fprintf('Slice timing correction complete. \n\n');
-hi = initHiddenInplane('Timed', 1);
 
 % do within-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting within-scan motion compensation... \n');

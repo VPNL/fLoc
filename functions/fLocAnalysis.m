@@ -58,6 +58,8 @@ cd(session_dir); fns = dir(session_dir); fns = {fns.name};
 lid = fopen('fLocAnalysis_log.txt', 'w+');
 fprintf(lid, 'Starting analysis for session %s. \n\n', session);
 fprintf('Starting analysis for session %s. \n\n', session);
+
+% apply cannonical transformation to nifti files and resave
 nfs = fns(contains(fns, '.nii.gz')); niifiles = {}; rcnt = 0;
 while sum(contains(lower(nfs), ['run' num2str(rcnt + 1) '.nii.gz'])) >= 1
     nf_idx = find(contains(lower(nfs), ['run' num2str(rcnt + 1) '.nii.gz']), 1);
@@ -67,6 +69,12 @@ if rcnt < 1
     fprintf(lid, 'Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
     fprintf('Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
     fclose(lid); return;
+else
+    for rr = 1:rcnt
+        copyfile(niifiles{rr}, strrep(niifiles{rr}, '.nii.gz', '_raw.nii.gz'));
+        nii = niftiApplyCannonicalXform(niftiRead(niifiles{rr}));
+        niftiWrite(nii, niifiles{rr});
+    end
 end
 niifiles = cellfun(@(X) fullfile(session_dir, X), niifiles, 'uni', false);
 pfs = fns(contains(fns, '.par')); parfiles = cell(1, rcnt); 

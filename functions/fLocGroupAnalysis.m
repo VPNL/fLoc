@@ -42,7 +42,7 @@ elseif length(clip) ~= length(sessions)
     error('Length of clip argument is inconsistent with number of sessions.');
 end
 if nargin < 3 || isempty(stc_flag)
-    stc_flag = 1;
+    stc_flag = 0;
 end
 if nargin < 4 || isempty(contrasts)
     contrasts = [];

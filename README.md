@@ -316,7 +316,7 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 5. To run the automated fMRI data analysis pipeline for a single session, use `fLocAnalysis(session, clip, stc_flag, constrasts)` with the following arguments:
     1. *session* — name of session directory to analyze in `~/fLoc/data/` (string).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int). 
-    3. *stc_flag* — flag controlling slice time correction (logical, default = 0). 
+    3. *stc_flag* — flag controlling slice time correction (logical; default = 0, no correction). 
     4. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 
@@ -324,7 +324,7 @@ To analyze fMRI data from the localizer experiment using functions from [vistaso
 7. To run the automated analysis pipeline across a group of sessions, use `fLocGroupAnalysis(sessions, clip, stc_flag, constrasts)` with the following arguments:
     1. *sessions* — names of session directories to analyze in `~/fLoc/data/` (array).
     2. *clip* — number of TRs to clip from the beginning of each localizer run (int).
-    3. *stc_flag* — flag controlling slice time correction (logical, default = 0). 
+    3. *stc_flag* — flag controlling slice time correction (logical; default = 0, no correction). 
     4. *contrasts* (optional) — user-defined statistical contrasts (struct) with the following fields: 
         1. `contrasts(N).active`: contains active condition numbers used in `.par` files for the Nth contrast. 
         2. `contrasts(N).control`: contains control condition numbers used in `.par` files for the Nth contrast. 

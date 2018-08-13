@@ -59,24 +59,25 @@ start_dir = pwd; err_vec = zeros(1, length(sessions));
 for ss = 1:length(sessions)
     try
         fprintf('\nStarting analysis of session %s. \n', sessions{ss});
-        [T, err_vec(ss)] = evalc('fLocAnalysis(sessions{ss}, clip(ss), stc_flag, contrasts)');
+        [T, err] = evalc('fLocAnalysis(sessions{ss}, clip(ss), stc_flag, contrasts)');
         fid = fopen('vistasoft_log.txt', 'w+'); fprintf(fid, '%s', T); fclose(fid);
     catch
-        err_vec(ss) = 1;
+        err = 1;
     end
-    if err_vec(ss) == 1
+    if err == 1
         fprintf('Error in analysis of session %s. See fLocAnalysis_log.txt for more information. \n\n', sessions{ss});
     else
         fprintf('Completed analysis of session %s. \n\n', sessions{ss});
     end
-    clear global; % this is critical to prevent mixing of session parameters
+    clear global; % this is critical to prevent carryover of session params
+    err_vec(ss) = err;
 end
 cd(start_dir);
 fprintf('\nAnalysis finished without error in %i of %i sessions. \n', ...
     sum(~err_vec), length(err_vec));
 if sum(err_vec == 1) > 0
     sprintf('See fLocAnalyis_log.txt to debug errors in the analysis of %s. ', ...
-        strjoin(sessions(err_vec), ', '));
+        strjoin(sessions(err_vec == 1), ', '));
 end
 
 end

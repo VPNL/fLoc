@@ -167,17 +167,17 @@ fprintf(lid, 'Between-scan motion compensation complete. QA checks passed. \n\n'
 fprintf('Between-scan motion compensation complete. QA checks passed. \n\n');
 
 % remove spikes from each run of data with median filter
-fdir = fullfile(session_dir, 'Inplane', 'MotionComp_RefScan1', 'TSeries');
-fprintf(lid, 'Removing spikes from voxel time series. \n\n');
-fprintf('Removing spikes from voxel time series. \n\n');
-for rr = 1:rcnt
-    fstem = ['tSeriesScan' num2str(rr)];
-    nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
-    [x, y, z, t] = size(nii.vol); swin = ceil(3 / glm_params.framePeriod);
-    tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
-    nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
-    MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));
-end
+% fdir = fullfile(session_dir, 'Inplane', 'MotionComp_RefScan1', 'TSeries');
+% fprintf(lid, 'Removing spikes from voxel time series... \n\n');
+% fprintf('Removing spikes from voxel time series... \n\n');
+% for rr = 1:rcnt
+%     fstem = ['tSeriesScan' num2str(rr)];
+%     nii = niftiRead(fullfile(fdir, [fstem '.nii.gz']));
+%     [x, y, z, t] = size(nii.data); swin = ceil(3 / glm_params.framePeriod);
+%     tcs = medfilt1(reshape(permute(nii.data, [4 1 2 3]), t, []), swin, 'truncate');
+%     nii.data = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
+%     niftiWrite(nii, fullfile(fdir, [fstem '.nii.gz']));
+% end
 
 
 %% Analyze fMRI data and generate model parameter maps

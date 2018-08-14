@@ -1,0 +1,35 @@
+{
+  "name": "floc",
+  "label": "VPNL: fLoc - Face Localizer Analysis Pipeline",
+  "description": "Functional localizer experiment used to define category-selective cortical regions (published in Stigliani et al., 2015).",
+  "cite": "Temporal Processing Capacity in High-Level Visual Cortex Is Domain Specific. Anthony Stigliani, Kevin S. Weiner and Kalanit Grill-Spector. Journal of Neuroscience 9 September 2015, 35 (36) 12412-12424; DOI: https://doi.org/10.1523/JNEUROSCI.4822-14.2015",
+  "author": "Anthony Stigliani",
+  "maintainer": "Michael Perry <lmperry@stanford.edu",
+  "url": "https://github.com/VPNL/fLoc",
+  "source": "https://github.com/VPNL/fLoc",
+  "license": "Other",
+  "flywheel": {
+    "suite": "VPNL"
+  },
+  "version": "1.0.0_rc1",
+  "custom": {
+    "docker-image": "vpnl/floc:1.0.0_rc1"
+  },
+  "inputs": {
+    "api_key": {
+      "description": "User's api key",
+      "base": "api_key"
+    }
+  },
+  "config": {
+    "clip": {
+      "description": "Number of TRs to clip from the beginning of each run (int)",
+      "type": "integer"
+    },
+    "stc": {
+      "description": "slice time correction flag (logical; default = 0, no STC)",
+      "default": 0,
+      "type": "integer"
+    }
+  }
+}

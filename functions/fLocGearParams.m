@@ -20,9 +20,9 @@ function [init_params, glm_params] = fLocGearParams(session, clip, num_runs)
 init_params = mrInitDefaultParams;
 
 % necessary fields that can be modified by user
-init_params.inplane      % path to inplane file found by gear code (.nii.gz)
-init_params.functionals  % paths to fMRI data with filenames (.nii.gz)
-init_params.parfile      % paths to stimulus parameter files with filenames (.par)
+init_params.inplane      % char array, path to inplane file found by gear code (.nii.gz)
+init_params.functionals  % cell array, paths to fMRI data with filenames (.nii.gz)
+init_params.parfile      % cell array, paths to stimulus parameter files with filenames (.par)
 init_params.clip = clip; % int, number of TRs to clip from beginning of each run (initialize as 0)
 % for clipping TRs from countdown, default should be [2] for MUX and [countdown/TR] for non-MUX
 init_params.scanGroups = {1:num_runs}; % cell array of scan numbers to group

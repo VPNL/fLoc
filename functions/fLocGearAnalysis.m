@@ -4,7 +4,7 @@ function err = fLocGearAnalysis(session, clip, stc, contrasts)
 % version of the code is for analysis with a Flywheel gear. 
 % 
 % INPUTS
-% 1) session: name of session in ~/fLoc/data/ to analyze (string)
+% 1) session: session name in Flywheel (string)
 % 2) clip: number of TRs to clip from the beginning of each run (int)
 % 3) stc: slice time correction flag (logical; default = 0, no STC)
 % 4) contrasts (optional): custom user-defined contrasts (struct)

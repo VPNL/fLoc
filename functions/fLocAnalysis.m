@@ -170,10 +170,7 @@ fprintf('Removing spikes from voxel time series. \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
     nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
-    if nii.tr == 0
-        error('TR is set not specified in nifti');
-    end
-    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (nii.tr / 1000));
+    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (glm_params.framePeriod / 1000));
     tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
     nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
     MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));

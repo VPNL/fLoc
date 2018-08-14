@@ -57,36 +57,21 @@ if sum(strcmp(session, all_sessions)) ~= 1
     error(['Session ' session ' not found in ~/fLoc/data/.']);
 end
 
-% look for parfiles corresponding to each run of fMRI data
+% open logfile and count number of localizer runs
 session_dir = fullfile(data_dir, session);
 cd(session_dir); filenames = dir(session_dir); filenames = {filenames.name};
 lid = fopen('fLocAnalysis_log.txt', 'w+');
 fprintf(lid, 'Starting analysis for session %s. \n\n', session);
 fprintf('Starting analysis for session %s. \n\n', session);
-
-% apply cannonical transformation to nifti files and resave
-nfs = filenames(contains(filenames, '.nii.gz')); niifiles = {}; rcnt = 0;
+nfs = filenames(contains(filenames, '.nii.gz')); rcnt = 0;
 while sum(contains(lower(nfs), ['run' num2str(rcnt + 1) '.nii.gz'])) >= 1
-    nf_idx = find(contains(lower(nfs), ['run' num2str(rcnt + 1) '.nii.gz']), 1);
-    niifiles{rcnt + 1} = nfs{nf_idx}; rcnt = rcnt + 1;
+    rcnt = rcnt + 1;
 end
 if rcnt < 1
     fprintf(lid, 'Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
     fprintf('Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
     fclose(lid); return;
-else
-    for rr = 1:rcnt
-        nii = niftiApplyCannonicalXform(niftiRead(niifiles{rr}));
-        if nii.slice_dim ~= 3
-            fprintf(lid, 'Slice dimension is incorrect. Swapping dim %d to 3. ', nii.slice_dim);
-            fprintf('Slice dimension is incorrect. Swapping dim %d to 3. ', nii.slice_dim);
-            nii.slice_dim = 3;
-        end
-        niftiWrite(nii, niifiles{rr});
-    end
-    nslices = size(nii.data, 3);
 end
-niifiles = cellfun(@(X) fullfile(session_dir, X), niifiles, 'uni', false);
 pfs = filenames(contains(filenames, '.par')); parfiles = cell(1, rcnt); 
 for rr = 1:rcnt
     rp = find(contains(pfs, ['run' num2str(rr) '.par']));
@@ -94,17 +79,15 @@ for rr = 1:rcnt
         fprintf(lid, 'Error -- Missing stimulus parameter (.par) file for %s, run %i \nExited analysis.', session, rr);
         fprintf('Error -- Missing stimulus parameter (.par) file for %s, run %i \nExited analysis.', session, rr);
         fclose(lid); return;
-    else
-        parfiles{rr} = pfs{rp};
     end
 end
-parfiles = cellfun(@(X) fullfile(session_dir, X), parfiles, 'uni', false);
 
 
 %% Initialize session and preprocess fMRI data
 
 % get parameters for preprocessing and GLM analysis
-[init_params, glm_params] = fLocAnalysisParams(session, clip, rcnt);
+[init_params, glm_params] = fLocGearParams(session, clip, rcnt);
+nii = niftiRead(init_params.functionals{1}); nslices = size(nii.data, 3);
 
 % inititalize vistasoft session and open hidden inplane view
 fprintf(lid, 'Initializing vistasoft session directory in: \n%s \n\n', session_dir);
@@ -113,12 +96,13 @@ if exist(fullfile(session_dir, 'Inplane'), 'dir') ~= 7
     mrInit(init_params);
 end
 hi = initHiddenInplane('Original', 1);
+setpref('VISTA', 'verbose', false); % suppress wait bar
 
 % do slice timing correction assuming interleaved slice acquisition
 if stc
     fprintf(lid, 'Starting slice timing correction... \n');
     fprintf('Starting slice timing correction... \n');
-    if ~exist(fullfile(session_dir, 'Inplane', 'Timed'), 'dir') ~= 7
+    if ~(exist(fullfile(session_dir, 'Inplane', 'Timed'), 'dir') == 7)
         load(fullfile(session_dir, 'mrSESSION'));
         for rr = 1:rcnt
             mrSESSION.functionals(rr).sliceOrder = [1:2:nslices 2:2:nslices];
@@ -135,7 +119,6 @@ end
 % do within-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting within-scan motion compensation... \n');
 fprintf('Starting within-scan motion compensation... \n');
-setpref('VISTA', 'verbose', false); % suppress wait bar
 if exist(fullfile(session_dir, 'Images', 'Within_Scan_Motion_Est.fig'), 'file') ~= 2
     hi = motionCompSelScan(hi, 'MotionComp', 1:rcnt, ...
         init_params.motionCompRefFrame, init_params.motionCompSmoothFrames);
@@ -188,10 +171,7 @@ fprintf('Removing spikes from voxel time series. \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
     nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
-    if nii.tr == 0
-        error('TR is set not specified in nifti');
-    end
-    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (nii.tr / 1000));
+    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (glm_params.framePeriod / 1000));
     tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
     nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
     MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));

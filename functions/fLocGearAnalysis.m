@@ -72,7 +72,7 @@ if rcnt < 1
     fprintf('Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
     fclose(lid); return;
 end
-pfs = filenames(contains(filenames, '.par')); parfiles = cell(1, rcnt); 
+pfs = filenames(contains(filenames, '.par'));
 for rr = 1:rcnt
     rp = find(contains(pfs, ['run' num2str(rr) '.par']));
     if length(rp) ~= 1
@@ -208,7 +208,7 @@ bb = find(cond_num_list == 0); cond_num_list(bb) = []; cond_list(bb) = [];
 hi = initHiddenInplane('MotionComp_RefScan1', init_params.scanGroups{1}(1));
 hi = er_groupScans(hi, init_params.scanGroups{1});
 er_setParams(hi, glm_params);
-hi = er_assignParfilesToScans(hi, init_params.scanGroups{1}, parfiles);
+hi = er_assignParfilesToScans(hi, init_params.scanGroups{1}, init_params.parfile);
 saveSession; close all;
 
 % run GLM and compute default statistical contrasts

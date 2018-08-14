@@ -92,11 +92,11 @@ nii = niftiRead(init_params.functionals{1}); nslices = size(nii.data, 3);
 % inititalize vistasoft session and open hidden inplane view
 fprintf(lid, 'Initializing vistasoft session directory in: \n%s \n\n', session_dir);
 fprintf('Initializing vistasoft session directory in: \n%s \n\n', session_dir);
+setpref('VISTA', 'verbose', false); % suppress wait bar
 if exist(fullfile(session_dir, 'Inplane'), 'dir') ~= 7
     mrInit(init_params);
 end
 hi = initHiddenInplane('Original', 1);
-setpref('VISTA', 'verbose', false); % suppress wait bar
 
 % do slice timing correction assuming interleaved slice acquisition
 if stc
@@ -107,6 +107,7 @@ if stc
         for rr = 1:rcnt
             mrSESSION.functionals(rr).sliceOrder = [1:2:nslices 2:2:nslices];
         end
+        setpref('VISTA', 'verbose', false); % suppress wait bar
         saveSession; hi = initHiddenInplane('Original', 1);
         hi = AdjustSliceTiming(hi, 0, 'Timed');
         saveSession; close all;
@@ -119,6 +120,7 @@ end
 % do within-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting within-scan motion compensation... \n');
 fprintf('Starting within-scan motion compensation... \n');
+setpref('VISTA', 'verbose', false); % suppress wait bar
 if exist(fullfile(session_dir, 'Images', 'Within_Scan_Motion_Est.fig'), 'file') ~= 2
     hi = motionCompSelScan(hi, 'MotionComp', 1:rcnt, ...
         init_params.motionCompRefFrame, init_params.motionCompSmoothFrames);
@@ -171,7 +173,7 @@ fprintf('Removing spikes from voxel time series. \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
     nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
-    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (glm_params.framePeriod / 1000));
+    [x, y, z, t] = size(nii.vol); swin = ceil(3 / glm_params.framePeriod);
     tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
     nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
     MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));
@@ -183,7 +185,7 @@ end
 % complile list of all conditions in experiment
 [cond_nums, conds] = deal([]); cnt = 0;
 for rr = 1:rcnt
-    fid = fopen(parfiles{rr}, 'r');
+    fid = fopen(init_params.parfile{rr}, 'r');
     while ~feof(fid)
         ln = fgetl(fid); cnt = cnt + 1;
         if isempty(ln); return; end; ln(ln == sprintf('\t')) = '';

@@ -71,7 +71,7 @@ if rcnt < 1
     fprintf('Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
     fclose(lid); return;
 end
-pfs = filenames(contains(filenames, '.par')); parfiles = cell(1, rcnt); 
+pfs = filenames(contains(filenames, '.par'));
 for rr = 1:rcnt
     rp = find(contains(pfs, ['run' num2str(rr) '.par']));
     if length(rp) ~= 1
@@ -91,11 +91,11 @@ nii = niftiRead(init_params.functionals{1}); nslices = size(nii.data, 3);
 % inititalize vistasoft session and open hidden inplane view
 fprintf(lid, 'Initializing vistasoft session directory in: \n%s \n\n', session_dir);
 fprintf('Initializing vistasoft session directory in: \n%s \n\n', session_dir);
+setpref('VISTA', 'verbose', false); % suppress wait bar
 if exist(fullfile(session_dir, 'Inplane'), 'dir') ~= 7
     mrInit(init_params);
 end
 hi = initHiddenInplane('Original', 1);
-setpref('VISTA', 'verbose', false); % suppress wait bar
 
 % do slice timing correction assuming interleaved slice acquisition
 if stc
@@ -106,6 +106,7 @@ if stc
         for rr = 1:rcnt
             mrSESSION.functionals(rr).sliceOrder = [1:2:nslices 2:2:nslices];
         end
+        setpref('VISTA', 'verbose', false); % suppress wait bar
         saveSession; hi = initHiddenInplane('Original', 1);
         hi = AdjustSliceTiming(hi, 0, 'Timed');
         saveSession; close all;
@@ -118,6 +119,7 @@ end
 % do within-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting within-scan motion compensation... \n');
 fprintf('Starting within-scan motion compensation... \n');
+setpref('VISTA', 'verbose', false); % suppress wait bar
 if exist(fullfile(session_dir, 'Images', 'Within_Scan_Motion_Est.fig'), 'file') ~= 2
     hi = motionCompSelScan(hi, 'MotionComp', 1:rcnt, ...
         init_params.motionCompRefFrame, init_params.motionCompSmoothFrames);
@@ -165,12 +167,12 @@ fprintf('Between-scan motion compensation complete. QA checks passed. \n\n');
 
 % remove spikes from each run of data with median filter
 fdir = fullfile(session_dir, 'Inplane', 'MotionComp_RefScan1', 'TSeries');
-fprintf(lid, 'Removing spikes from voxel time series. \n\n');
-fprintf('Removing spikes from voxel time series. \n\n');
+fprintf(lid, 'Removing spikes from voxel time series... \n\n');
+fprintf('Removing spikes from voxel time series... \n\n');
 for rr = 1:rcnt
     fstem = ['tSeriesScan' num2str(rr)];
     nii = MRIread(fullfile(fdir, [fstem '.nii.gz']));
-    [x, y, z, t] = size(nii.vol); swin = ceil(3 / (glm_params.framePeriod / 1000));
+    [x, y, z, t] = size(nii.vol); swin = ceil(3 / glm_params.framePeriod);
     tcs = medfilt1(reshape(permute(nii.vol, [4 1 2 3]), t, []), swin, 'truncate');
     nii.vol = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
     MRIwrite(nii, fullfile(fdir, [fstem '.nii.gz']));
@@ -182,7 +184,7 @@ end
 % complile list of all conditions in experiment
 [cond_nums, conds] = deal([]); cnt = 0;
 for rr = 1:rcnt
-    fid = fopen(parfiles{rr}, 'r');
+    fid = fopen(init_params.parfile{rr}, 'r');
     while ~feof(fid)
         ln = fgetl(fid); cnt = cnt + 1;
         if isempty(ln); return; end; ln(ln == sprintf('\t')) = '';
@@ -205,7 +207,7 @@ bb = find(cond_num_list == 0); cond_num_list(bb) = []; cond_list(bb) = [];
 hi = initHiddenInplane('MotionComp_RefScan1', init_params.scanGroups{1}(1));
 hi = er_groupScans(hi, init_params.scanGroups{1});
 er_setParams(hi, glm_params);
-hi = er_assignParfilesToScans(hi, init_params.scanGroups{1}, parfiles);
+hi = er_assignParfilesToScans(hi, init_params.scanGroups{1}, init_params.parfile);
 saveSession; close all;
 
 % run GLM and compute default statistical contrasts

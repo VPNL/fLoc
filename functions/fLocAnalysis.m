@@ -1,98 +1,80 @@
-function err = fLocAnalysis(session, clip, stc, contrasts)
+function err = fLocAnalysis(session, init_params, glm_params, clip, stc)
 % Automated analysis of fMRI data from fLoc funcional localizer experiment 
 % using vistasoft functions (https://github.com/vistalab/vistasoft). 
 % 
 % INPUTS
 % 1) session: name of session in ~/fLoc/data/ to analyze (string)
-% 2) clip: number of TRs to clip from the beginning of each run (int)
-% 3) stc: slice time correction flag (logical; default = 0, no STC)
-% 4) contrasts (optional): custom user-defined contrasts (struct)
-%      contrasts(N).active  -- active condition numbers for Nth contrast
-%      contrasts(N).control -- control condition numbers for Nth contrast
+% 2) init_params: optional preprocessing parameters (struct)
+% 3) glm_parms: optional GLM analysis parameters (struct)
+% 4) clip: optional number of TRs to clip from beginnning of each run (int)
+% 5) stc: optional flag controlling slice time correction (logical)
 %
-% OUTPUTS
+% OUTPUT
 % 1) err: 1 if analysis terminated with an error, 0 if analysis completed
 % 
 % By default the code generates the following voxel-wise parameters maps: 
 % Beta values, model residual error, proportion of variance explained, and
 % GLM contrasts (t-values). All parameter maps are saved as .mat files in 
-% ~/fLoc/data/*/Inplane/GLMs/ and can be viewed in vistasoft. The code also
+% session/Inplane/GLMs/ and can be viewed in vistasoft. The code also 
 % writes a file named "fLocAnalysis_log.txt" that logs progress of the 
 % analysis in vistasoft.
 % 
-% AS 7/2018
+% AS 8/2018
 
 
-%% Check and validate inputs and path to vistasoft
+%% Check inputs and get analysis parameters
 
-% check for missing or empty inputs
 err = 1;
-if nargin < 1 || isempty(session)
-    error('Missing "session" argument: specify a session directory in ~/fLoc/data/.');
-end
-if nargin < 2 || isempty(clip)
-    error('Missing "clip" argument: specify how many TRs to clip from beginning of each run.')
-end
-if nargin < 3 || isempty(stc)
-    stc = 0;
-end
-if nargin < 4 || isempty(contrasts)
-    contrasts = [];
-end
-if isempty(which('mrVista'))
-    vista_path = 'https://github.com/vistalab/vistasoft';
-    error(['Add vistasoft to your matlab path: ' vista_path]);
-end
 
-% standardize and validate session argument
-data_dir = fullfile(fileparts(fileparts(mfilename('fullpath'))), 'data');
-dd = dir(data_dir); all_sessions = {dd([dd.isdir]).name};
-if length(all_sessions) < 3
-    error('No valid session data directories found in ~/fLoc/data/.');
+% check session argument and get session_id
+if nargin < 1 || isempty(session) || ~(exist(session, 'dir') == 7)
+    fprintf('Error: path to "session" data directory not found. \n\n'); return;
 else
-    all_sessions = all_sessions(3:end);
-end
-if sum(strcmp(session, all_sessions)) ~= 1
-    error(['Session ' session ' not found in ~/fLoc/data/.']);
+    [~, session_id] = fileparts(session);
 end
 
-% open logfile and count number of localizer runs
-session_dir = fullfile(data_dir, session);
-cd(session_dir); filenames = dir(session_dir); filenames = {filenames.name};
-lid = fopen('fLocAnalysis_log.txt', 'w+');
-fprintf(lid, 'Starting analysis for session %s. \n\n', session);
-fprintf('Starting analysis for session %s. \n\n', session);
-nfs = filenames(contains(filenames, '.nii.gz')); rcnt = 0;
-while sum(contains(lower(nfs), ['run' num2str(rcnt + 1) '.nii.gz'])) >= 1
-    rcnt = rcnt + 1;
+% check and set defaults for clip and stc arguements
+if nargin < 4 || isempty(clip); clip = 0; end
+if rem(clip, 1) ~= 0
+    fprintf('Error: clip arguement must be an integer. \n\n'); return;
 end
-if rcnt < 1
-    fprintf(lid, 'Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
-    fprintf('Error -- No fMRI data (.nii.gz) files found in: \n%s \nExited analysis.', session_dir);
-    fclose(lid); return;
+if nargin < 5 || isempty(stc); stc = true; end
+if stc == 1; stc = true; end
+if stc == 0; stc = false; end
+if ~islogical(stc)
+    fprintf('Error: stc arguement must be a logical. \n\n'); return;
 end
-pfs = filenames(contains(filenames, '.par'));
-for rr = 1:rcnt
-    rp = find(contains(pfs, ['run' num2str(rr) '.par']));
-    if length(rp) ~= 1
-        fprintf(lid, 'Error -- Missing stimulus parameter (.par) file for %s, run %i \nExited analysis.', session, rr);
-        fprintf('Error -- Missing stimulus parameter (.par) file for %s, run %i \nExited analysis.', session, rr);
-        fclose(lid); return;
-    end
+
+% set preprocessing parameters if not provided
+if nargin < 2 || isempty(init_params)
+    [~, init_params, dglm_params] = fLocAnalysisParams(session, clip, stc);
 end
+
+% set GLM analysis parameters if not provided
+if nargin < 3 || isempty(glm_params)
+    glm_params = dglm_params;
+end
+
+% apply canonical transformation to .nii.gz files
+for rr = 1:length(init_params.functionals)
+    niftiWrite(niftiApplyCannonicalXform(niftiRead(init_params.functionals{rr})));
+end
+niftiWrite(niftiApplyCannonicalXform(niftiRead(init_params.inplane)));
+nii = niftiRead(init_params.functionals{1}); nslices = size(nii.data, 3);
+
+% open logfile to track progress of analysis
+lid = fopen(fullfile(session, 'fLocAnalysis_log.txt'), 'w+');
+fprintf(lid, 'Starting analysis for session %s. \n\n', session_id);
+fprintf('Starting analysis for session %s. \n\n', session_id);
 
 
 %% Initialize session and preprocess fMRI data
 
-% get parameters for preprocessing and GLM analysis
-[init_params, glm_params] = fLocAnalysisParams(session, clip, rcnt);
-nii = niftiRead(init_params.functionals{1}); nslices = size(nii.data, 3);
-
 % inititalize vistasoft session and open hidden inplane view
-fprintf(lid, 'Initializing vistasoft session directory in: \n%s \n\n', session_dir);
-fprintf('Initializing vistasoft session directory in: \n%s \n\n', session_dir);
+fprintf(lid, 'Initializing vistasoft session directory in: \n%s \n\n', session);
+fprintf('Initializing vistasoft session directory in: \n%s \n\n', session);
 setpref('VISTA', 'verbose', false); % suppress wait bar
-if exist(fullfile(session_dir, 'Inplane'), 'dir') ~= 7
+if exist(fullfile(session, 'Inplane'), 'dir') ~= 7
     mrInit(init_params);
 end
 hi = initHiddenInplane('Original', 1);
@@ -101,9 +83,9 @@ hi = initHiddenInplane('Original', 1);
 if stc
     fprintf(lid, 'Starting slice timing correction... \n');
     fprintf('Starting slice timing correction... \n');
-    if ~(exist(fullfile(session_dir, 'Inplane', 'Timed'), 'dir') == 7)
-        load(fullfile(session_dir, 'mrSESSION'));
-        for rr = 1:rcnt
+    if ~(exist(fullfile(session, 'Inplane', 'Timed'), 'dir') == 7)
+        load(fullfile(session, 'mrSESSION'));
+        for rr = 1:length(init_params.functionals)
             mrSESSION.functionals(rr).sliceOrder = [1:2:nslices 2:2:nslices];
         end
         setpref('VISTA', 'verbose', false); % suppress wait bar
@@ -120,14 +102,14 @@ end
 fprintf(lid, 'Starting within-scan motion compensation... \n');
 fprintf('Starting within-scan motion compensation... \n');
 setpref('VISTA', 'verbose', false); % suppress wait bar
-if exist(fullfile(session_dir, 'Images', 'Within_Scan_Motion_Est.fig'), 'file') ~= 2
-    hi = motionCompSelScan(hi, 'MotionComp', 1:rcnt, ...
+if exist(fullfile(session, 'Images', 'Within_Scan_Motion_Est.fig'), 'file') ~= 2
+    hi = motionCompSelScan(hi, 'MotionComp', 1:length(init_params.functionals), ...
         init_params.motionCompRefFrame, init_params.motionCompSmoothFrames);
     saveSession; close all;
 end
-fig = openfig(fullfile(session_dir, 'Images', 'Within_Scan_Motion_Est.fig'), 'invisible');
+fig = openfig(fullfile(session, 'Images', 'Within_Scan_Motion_Est.fig'), 'invisible');
 L = get(get(fig, 'Children'), 'Children');
-for rr = 1:rcnt
+for rr = 1:length(init_params.functionals)
     motion_est = L{rr + 1}.YData;
     if max(motion_est(:)) > 2
         fprintf(lid, 'Warning -- Within-scan motion exceeds 2 voxels. \nExited analysis.');
@@ -141,16 +123,18 @@ fprintf('Within-scan motion compensation complete. QA checks passed. \n\n');
 % do between-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting between-scan motion compensation... \n');
 fprintf('Starting between-scan motion compensation... \n');
-if exist(fullfile(session_dir, 'Between_Scan_Motion.txt'), 'file') ~= 2
-    hi = initHiddenInplane('MotionComp', 1); baseScan = 1; targetScans = 1:rcnt;
+if exist(fullfile(session, 'Between_Scan_Motion.txt'), 'file') ~= 2
+    hi = initHiddenInplane('MotionComp', 1);
+    baseScan = 1; targetScans = 1:length(init_params.functionals);
     [hi, M] = betweenScanMotComp(hi, 'MotionComp_RefScan1', baseScan, targetScans);
-    fname = fullfile('Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
+    fname = fullfile(session, 'Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
     save(fname, 'M', 'baseScan', 'targetScans');
     hi = selectDataType(hi, 'MotionComp_RefScan1');
     saveSession; close all;
 end
-fid = fopen('Between_Scan_Motion.txt', 'r'); motion_est = zeros(rcnt - 1, 3);
-for rr = 1:rcnt - 1
+fid = fopen(fullfile(session, 'Between_Scan_Motion.txt', 'r'));
+motion_est = zeros(length(init_params.functionals) - 1, 3);
+for rr = 1:length(init_params.functionals) - 1
     ln = strsplit(fgetl(fid), ' ');
     motion_est(rr, 1) = str2double(ln{8});
     motion_est(rr, 2) = str2double(ln{11});
@@ -165,25 +149,12 @@ end
 fprintf(lid, 'Between-scan motion compensation complete. QA checks passed. \n\n');
 fprintf('Between-scan motion compensation complete. QA checks passed. \n\n');
 
-% remove spikes from each run of data with median filter
-% fdir = fullfile(session_dir, 'Inplane', 'MotionComp_RefScan1', 'TSeries');
-% fprintf(lid, 'Removing spikes from voxel time series... \n\n');
-% fprintf('Removing spikes from voxel time series... \n\n');
-% for rr = 1:rcnt
-%     fstem = ['tSeriesScan' num2str(rr)];
-%     nii = niftiRead(fullfile(fdir, [fstem '.nii.gz']));
-%     [x, y, z, t] = size(nii.data); swin = ceil(3 / glm_params.framePeriod);
-%     tcs = medfilt1(reshape(permute(nii.data, [4 1 2 3]), t, []), swin, 'truncate');
-%     nii.data = permute(reshape(tcs, t, x, y, z), [2 3 4 1]);
-%     niftiWrite(nii, fullfile(fdir, [fstem '.nii.gz']));
-% end
-
 
 %% Analyze fMRI data and generate model parameter maps
 
 % complile list of all conditions in experiment
 [cond_nums, conds] = deal([]); cnt = 0;
-for rr = 1:rcnt
+for rr = 1:length(init_params.functionals)
     fid = fopen(init_params.parfile{rr}, 'r');
     while ~feof(fid)
         ln = fgetl(fid); cnt = cnt + 1;
@@ -232,23 +203,11 @@ else
             contrast_name, 'mapUnits','T');
     end
 end
-fprintf(lid, 'Default GLM parameter maps saved in: \n%s/GLMs/... \n\n', session_dir);
-fprintf('Default GLM parameter maps saved in: \n%s/GLMs/... \n\n', session_dir);
+fprintf(lid, 'GLM parameter maps saved in: \n%s/GLMs/... \n\n', session);
+fprintf('GLM parameter maps saved in: \n%s/GLMs/... \n\n', session);
 
-% compute custom user-defined contrast maps
-if isstruct(contrasts)
-    for cc = 1:length(contrasts)
-        active_conds = strcat(cond_list{contrasts(cc).active});
-        control_conds = strcat(cond_list{contrasts(cc).control});
-        contrast_name = [active_conds '_vs_' control_conds];
-        hi = computeContrastMap2(hi, contrasts(cc).active, ...
-            contrasts(cc).control, contrast_name, 'mapUnits','T');
-    end
-    fprintf(lid, 'Custom GLM contrast maps saved in: \n%s/GLMs/... \n\n', session_dir);
-    fprintf('Custom GLM contrast maps saved in: \n%s/GLMs/... \n\n', session_dir);
-end
-fprintf(lid, 'fLocAnalsis for %s is complete! \n', session);
-fprintf('fLocAnalsis for %s is complete! \n', session); fclose(lid);
+fprintf(lid, 'fLocAnalsis for %s is complete! \n', session_id);
+fprintf('fLocAnalsis for %s is complete! \n', session_id); fclose(lid);
 err = 0;
 
 end

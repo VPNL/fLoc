@@ -1,15 +1,15 @@
-function [init_params, glm_params] = fLocGearParams(session, clip, num_runs)
+function [session, init_params, glm_params] = fLocGearRun(session, config)
 % Generate data structures of vistasoft parameters for preprocessing and 
 % analyzing fLoc data with a GLM using a Flywheel gear. 
 %
 % INPUTS
-% 1) session -- Flywheel exam number (char array)
-% 2) clip -- number of TRs to clip from the beginning of each run (int)
-% 3) num_runs -- number of localizer runs to analyze (int)
+% 1) session -- path to data directory in Flywheel (char array)
+% 2) config -- path to Flywheel config file (char array)
 % 
 % OUPUTS
-% 1) init_params -- parameters for initialization/preprocessing (struct)
-% 2) glm_params -- parameters for running GLM analysis (struct)
+% 1) session -- path to data directory in Flywheel (char array)
+% 2) init_params -- parameters for initialization/preprocessing (struct)
+% 3) glm_params -- parameters for running GLM analysis (struct)
 % 
 % AS 8/2018
 

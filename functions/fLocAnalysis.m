@@ -132,7 +132,7 @@ if exist(fullfile(session, 'Between_Scan_Motion.txt'), 'file') ~= 2
     hi = selectDataType(hi, 'MotionComp_RefScan1');
     saveSession; close all;
 end
-fid = fopen(fullfile(session, 'Between_Scan_Motion.txt', 'r'));
+fid = fopen(fullfile(session, 'Between_Scan_Motion.txt'), 'r');
 motion_est = zeros(length(init_params.functionals) - 1, 3);
 for rr = 1:length(init_params.functionals) - 1
     ln = strsplit(fgetl(fid), ' ');

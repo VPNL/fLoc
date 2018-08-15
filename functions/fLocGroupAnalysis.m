@@ -53,7 +53,7 @@ start_dir = pwd; err_vec = zeros(1, length(sessions));
 for ss = 1:length(sessions)
     try
         fprintf('\nStarting analysis of session %s. \n', sessions{ss});
-        [T, err] = evalc('fLocAnalysis(sessions{ss}, clip(ss), stc)');
+        [T, err] = evalc('fLocAnalysis(sessions{ss}, [], [], clip(ss), stc)');
         fid = fopen(fullfile(sessions{ss}, 'vistasoft_log.txt'), 'w+');
         fprintf(fid, '%s', T); fclose(fid);
     catch

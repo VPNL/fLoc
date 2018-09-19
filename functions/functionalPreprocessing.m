@@ -1,33 +1,20 @@
-function err = fLocAnalysis(session, init_params, glm_params, clip, QA)
-% Automated analysis of fMRI data from fLoc funcional localizer experiment 
+function err = functionalPreprocessing(session, init_params, clip, stc, QA)
+% Automated preprocessing of fMRI data 
 % using vistasoft functions (https://github.com/vistalab/vistasoft). 
 % 
-% INPUTS fLocAnalysis(session, init_params, glm_params, clip, QA)
-% 1) session: name of session in ~/fLoc/data/ to analyze (string)
+% INPUTS functionalPrepcrocessing(session, init_params, clip, stc, QA)
+% 1) session: name of session to analyze (string)
 % 2) init_params: optional preprocessing parameters (struct)
-% 3) glm_parms: optional GLM analysis parameters (struct)
-% 4) clip: optional number of TRs to clip from beginnning of each run (int)
+% 3) clip: optional number of TRs to clip from beginnning of each run (int)
+% 4) stc: optional flag controlling slice time correction (logical)
 % 5) QA: optional flag controlling whether analysis exists if QA checks
 % fail (logical)
 %
-% OUTPUT
-% 1) err: 1 if analysis terminated with an error, 0 if analysis completed
-% 
-% By default the code generates the following voxel-wise parameters maps: 
-% Beta values, model residual error, proportion of variance explained, and
-% GLM contrasts (t-values). All parameter maps are saved as .mat files in 
-% session/Inplane/GLMs/ and can be viewed in vistasoft. The code also 
-% writes a file named "fLocAnalysis_log.txt" that logs progress of the 
-% analysis in vistasoft.
-% 
-% AS 8/2018
 
-% Parfiles must be organized such that like conditions that you would like
-% to be contrasted with all other conditions are grouped in twos. In other
-% words, if the localizer uses both adult and child face conditions, they
-% should be listed as, for instance, condition numbers 1 and 2, instead of
-% 2 and 3 or 1 and 4.
+% AS 8/2018
 % AR 09/2018
+% MN 09/2018
+
 
 %% Check inputs and get analysis parameters
 
@@ -40,17 +27,20 @@ else
     [~, session_id] = fileparts(session);
 end
 
-% check and set defaults for clip arguement
+% check and set defaults for clip and stc arguements
 if nargin < 4 || isempty(clip); clip = 0; end
 if rem(clip, 1) ~= 0
     fprintf('Error: clip arguement must be an integer. \n\n'); return;
 end
-
+if nargin < 5 || isempty(stc); stc = true; end
 if nargin < 6 || isempty(QA); QA = false; end
-
+if stc == 1; stc = true; end
+if stc == 0; stc = false; end
 if QA == 1; QA = true; end
 if QA == 0; QA = false; end
-
+if ~islogical(stc)
+    fprintf('Error: stc argument must be a logical. \n\n'); return;
+end
 if ~islogical(QA)
     fprintf('Error: QA argument must be a logical. \n\n'); return;
 end
@@ -60,20 +50,13 @@ cd(session)
 
 % set preprocessing parameters if not provided
 if nargin < 2 || isempty(init_params)
-    [~, init_params, dglm_params] = fLocAnalysisParams(session, clip);
+    [~, init_params] = preprocessingParams(session, clip, stc);
 end
 
-% set GLM analysis parameters if not provided
-if nargin < 3 || isempty(glm_params)
-    glm_params = dglm_params;
-end
-
-% save params
-save fLocAnalysisParams.mat init_params glm_params
 
 % apply canonical transformation to .nii.gz files
 for rr = 1:length(init_params.functionals)
-    %init_params.glmParams{rr} = glm_params;
+  
     niftiWrite(niftiApplyCannonicalXform(niftiRead(init_params.functionals{rr})));
 end
 
@@ -81,7 +64,7 @@ niftiWrite(niftiApplyCannonicalXform(niftiRead(init_params.inplane)));
 nii = niftiRead(init_params.functionals{1}); nslices = size(nii.data, 3);
 
 % open logfile to track progress of analysis
-logFileName = fullfile(session, 'fLocAnalysis_log.txt');
+logFileName = fullfile(session, 'preprocessing_log.txt');
 lid = fopen(logFileName, 'w+');
 fprintf(lid, 'Starting analysis for session %s. \n\n', session_id);
 fprintf('Starting analysis for session %s. \n\n', session_id);
@@ -99,6 +82,25 @@ end
 
 hi = initHiddenInplane('Original', 1);
 
+
+% do slice timing correction assuming interleaved slice acquisition
+if stc
+    fprintf(lid, 'Starting slice timing correction... \n');
+    fprintf('Starting slice timing correction... \n');
+    if ~(exist(fullfile(session, 'Inplane', 'Timed'), 'dir') == 7)
+        load(fullfile(session, 'mrSESSION'));
+        for rr = 1:length(init_params.functionals)
+            mrSESSION.functionals(rr).sliceOrder = [1:2:nslices 2:2:nslices];
+        end
+        setpref('VISTA', 'verbose', false); % suppress wait bar
+        saveSession; hi = initHiddenInplane('Original', 1);
+        hi = AdjustSliceTiming(hi, 0, 'Timed',mrSESSION.functionals(1).sliceOrder);
+        saveSession; close all;
+    end
+    fprintf(lid, 'Slice timing correction complete. \n\n');
+    fprintf('Slice timing correction complete. \n\n');
+    hi = initHiddenInplane('Timed', 1);
+end
 
 % do within-scan motion compensation and check for motion > 2 voxels
 fprintf(lid, 'Starting within-scan motion compensation... \n');
@@ -169,65 +171,11 @@ end
 fprintf(lid, 'Between-scan motion compensation complete.\n\n');
 fprintf('Between-scan motion compensation complete.\n\n');
 
-%% Analyze fMRI data and generate model parameter maps
-
-% complile list of all conditions in experiment
-[cond_nums, conds] = deal([]); cnt = 0;
-for rr = 1:length(init_params.functionals)
-    fid = fopen(init_params.parfile{rr}, 'r');
-    while ~feof(fid)
-        ln = fgetl(fid); cnt = cnt + 1;
-        if isempty(ln); return; end; ln(ln == sprintf('\t')) = '';
-        prts = deblank(strsplit(ln, ' ')); prts(cellfun(@isempty, prts)) = [];
-        cond_nums(cnt) = str2double(prts{2});
-        conds{cnt} = prts{3};
-    end
-    fclose(fid);
-end
-
-% make a list of unique condition numbers and corresponding condition names
-cond_num_list = unique(cond_nums); cond_list = cell(1, length(cond_num_list));
-for cc = 1:length(cond_num_list)
-    cond_list{cc} = conds{find(cond_nums == cond_num_list(cc), 1)};
-end
-% remove baseline from lists of conditions
-bb = find(cond_num_list == 0); cond_num_list(bb) = []; cond_list(bb) = [];
-
-% group scans of preprocessed data and set event-related parameters
-hi = initHiddenInplane('MotionComp_RefScan1', init_params.scanGroups{1}(1));
-hi = er_groupScans(hi, init_params.scanGroups{1});
-er_setParams(hi, glm_params);
-hi = er_assignParfilesToScans(hi, init_params.scanGroups{1}, init_params.parfile);
-saveSession; close all;
+%% Write parameters to logfile 
 
 
-% run GLM and compute default statistical contrasts
-fprintf(lid, 'Performing GLM analysis for %s... \n\n', session);
-fprintf('Performing GLM analysis for %s... \n\n', session);
-hi = initHiddenInplane('MotionComp_RefScan1', init_params.scanGroups{1}(1));
-hi = applyGlm(hi, 'MotionComp_RefScan1', init_params.scanGroups{1}, glm_params);
-hi = initHiddenInplane('GLMs', 1);
-if length(cond_num_list) == 10
-    for cc = 1:2:length(cond_num_list)
-        active_conds = [cc cc + 1];
-        control_conds = setdiff(cond_num_list, active_conds);
-        contrast_name = [strcat(cond_list{cc:cc + 1}) '_vs_all'];
-        hi = computeContrastMap2(hi, active_conds, control_conds, ...
-            contrast_name, 'mapUnits','T');
-    end
-else
-    for cc = 1:length(cond_num_list)
-        active_conds = cc; control_conds = cond_num_list(cond_num_list ~= cc);
-        contrast_name = [cond_list{cc} '_vs_all'];
-        hi = computeContrastMap2(hi, active_conds, control_conds, ...
-            contrast_name, 'mapUnits','T');
-    end
-end
-fprintf(lid, 'GLM parameter maps saved in: \n%s/GLMs/... \n\n', session);
-fprintf('GLM parameter maps saved in: \n%s/GLMs/... \n\n', session);
-
-fprintf(lid, 'fLocAnalsis for %s is complete! \n\n', session_id);
-fprintf('fLocAnalsis for %s is complete! \n', session_id); 
+fprintf(lid, 'Preprocessing for %s is complete! \n\n', session_id);
+fprintf('Preprocessing for %s is complete! \n', session_id); 
 
 % add MATLAB and Mr Vista Version to logfile 
 fprintf(lid,['---------------------------------------------------','\n\n']);
@@ -251,18 +199,14 @@ fprintf(lid,['---------------------------------------------------','\n\n']);
 % scan params
 for l = 1:length(dataTYPES(1).scanParams), fprintf(lid,['Original data type scan ',num2str(l),' params:\n\n',l,evalc( 'disp(dataTYPES(1).scanParams(l))' )]), end
 
-fprintf(lid,['GLM data type scan params:\n\n',evalc('disp(dataTYPES(4).scanParams)')]);
-
 fprintf(lid,['---------------------------------------------------','\n\n']);
 
-% GLM params
-fprintf(lid,['Event analysis parameters used\n\n',evalc('disp(dataTYPES(length(dataTYPES)).eventAnalysisParams)')]);
 
 % close file
 fclose(lid);
 err = 0;
 
-%Move cd back to fLoc from session
+%Move cd back from session
 cd ..
 
 %Clear workspace

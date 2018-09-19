@@ -1,24 +1,24 @@
-function [session, init_params, glm_params] = fLocAnalysisParams(session, clip)
-% Generate data structures of vistasoft parameters for preprocessing and 
-% analyzing fLoc data with a GLM. 
+function [session, init_params] = preprocessingParams(session, clip, stc)
+% Generate data structures of vistasoft parameters for preprocessing
 %
 % INPUTS
-% 1) session: name of session in ~/fLoc/data/ to analyze (string)
+% 1) session: name of session to analyze (string)
 % 2) clip: number of TRs to clip from beginnning of each run (int)
-
+% 3) stc: flag controlling slice time correction (logical)
 % 
 % OUPUTS
-% 1) session -- name of session in ~/fLoc/data/ to analyze (string)
+% 1) session -- name of session to analyze (string)
 % 2) init_params -- parameters for initialization/preprocessing (struct)
-% 3) glm_params -- parameters for running GLM analysis (struct)
 % 
 % AS 8/2018
+% AR 9/2018
+% MN 9/2018
 
 
 %% Initialize default parameters for preprocessing and GLM anlaysis
 
 init_params = mrInitDefaultParams;
-glm_params = er_defaultParams;
+
 
 
 %% Find paths to data and stimulus files
@@ -89,7 +89,7 @@ init_params.motionCompRefScan      = 1; % run number of reference scan for betwe
 
 % necessary fields that cannot be modified (maybe these can be hidden)
 init_params.sessionCode = session_id; % char array, local session data directory
-init_params.doAnalParams      = 1; % logical, set GLM analysis parameters during intialization
+init_params.doAnalParams      = 0; % logical, set GLM analysis parameters during intialization
 init_params.doSkipFrames      = 1; % logical, clip countdown frames during initialization
 init_params.doPreprocessing   = 1; % logcial, do some preprocessing during initialization
 init_params.applyGlm          = 0; % logical, apply GLM during initialization
@@ -110,27 +110,4 @@ init_params.annotations = annotations; % cell array of descriptions for each run
 init_params.sessionDir = session;
 
 
-%% Initialize and modify GLM analysis parameters
-
-% necessary fields that can be modified by user
-glm_params.detrend       = 1;  % detrending procedure: -1 = linear, 0 = do nothing, 1 = high-pass filter, 2 = quadratic
-glm_params.detrendFrames = 20; % cutoff for high-pass filter in cycles/run (if glm_params.detrend = 1)
-glm_params.inhomoCorrect = 1;  % time series transforamtion: 0 = do nothing, 1 = divide by mean and convert to PSC, 2 = divide by baseline
-glm_params.glmHRF        = 3;  % set the HRF: 0 = deconvolve, 1 = estimate HRF from mean response, 2 = Boynton 1996, 3 = SPM, 4 = Dale 1999; default = 3
-glm_params.glmWhiten     = 0;  % logical, controls whitening of data for GLM analysis
-
-% necessary fields that cannot be modified by user
-glm_params.eventAnalysis  = 1;   % logical, run a standard GLM
-glm_params.lowPassFilter  = 0;   % logical, do low-pass filtering
-glm_params.framePeriod    = TR;  % TR of fMRI data in seconds
-glm_params.eventsPerBlock = epb; % int, number of TRs per block; can be calculated from parfile and TR
-
-% visulization parameters that do not affect GLM fits
-glm_params.ampType    = 'betas'; % type of response amplitudes to visualize: 'difference' (raw), 'betas' (GLM betas), or 'deconvolved'
-glm_params.timeWindow = -4:16;   % time window for brute-force averaging of conditions
-glm_params.peakPeriod = 6:8;     % time window to estimate peak response
-glm_params.bslPeriod  = -4:0;    % time window to estiamte baseline response
-
-% annotation
-glm_params.annotation = sprintf('LocalizerGLM_%iruns',length(init_params.functionals));
 end

@@ -26,6 +26,13 @@ function fLocAnalysisWrapper(sessions, clip, stc, QA)
 % 
 % AS 7/2018
 
+% check for correct MATLAB version
+vers = version;
+year = str2num(vers(end-5:end-2));
+if year < 2016
+    fprintf('Error: fLocAnalysis requires MATLAB version 2016 or later');
+    return;
+end
 
 %% Check and validate inputs and path to vistasoft
 

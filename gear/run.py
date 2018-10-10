@@ -41,7 +41,7 @@ def get_timestamp_delta(timestamp, reference, absolute_value=False):
         return delta.total_seconds()
 
 
-def fLoc_data(config=None, data_dir='/flywheel/v0/output/'):
+def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
 
     # Get the container info from the config doc
     analysis_id = str(config['destination']['id'])
@@ -63,7 +63,7 @@ def fLoc_data(config=None, data_dir='/flywheel/v0/output/'):
     session = fw.get_session(parent_session_id)
     session_acquisitions = fw.get_session_acquisitions(parent_session_id)
 
-    data_dir = os.path.join(data_dir, 'fLoc', session['label'])
+    data_dir = os.path.join(out_dir, 'fLoc', session['label'])
     print('Data dir set to: %s' % (data_dir))
     if not os.path.isdir(data_dir):
         os.makedirs(data_dir)
@@ -113,24 +113,33 @@ def fLoc_data(config=None, data_dir='/flywheel/v0/output/'):
 
 
     # FIND IN-PLANE SCAN
-    # TODO: Find the correct inplane when one or more exist.
+    inplanes = []
     for a in session_acquisitions_full:
         for f in a['files']:
-            if f['classification'].has_key('Features') and 'In-Plane' in f['classification']['Features']:
-                nifti = [ x for x in a['files'] if x['type'] == 'nifti' ]
-                if nifti and len(nifti) == 1:
-                    nifti = nifti[0]
-                    nifti_rename = 'Inplane.nii.gz'
-                    this_input = {'nifti': nifti['name'],
-                                  'nifti_out_name': nifti_rename,
-                                  'acquisition_id': a['_id'],
-                                  'label': a['label'],
-                                  'timestamp': a['timestamp'].strftime('%Y-%m-%dT%H:%M:%S')}
-                    input_files.append(this_input)
-                    print('Found associated inplane file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
-                    fw.download_file_from_acquisition(a['_id'],
-                                                      f['name'],
-                                                      os.path.join(data_dir, nifti_rename))
+            if f['classification'] and f['classification'].has_key('Features') and 'In-Plane' in f['classification']['Features']:
+                inplanes.append(a)
+
+    if inplanes and len(inplanes) >1:
+        print('More than one Inplane acquisition was found!!!')
+
+    # Find the correct inplane when one or more exist, making the assumption that
+    # the last inplane is the one we actually want to use.
+    inplanes_sorted = sorted(inplanes, key=lambda k: k['timestamp'])
+    inplane = inplanes_sorted[-1]
+    nifti = [ x for x in inplane['files'] if x['type'] == 'nifti' ]
+    if nifti and len(nifti) == 1:
+        nifti = nifti[0]
+        nifti_rename = 'Inplane.nii.gz'
+        this_input = {'nifti': nifti['name'],
+                      'nifti_out_name': nifti_rename,
+                      'acquisition_id': inplane['_id'],
+                      'label': inplane['label'],
+                      'timestamp': inplane['timestamp'].strftime('%Y-%m-%dT%H:%M:%S')}
+        input_files.append(this_input)
+        print('Found associated inplane file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
+        fw.download_file_from_acquisition(inplane['_id'],
+                                          nifti['name'],
+                                          os.path.join(data_dir, nifti_rename))
 
     # TRACK INPUTS AND WRITE TO FILE
     inputs = {  "session_id": parent_session_id,
@@ -140,12 +149,12 @@ def fLoc_data(config=None, data_dir='/flywheel/v0/output/'):
                 }
 
     # Write out the json file with input files
-    json_file = os.path.join(data_dir, 'input_data.json')
+    json_file = os.path.join(out_dir, 'input_data.json')
     with open(json_file, 'w') as jf:
         json.dump(inputs, jf)
 
 
-    return inputs
+    return inputs, data_dir
 
 
 ###############################################################################
@@ -181,16 +190,20 @@ if __name__ == '__main__':
 
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))
-    input_files = fLoc_data(config, args.output_dir)
+    input_files, data_dir = fLoc_data(config, args.output_dir)
 
     if not input_files:
         print('Errors finding input files...')
         os.sys.exit(1)
 
     # RUN MATLAB CODE
+    run_command = '%s %s %s %s' % (matlab_binary, matlab_library, data_dir, args.config_file)
+    os.system(run_command)
 
+    # COMPRESS OUTPUTS (preserve the config/json/log files at the top-level?)
+    # The results come in a deeply nested directory tree, thus we want to compress the outputs so that they are easy to work withself.
 
-    # COMPRESS OUTPUTS (preserve the json at the top-level)
+    # Preserve the directory tree in json format for easy navigation outside of the platform. - Package list for the zip file.
 
 
     # EXIT

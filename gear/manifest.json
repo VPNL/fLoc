@@ -25,11 +25,6 @@
     "clip": {
       "description": "Number of TRs to clip from the beginning of each run (int)",
       "type": "integer"
-    },
-    "stc": {
-      "description": "slice time correction flag (logical; default = 0, no STC)",
-      "default": 0,
-      "type": "integer"
     }
   }
 }

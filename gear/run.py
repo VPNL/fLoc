@@ -204,7 +204,7 @@ if __name__ == '__main__':
 
     # RUN MATLAB CODE
     path_string = 'export FSHOME=/opt/freesurfer; export PATH=$PATH:/opt/freesurfer/bin; '
-    run_command = '%s %s %s %s %s' % (path_string, matlab_binary, matlab_library, data_dir, args.config_file)
+    run_command = '%s %s %s %s %s %s' % (path_string, matlab_binary, matlab_library, data_dir, args.config_file, args.output_dir)
     os.system(run_command)
 
     # COMPRESS OUTPUTS (preserve the config/json/log files at the top-level?)

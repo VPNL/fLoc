@@ -1,4 +1,4 @@
-function err = fLocGearRun(session, config)
+function err = fLocGearRun(session, config, out_dir)
 % Generate data structures of vistasoft parameters for preprocessing and
 % analyzing fLoc data with a GLM using a Flywheel gear.
 %
@@ -27,6 +27,10 @@ clip = config.config.clip;
 
 %% Run fLoc Analysis
 err = fLocAnalysis(session, init_params, glm_params, clip, QA);
+
+if err == 0
+    zip(fullfile(out_dir, 'fLoc_output.zip'), session);
+    delete(session)
 
 clear global
 

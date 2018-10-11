@@ -163,10 +163,12 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
 if __name__ == '__main__':
 
     import urllib3
+    import shutil
+    import argparse
+
     urllib3.disable_warnings()
     os.environ['FLYWHEEL_SDK_SKIP_VERSION_CHECK'] = '1'
 
-    import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument('--config_file',
                     type=str,
@@ -188,6 +190,10 @@ if __name__ == '__main__':
     print('  Creating SDK client...')
     fw = flywheel.Flywheel(config['inputs']['api_key']['key'])
 
+    # Copy FS license into place
+    license_file_path = config['inputs']['freesurfer_license']['location']['path']
+    shutil.copyfile(license_file_path, '/opt/freesurfer/.license')
+
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))
     input_files, data_dir = fLoc_data(config, args.output_dir)
@@ -197,7 +203,7 @@ if __name__ == '__main__':
         os.sys.exit(1)
 
     # RUN MATLAB CODE
-    path_string = 'export PATH=$PATH:/opt/freesurfer/bin; '
+    path_string = 'export FSHOME=/opt/freesurfer; export PATH=$PATH:/opt/freesurfer/bin; '
     run_command = '%s %s %s %s %s' % (path_string, matlab_binary, matlab_library, data_dir, args.config_file)
     os.system(run_command)
 

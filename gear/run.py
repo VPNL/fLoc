@@ -2,6 +2,7 @@
 
 import os
 import json
+import time
 import shutil
 import flywheel
 import numpy as np
@@ -21,7 +22,7 @@ def parse_config(config_json_file):
     with open(config_json_file, 'r') as jsonfile:
         config = json.load(jsonfile)
 
-    return config
+    return config['config']
 
 def get_timestamp_delta(timestamp, reference, absolute_value=False):
     """
@@ -94,7 +95,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
                                   'nifti_out_name': nifti_rename,
                                   'acquisition_id': a['_id'],
                                   'label': a['label'],
-                                  'timestamp': a['timestamp'].strftime('%Y-%m-%dT%H:%M:%S')}
+                                  'timestamp': a['timestamp']}
                     input_files.append(this_input)
                     print('  Found associated nifti file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
                     fw.download_file_from_acquisition(a['_id'],
@@ -119,13 +120,22 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
             if f['classification'] and f['classification'].has_key('Features') and 'In-Plane' in f['classification']['Features']:
                 inplanes.append(a)
 
-    if inplanes and len(inplanes) >1:
-        print('More than one Inplane acquisition was found!!!')
+    print('%d Inplane acquisitions were found!' % (len(inplanes)))
 
-    # Find the correct inplane when one or more exist, making the assumption that
-    # the last inplane is the one we actually want to use.
-    inplanes_sorted = sorted(inplanes, key=lambda k: k['timestamp'])
-    inplane = inplanes_sorted[-1]
+    if inplanes and len(inplanes) >1:
+        # Find the correct inplane when one or more exist, making the assumption that
+        # the last inplane is the one we actually want to use.
+        inplanes_sorted = sorted(inplanes, key=lambda k: k['timestamp'])
+
+        # The inplane is the last inplane prior to the first BOLD scan.
+        # Get the earliest timestamp in the input+files array and compare that to the list of inplane files
+        first_timestamp = sorted(input_files, key=lambda k: k['timestamp'])
+        inplane = [ x for x in inplanes_sorted if x['timestamp'] < first_timestamp[0]['timestamp'] ][-1]
+    else:
+        inplane = inplanes[0]
+
+
+    # Download the Inplane file
     nifti = [ x for x in inplane['files'] if x['type'] == 'nifti' ]
     if nifti and len(nifti) == 1:
         nifti = nifti[0]
@@ -134,18 +144,22 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
                       'nifti_out_name': nifti_rename,
                       'acquisition_id': inplane['_id'],
                       'label': inplane['label'],
-                      'timestamp': inplane['timestamp'].strftime('%Y-%m-%dT%H:%M:%S')}
+                      'timestamp': inplane['timestamp']}
         input_files.append(this_input)
-        print('Found associated inplane file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
+        print('Using inplane file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
         fw.download_file_from_acquisition(inplane['_id'],
                                           nifti['name'],
                                           os.path.join(data_dir, nifti_rename))
 
     # TRACK INPUTS AND WRITE TO FILE
+    def sanitize_ts(x):
+        x['timestamp'] = x['timestamp'].strftime('%Y-%m-%dT%H:%M:%S')
+        return x
+    sanitized_inputs = [ sanitize_ts(x) for x in input_files ]
     inputs = {  "session_id": parent_session_id,
-                "session_label":session['label'],
+                "session_label": session['label'],
                 "num_runs": str(num_runs),
-                "files": input_files
+                "files": sanitized_inputs
                 }
 
     # Write out the json file with input files
@@ -191,8 +205,9 @@ if __name__ == '__main__':
     fw = flywheel.Flywheel(config['inputs']['api_key']['key'])
 
     # Copy FS license into place
-    license_file_path = config['inputs']['freesurfer_license']['location']['path']
-    shutil.copyfile(license_file_path, '/opt/freesurfer/.license')
+    # license_file_path = config['inputs']['freesurfer_license']['location']['path']
+    # TODO:
+    # shutil.copyfile(license_file_path, '/opt/freesurfer/.license')
 
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))
@@ -204,8 +219,11 @@ if __name__ == '__main__':
 
     # RUN MATLAB CODE
     path_string = 'export FSHOME=/opt/freesurfer; export PATH=$PATH:/opt/freesurfer/bin; '
+    matlab_binary = ''
+    matlab_library = ''
     run_command = '%s %s %s %s %s %s' % (path_string, matlab_binary, matlab_library, data_dir, args.config_file, args.output_dir)
-    os.system(run_command)
+    #TODO
+    # os.system(run_command)
 
     # COMPRESS OUTPUTS (preserve the config/json/log files at the top-level?)
     # The results come in a deeply nested directory tree, thus we want to compress the outputs so that they are easy to work withself.

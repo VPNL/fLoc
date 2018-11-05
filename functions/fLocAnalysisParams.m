@@ -75,7 +75,7 @@ end
 
 % get the durations of TR and events
 nii = niftiRead(niipaths{1}); TR = nii.pixdim(4);
-pid = fopen(parfiles{1}); 
+pid = fopen(parpaths{1}); 
 ln1 = fgetl(pid); ln1(ln1 == sprintf('\t')) = '';
 ln2 = fgetl(pid); ln2(ln2 == sprintf('\t')) = '';
 prts1 = deblank(strsplit(ln1, ' ')); prts2 = deblank(strsplit(ln2, ' '));

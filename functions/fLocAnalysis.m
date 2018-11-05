@@ -98,10 +98,17 @@ save fLocAnalysisParams.mat init_params glm_params
 % this change has been made to account for the problem of mixed up axes in some of
 % the sessions.
 for rr = 1: length(init_params.functionals)
-    unix([ sprintf('mri_convert --force_ras_good %s %s ', init_params.functionals{rr}, init_params.functionals{rr}) ])
+    status = system(sprintf('mri_convert --force_ras_good %s %s ', init_params.functionals{rr}, init_params.functionals{rr}));
+    if status ~= 0
+        error('Could not run mri_convert on %s', init_params.functionals{rr})
+    end
+    
 end
 
-unix([ sprintf('mri_convert --force_ras_good %s %s ', init_params.inplane, init_params.inplane) ])
+status = system(sprintf('mri_convert --force_ras_good %s %s ', init_params.inplane, init_params.inplane));
+if status ~= 0
+    error('Could not run mri_convert on %s', init_params.inplane)
+end
 
 
 nii = readFileNifti(init_params.functionals{1}); nslices = size(nii.data, 3);

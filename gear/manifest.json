@@ -11,13 +11,13 @@
   "flywheel": {
     "suite": "VPNL"
   },
-  "version": "1.0.0_rc1",
+  "version": "0.1.0",
   "custom": {
-    "docker-image": "vpnl/floc:1.0.0_rc1"
+    "docker-image": "vpnl/floc:0.1.0"
   },
   "inputs": {
     "api_key": {
-      "description": "User's api key",
+      "description": "Calling user's api key.",
       "base": "api_key"
     },
     "freesurfer_license": {

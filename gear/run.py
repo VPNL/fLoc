@@ -5,7 +5,6 @@ import json
 import time
 import shutil
 import flywheel
-import numpy as np
 from datetime import datetime
 from pprint import pprint as pp
 
@@ -22,7 +21,7 @@ def parse_config(config_json_file):
     with open(config_json_file, 'r') as jsonfile:
         config = json.load(jsonfile)
 
-    return config['config']
+    return config
 
 def get_timestamp_delta(timestamp, reference, absolute_value=False):
     """
@@ -179,6 +178,7 @@ if __name__ == '__main__':
     import urllib3
     import shutil
     import argparse
+    import subprocess
 
     urllib3.disable_warnings()
     os.environ['FLYWHEEL_SDK_SKIP_VERSION_CHECK'] = '1'
@@ -205,9 +205,8 @@ if __name__ == '__main__':
     fw = flywheel.Flywheel(config['inputs']['api_key']['key'])
 
     # Copy FS license into place
-    # license_file_path = config['inputs']['freesurfer_license']['location']['path']
-    # TODO:
-    # shutil.copyfile(license_file_path, '/opt/freesurfer/.license')
+    license_file_path = config['inputs']['freesurfer_license']['location']['path']
+    shutil.copyfile(license_file_path, '/opt/freesurfer/.license')
 
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))
@@ -218,17 +217,15 @@ if __name__ == '__main__':
         os.sys.exit(1)
 
     # RUN MATLAB CODE
-    path_string = 'export FSHOME=/opt/freesurfer; export PATH=$PATH:/opt/freesurfer/bin; '
-    matlab_binary = ''
-    matlab_library = ''
-    run_command = '%s %s %s %s %s %s' % (path_string, matlab_binary, matlab_library, data_dir, args.config_file, args.output_dir)
-    #TODO
-    # os.system(run_command)
+    fs_home_dir = '/opt/freesurfer'
+    matlab_binary = '/usr/local/bin/run_fLocGearRun.sh'
+    matlab_library = '/opt/mcr/v93'
 
-    # COMPRESS OUTPUTS (preserve the config/json/log files at the top-level?)
-    # The results come in a deeply nested directory tree, thus we want to compress the outputs so that they are easy to work withself.
+    run_command = [matlab_binary, matlab_library, data_dir, args.config_file, args.output_dir, fs_home_dir]
+    status = subprocess.check_call(run_command)
 
-    # Preserve the directory tree in json format for easy navigation outside of the platform. - Package list for the zip file.
-
+    # Clean up fLoc dir
+    shutil.rmtree(os.path.join(out_dir, 'fLoc'))
 
     # EXIT
+    os.sys.exit(status)

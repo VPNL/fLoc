@@ -1,10 +1,12 @@
-function err = fLocGearRun(session, config_file, out_dir)
+function err = fLocGearRun(session, config_file, out_dir, fshome)
 % Generate data structures of vistasoft parameters for preprocessing and
 % analyzing fLoc data with a GLM using a Flywheel gear.
 %
 % INPUTS
 % 1) session -- path to data directory in Flywheel (char array)
 % 2) config -- path to Flywheel config file (char array)
+% 3) out_dir -- path to save outputs
+% 4) fshome -- path to Freesurfer's directory
 %
 % OUPUTS
 % 1) session -- path to data directory in Flywheel (char array)
@@ -13,7 +15,13 @@ function err = fLocGearRun(session, config_file, out_dir)
 %
 % AS 8/2018
 
-%% Parse config file for params.
+%% Set env and parse config file for params
+
+% Set the env for fs bin
+setenv('FREESURFER_HOME', fshome);
+setenv('PATH', [getenv('PATH'), ':', fullfile(fshome, 'bin')]);
+disp(getenv('FREESURFER_HOME'));
+disp(getenv('PATH'));
 
 % Read the json file
 config = jsondecode(fileread(config_file));
@@ -29,8 +37,17 @@ clip = config.config.clip;
 err = fLocAnalysis(session, init_params, glm_params, clip);
 
 if err == 0
-    zip(fullfile(out_dir, 'fLoc_output.zip'), session);
-    delete(session)
+    [~, session_label] = fileparts(session);
+    jpgs = mrvFindFile('*.jpg', session);
+    for ii=1:numel(jpgs)
+        copyfile(jpgs{ii}, out_dir)
+    end
+    logs = mrvFindFile('*log*', session);
+    for ii=1:numel(logs)
+        copyfile(logs{ii}, out_dir)
+    end
+    zip(fullfile(out_dir, ['fLoc_output-', session_label, '.zip']), session);
+    rmdir(session, 's')
 
 clear global
 

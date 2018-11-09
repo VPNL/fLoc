@@ -8,12 +8,13 @@
   "url": "https://github.com/VPNL/fLoc",
   "source": "https://github.com/VPNL/fLoc",
   "license": "Other",
-  "flywheel": {
-    "suite": "VPNL"
-  },
-  "version": "0.1.0",
+  "flywheel": "0",
+  "version": "0.0.1",
   "custom": {
-    "docker-image": "vpnl/floc:0.1.0"
+    "docker-image": "vpnl/floc:0.0.1",
+    "flywheel": {
+      "suite": "VPNL"
+    }
   },
   "inputs": {
     "api_key": {

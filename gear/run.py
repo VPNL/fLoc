@@ -210,7 +210,7 @@ if __name__ == '__main__':
     # Copy FS license into place
     license_file_path = '/opt/freesurfer/.license'
     with open(license_file_path, 'w') as lf:
-        lf.write(' '.join(config['config']['freesurfer_license'].split()).replace(" ", "\\n"))
+        lf.write(' '.join(config['config']['freesurfer_license'].split()).replace(" ", "\n"))
 
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))
@@ -229,7 +229,9 @@ if __name__ == '__main__':
     status = subprocess.check_call(run_command)
 
     # Clean up fLoc dir
-    shutil.rmtree(os.path.join(out_dir, inputs['subject_code']))
+    shutil.rmtree(os.path.join(args.output_dir, inputs['subject_code']))
 
     # EXIT
+    if status == 0:
+        print('Success!')
     os.sys.exit(status)

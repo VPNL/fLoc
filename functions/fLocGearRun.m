@@ -36,17 +36,21 @@ clip = config.config.clip;
 %% Run fLoc Analysis
 err = fLocAnalysis(session, init_params, glm_params, clip);
 
+%% Move select files to output and zip outputs
 if err == 0
-    [~, session_label] = fileparts(session);
+    [base_path, session_label] = fileparts(session);
+    [~, subject_code] = fileparts(base_path)
     jpgs = mrvFindFile('*.jpg', session);
     for ii=1:numel(jpgs)
-        copyfile(jpgs{ii}, out_dir)
+        [~, f, e] = fileparts(jpgs{ii})
+        copyfile(jpgs{ii}, fullfile(out_dir, [subject_code, '_', session_label, '-', f, e]));
     end
     logs = mrvFindFile('*log*', session);
     for ii=1:numel(logs)
-        copyfile(logs{ii}, out_dir)
+        [~, f, e] = fileparts(logs{ii})
+        copyfile(logs{ii}, fullfile(out_dir, [subject_code, '_', session_label, '-', f, e]))
     end
-    zip(fullfile(out_dir, ['fLoc_output-', session_label, '.zip']), session);
+    zip(fullfile(out_dir, [subject_code, '_', session_label, '-fLoc.zip']), session);
     rmdir(session, 's')
 
 clear global

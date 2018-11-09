@@ -61,9 +61,11 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
 
     # Get the acquisitions for the session
     session = fw.get_session(parent_session_id)
+    subject_code = session.subject.code
+    session_label = session.label
     session_acquisitions = fw.get_session_acquisitions(parent_session_id)
 
-    data_dir = os.path.join(out_dir, 'fLoc', session['label'])
+    data_dir = os.path.join(out_dir, subject_code, session_label)
     print('Data dir set to: %s' % (data_dir))
     if not os.path.isdir(data_dir):
         os.makedirs(data_dir)
@@ -156,13 +158,14 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
         return x
     sanitized_inputs = [ sanitize_ts(x) for x in input_files ]
     inputs = {  "session_id": parent_session_id,
-                "session_label": session['label'],
+                "subject_code": subject_code,
+                "session_label": session_label,
                 "num_runs": str(num_runs),
                 "files": sanitized_inputs
                 }
 
     # Write out the json file with input files
-    json_file = os.path.join(out_dir, 'input_data.json')
+    json_file = os.path.join(out_dir, subject_code + '_' + session_label + '-input_data.json')
     with open(json_file, 'w') as jf:
         json.dump(inputs, jf)
 
@@ -210,9 +213,9 @@ if __name__ == '__main__':
 
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))
-    input_files, data_dir = fLoc_data(config, args.output_dir)
+    inputs, data_dir = fLoc_data(config, args.output_dir)
 
-    if not input_files:
+    if not inputs:
         print('Errors finding input files...')
         os.sys.exit(1)
 
@@ -225,7 +228,7 @@ if __name__ == '__main__':
     status = subprocess.check_call(run_command)
 
     # Clean up fLoc dir
-    shutil.rmtree(os.path.join(out_dir, 'fLoc'))
+    shutil.rmtree(os.path.join(out_dir, inputs['subject_code']))
 
     # EXIT
     os.sys.exit(status)

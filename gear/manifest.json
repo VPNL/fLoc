@@ -19,7 +19,8 @@
   "inputs": {
     "api_key": {
       "description": "Calling user's api key.",
-      "base": "api_key"
+      "base": "api-key",
+      "read-only": true
     }
   },
   "config": {

@@ -19,16 +19,16 @@
     "api_key": {
       "description": "Calling user's api key.",
       "base": "api_key"
-    },
-    "freesurfer_license": {
-      "description": "FreeSurfer license file, provided during registration with FreeSurfer. This file will by copied to the $FSHOME directory and used during execution of the Gear.",
-      "base": "file"
     }
   },
   "config": {
     "clip": {
       "description": "Number of TRs to clip from the beginning of each run (int)",
       "type": "integer"
+    },
+    "freesurfer_license": {
+      "description": "FreeSurfer license file text, provided during registration with FreeSurfer. This text will by written to the license file within the '$FSHOME' directory and used during execution of the Gear.",
+      "type": "string"
     }
   }
 }

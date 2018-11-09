@@ -208,8 +208,9 @@ if __name__ == '__main__':
     fw = flywheel.Flywheel(config['inputs']['api_key']['key'])
 
     # Copy FS license into place
-    license_file_path = config['inputs']['freesurfer_license']['location']['path']
-    shutil.copyfile(license_file_path, '/opt/freesurfer/.license')
+    license_file_path = '/opt/freesurfer/.license'
+    with open(license_file_path, 'w') as lf:
+        lf.write(' '.join(config['config']['freesurfer_license'].split()).replace(" ", "\\n"))
 
     # Download fLOC data
     print('Gathering fLOC Data in %s...' % (args.output_dir))

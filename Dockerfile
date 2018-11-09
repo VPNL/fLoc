@@ -35,6 +35,7 @@ RUN apt-get update && apt-get -y install \
 
 # Download Freesurfer v6.0.0 from MGH and untar to /opt
 COPY --from=scitran/freesurfer-recon-all:0.1.4 /opt/freesurfer /opt/freesurfer
+RUN touch /opt/freesurfer/.license && chmod 777 /opt/freesurfer/.license
 
 RUN apt-get update && \
         apt-get install -y python-pip &&  \

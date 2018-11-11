@@ -1,17 +1,20 @@
 {
   "name": "floc",
   "label": "VPNL: fLoc - Face Localizer Analysis Pipeline",
-  "description": "Functional localizer experiment used to define category-selective cortical regions (published in Stigliani et al., 2015).",
+  "description": "Automated analysis of fMRI data from fLoc funcional localizer experiment used to define category-selective cortical regions. By default the Gear generates the following voxel-wise parameters maps: Beta values, model residual error, proportion of variance explained, and GLM contrasts (t-values). All parameter maps are saved as .mat and nifti files in session/Inplane/GLMs/ and can be viewed in Vistasoft. The Gear also writes a file named 'fLocAnalysis_log.txt' that logs progress and saves input and glm parameters as fLocAnalysisParams.mat. If there are 10 conditions specified, 15 contrast maps will be generated. 10 maps will contrast each individual condition versus all others. The other 5 maps will contrast conditions 1 and 2 vs all others, 3 and 4 versus all others, and so on. If there are not 10 conditions specified in the parfiles, then the maps generated will contrast each individual condition versus all others.",
   "cite": "Temporal Processing Capacity in High-Level Visual Cortex Is Domain Specific. Anthony Stigliani, Kevin S. Weiner and Kalanit Grill-Spector. Journal of Neuroscience 9 September 2015, 35 (36) 12412-12424; DOI: https://doi.org/10.1523/JNEUROSCI.4822-14.2015",
-  "author": "Anthony Stigliani",
-  "maintainer": "Michael Perry <lmperry@stanford.edu",
+  "author": "Anthony Stigliani, VPNL, Stanford",
+  "maintainer": "Michael Perry <lmperry@stanford.edu>",
   "url": "https://github.com/VPNL/fLoc",
   "source": "https://github.com/VPNL/fLoc",
   "license": "Other",
   "flywheel": "0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "custom": {
-    "docker-image": "vpnl/floc:0.0.1",
+    "docker-image": "vpnl/floc:0.0.2",
+    "gear-builder": {
+      "image": "vpnl/floc:0.0.2"
+    },
     "flywheel": {
       "suite": "VPNL"
     }

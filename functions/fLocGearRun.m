@@ -43,12 +43,12 @@ if err == 0
     jpgs = mrvFindFile('*.jpg', session);
     for ii=1:numel(jpgs)
         [~, f, e] = fileparts(jpgs{ii});
-        copyfile(jpgs{ii}, fullfile(out_dir, [subject_code, '_', session_label, '-', f, e]));
+        copyfile(jpgs{ii}, fullfile(out_dir, [subject_code, '_', session_label, '-', f, e]), 'f');
     end
     logs = mrvFindFile('*log*', session);
     for ii=1:numel(logs)
         [~, f, e] = fileparts(logs{ii});
-        copyfile(logs{ii}, fullfile(out_dir, [subject_code, '_', session_label, '-', f, e]));
+        copyfile(logs{ii}, fullfile(out_dir, [subject_code, '_', session_label, '-', f, e]), 'f');
     end
     fprintf('Zipping outputs [%s]...\n', mrvDirup(session));
     zip(fullfile(out_dir, [subject_code, '_', session_label, '-fLoc.zip']), mrvDirup(session));

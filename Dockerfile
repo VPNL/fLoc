@@ -5,9 +5,10 @@ FROM  flywheel/matlab-mcr:v93
 
 MAINTAINER Michael Perry <lmperry@stanford.edu>
 
+
 ############################
 # Install dependencies
-ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y --force-yes \
     xvfb \
     xfonts-100dpi \
@@ -16,32 +17,38 @@ RUN apt-get update && apt-get install -y --force-yes \
     zip \
     unzip \
     python \
-    jq
+    jq \
+    bc \
+    tar \
+    zip \
+    wget \
+    gawk \
+    tcsh \
+    python \
+    libgomp1 \
+    python2.7 \
+    perl-modules \
+    python-pip
+
+
+############################
+# Download Freesurfer v6.0.0 from MGH and untar to /opt
+
+RUN wget -N -qO- ftp://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz | tar -xz -C /opt && \
+    chown -R root:root /opt/freesurfer && \
+    rm -rf /opt/freesurfer/MCRv80 /opt/freesurfer/average /opt/freesurfer/subjects /opt/freesurfer/trctrain /opt/freesurfer/tktools && \
+    touch /opt/freesurfer/.license && \
+    chmod 777 /opt/freesurfer/.license
+
 
 # Set the diplay env variable for xvfb
 ENV DISPLAY :1.0
 
-RUN apt-get update && apt-get -y install \
-        bc \
-        tar \
-        zip \
-        wget \
-        gawk \
-        tcsh \
-        python \
-        libgomp1 \
-        python2.7 \
-        perl-modules
-
-# Download Freesurfer v6.0.0 from MGH and untar to /opt
-COPY --from=scitran/freesurfer-recon-all:0.1.4 /opt/freesurfer /opt/freesurfer
-RUN touch /opt/freesurfer/.license && chmod 777 /opt/freesurfer/.license
-
-RUN apt-get update && \
-        apt-get install -y python-pip &&  \
-        pip install flywheel-sdk
+# Install Flywheel-SDK
+RUN pip install flywheel-sdk
 
 # ADD the Matlab Stand-Alone (MSA) into the container.
+# Must be compiled prior to gear build - this will fail otherwise
 COPY gear/bin/fLocGearRun \
      gear/bin/run_fLocGearRun.sh \
      /usr/local/bin/

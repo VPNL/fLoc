@@ -177,10 +177,7 @@ if exist(fullfile(session, 'Between_Scan_Motion.txt'), 'file') ~= 2
     hi = initHiddenInplane('MotionComp', 1);
     baseScan = 1; targetScans = 1:length(init_params.functionals);
     [hi, M] = betweenScanMotComp(hi, 'MotionComp_RefScan1', baseScan, targetScans);
-    %%%%%%%%%%%%%%% changed this to create local paths MN 12/2018 %%%%%%%%
-    % fname = fullfile(session, 'Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
-     fname = fullfile('Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
-     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fname = fullfile(session, 'Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
     save(fname, 'M', 'baseScan', 'targetScans');
     hi = selectDataType(hi, 'MotionComp_RefScan1');
     saveSession; close all;

@@ -47,16 +47,11 @@ niipaths = {}; parpaths = {}; num_runs = 0;
 while sum(contains(lower(niifiles), ['run' num2str(num_runs + 1) '.nii.gz'])) >= 1
     num_runs = num_runs + 1;
     nii_idx = find(contains(lower(niifiles), ['run' num2str(num_runs) '.nii.gz']), 1);
-    %%changed this and similar cases below to create local paths, MN 12/18 %%%%%%%
-    %niipaths{num_runs} = fullfile(session, niifiles{nii_idx});
     niipaths{num_runs} = fullfile(niifiles{nii_idx});
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     par_idx = find(contains(lower(parfiles), ['run' num2str(num_runs) '.par']), 1);
     if isempty(par_idx)
         fprintf('Error: no .par file found for run %d. \n\n', num_runs); return;
     else
-       
-        %parpaths{num_runs} = fullfile(session, parfiles{par_idx});
         parpaths{num_runs} = fullfile(parfiles{par_idx});
       
     end
@@ -74,16 +69,14 @@ if isempty(inplane_idx)
     fprintf('Warning: no inplane scan found for session %s. Generating pseudo inplane file. \n\n', session_id);
     nii = niftiRead(niipaths{1}); nii.data = mean(nii.data, 4);
     niftiWrite(nii, 'PseudoInplane.nii.gz');
-    % inplane = fullfile(session, 'PseudoInplane.nii.gz');
     inplane = fullfile('PseudoInplane.nii.gz');
 else
-    % inplane = fullfile(session, niifiles{inplane_idx});
     inplane = fullfile(niifiles{inplane_idx});
 end
 
 % get the durations of TR and events
-nii = niftiRead(niipaths{1}); TR = nii.pixdim(4);
-pid = fopen(parpaths{1}); 
+nii = niftiRead(fullfile(session,niipaths{1})); TR = nii.pixdim(4);
+pid = fopen(fullfile(session, parpaths{1})); 
 ln1 = fgetl(pid); ln1(ln1 == sprintf('\t')) = '';
 ln2 = fgetl(pid); ln2(ln2 == sprintf('\t')) = '';
 prts1 = deblank(strsplit(ln1, ' ')); prts2 = deblank(strsplit(ln2, ' '));

@@ -4,7 +4,7 @@
 %       /software/matlab/r2017b/bin/matlab -nodesktop -r fLocGearRun_Build
 
 % Check that we are running a compatible version
-if (strfind(version, '9.3.0') ~= 1) || (strfind(computer, 'GLNXA64') ~= 1)
+if (isempty(strfind(version, '9.3.0'))) || (isempty(strfind(computer, 'GLNXA64')))
     error('You must compile this function using R2017b (9.3.0.713579) 64-bit (glnxa64). You are using %s, %s', version, computer);
 end
 
@@ -17,7 +17,8 @@ end
 
 % Download the source code
 disp('Cloning source code...');
-system('git clone https://github.com/vistalab/vistasoft');
+%system('git clone https://github.com/vistalab/vistasoft');
+system('git clone https://github.com/MNordt/vistasoft --branch localPaths');
 
 % Set paths
 disp('Adding paths to build scope...');

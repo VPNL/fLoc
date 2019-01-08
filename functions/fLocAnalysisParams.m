@@ -38,6 +38,7 @@ glm_params = er_defaultParams;
 
 % searches for all parfiles and nifti's in session directory
 [~, session_id] = fileparts(session);
+[~, subject_id] = fileparts(mrvDirup(session));
 niifiles = dir(fullfile(session, '*.nii.gz')); niifiles = {niifiles.name};
 niifiles = niifiles(~contains(niifiles,'._'));
 parfiles = dir(fullfile(session, '*.par')); parfiles = {parfiles.name};
@@ -104,7 +105,7 @@ init_params.motionCompSmoothFrames = 3; % time window (in TRs) for within-scan c
 init_params.motionCompRefScan      = 1; % run number of reference scan for between-scans compensation
 
 % necessary fields
-init_params.sessionCode = session_id; % char array, local session data directory
+init_params.sessionCode       = session_id; % char array, local session data directory
 init_params.doAnalParams      = 1; % logical, set GLM analysis parameters during intialization
 init_params.doSkipFrames      = 1; % logical, clip countdown frames during initialization
 init_params.doPreprocessing   = 1; % logical, do some preprocessing during initialization
@@ -119,7 +120,7 @@ init_params.motionComp        = 0; % logical, don't do motion compensation
 init_params.keepFrames = repmat([init_params.clip -1], num_runs, 1);
 
 % descriptive fields for the mrVista session
-init_params.subject     = session_id(1:find(session_id == '_') - 1); % char array with participant ID
+init_params.subject     = subject_id;
 init_params.description = 'localizer'; % char array describing session
 init_params.comments    = 'Analyzed using fLoc'; % char array of comments
 init_params.annotations = annotations; % cell array of descriptions for each run

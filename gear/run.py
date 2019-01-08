@@ -4,9 +4,13 @@ import os
 import json
 import time
 import shutil
+import logging
 import flywheel
 from datetime import datetime
 from pprint import pprint as pp
+
+logging.basicConfig()
+log = logging.getLogger('fLOC')
 
 # Parse a config file
 def parse_config(config_json_file):
@@ -66,7 +70,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
     session_acquisitions = fw.get_session_acquisitions(parent_session_id)
 
     data_dir = os.path.join(out_dir, subject_code, session_label)
-    print('Data dir set to: %s' % (data_dir))
+    log.info('Data dir set to: %s' % (data_dir))
     if not os.path.isdir(data_dir):
         os.makedirs(data_dir)
 
@@ -83,7 +87,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
         for f in a['files']:
             if f['name'].endswith('.par'):
 
-                print('Found parfile = %s ' % f['name'])
+                log.info('Found parfile = %s ' % f['name'])
                 found_par_files = True
 
                 # Find the nifti file in this acquisition and download
@@ -98,7 +102,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
                                   'label': a['label'],
                                   'timestamp': a['timestamp']}
                     input_files.append(this_input)
-                    print('  Found associated nifti file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
+                    log.info('  Found associated nifti file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
                     fw.download_file_from_acquisition(a['_id'],
                                                       f['name'],
                                                       os.path.join(data_dir, f['name']))
@@ -106,7 +110,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
                                                       nifti['name'],
                                                       os.path.join(data_dir, nifti_rename))
                 else:
-                    print('No nifti file found to associate with the parfile!!!')
+                    log.info('No nifti file found to associate with the parfile!!!')
 
     if found_par_files == False:
         return None
@@ -121,7 +125,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
             if f['classification'] and f['classification'].has_key('Features') and 'In-Plane' in f['classification']['Features']:
                 inplanes.append(a)
 
-    print('%d Inplane acquisitions were found!' % (len(inplanes)))
+    log.info('%d Inplane acquisitions were found!' % (len(inplanes)))
 
     if inplanes and len(inplanes) >1:
         # Find the correct inplane when one or more exist, making the assumption that
@@ -147,7 +151,7 @@ def fLoc_data(config=None, out_dir='/flywheel/v0/output/'):
                       'label': inplane['label'],
                       'timestamp': inplane['timestamp']}
         input_files.append(this_input)
-        print('Using inplane file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
+        log.info('Using inplane file = %s \n\tDownloading nifti as %s...' % (nifti['name'], nifti_rename))
         fw.download_file_from_acquisition(inplane['_id'],
                                           nifti['name'],
                                           os.path.join(data_dir, nifti_rename))
@@ -182,6 +186,11 @@ if __name__ == '__main__':
     import shutil
     import argparse
     import subprocess
+    import datetime
+
+    log.setLevel(getattr(logging, 'DEBUG'))
+    logging.getLogger('fLOC').setLevel(logging.INFO)
+    log.info('  start %s' % datetime.datetime.utcnow())
 
     urllib3.disable_warnings()
     os.environ['FLYWHEEL_SDK_SKIP_VERSION_CHECK'] = '1'
@@ -204,7 +213,7 @@ if __name__ == '__main__':
     config = parse_config(args.config_file)
 
     # Create SDK client
-    print('  Creating SDK client...')
+    log.info('  Creating SDK client...')
     fw = flywheel.Flywheel(config['inputs']['api_key']['key'])
 
     # Copy FS license into place
@@ -213,11 +222,11 @@ if __name__ == '__main__':
         lf.write(' '.join(config['config']['freesurfer_license'].split()).replace(" ", "\n"))
 
     # Download fLOC data
-    print('Gathering fLOC Data in %s...' % (args.output_dir))
+    log.info('Gathering fLOC Data in %s...' % (args.output_dir))
     inputs, data_dir = fLoc_data(config, args.output_dir)
 
     if not inputs:
-        print('Errors finding input files...')
+        log.warning('Errors finding input files...')
         os.sys.exit(1)
 
     # RUN MATLAB CODE
@@ -233,5 +242,5 @@ if __name__ == '__main__':
 
     # EXIT
     if status == 0:
-        print('Success!')
+        log.info('Success!')
     os.sys.exit(status)

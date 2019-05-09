@@ -251,10 +251,12 @@ functionalNifti = readFileNifti(init_params.functionals{1});
 mkdir Inplane/GLMs/NiftiMaps
 
 hi = initHiddenInplane('GLMs', 1);
-% if there are 10 conditions, contrast 1&2 vs. all others, 3&4 vs. all 
-% others, and so on
+% if there are 10 conditions, contrast ...
+%   - 1&2 vs. all others, 3&4 vs. all others, and so on
+%   - 1 vs. all not 2, 2 vs. all not 1, 3 vs. all not 4, and so on
 if length(cond_num_list) == 10
     for cc = 1:2:length(cond_num_list)
+        % Contrasting domain vs. all other domains
         active_conds = [cc cc + 1];
         control_conds = setdiff(cond_num_list, active_conds);
         contrast_name = [strcat(cond_list{cc:cc + 1}) '_vs_all'];
@@ -268,6 +270,34 @@ if length(cond_num_list) == 10
         cd Inplane/GLMs/NiftiMaps
         writeFileNifti(contrastNifti);
         cd ../../..
+        
+        % Contrasting category vs. all other categories not in domain
+        domain_conds = [cc cc + 1];
+        j = 1;
+        for i = 0:1
+            active_conds = cc + i;
+            control_conds = setdiff(cond_num_list, domain_conds);
+            contrast_name = [strcat(cond_list{cc + i}) '_vs_all_except_' ...
+                             strcat(cond_list{cc + j})];
+            hi = computeContrastMap2(hi,active_conds,control_conds,...
+                                     contrast_name,'mapUnits','T');
+            % Storing contrast map as nifti
+            niftiFileName = [contrast_name,'.nii.gz'];
+            hi = computeContrastMap2(hi, active_conds, control_conds, ...
+            contrast_name, 'mapUnits','T');
+            % storing contrast map as nifti
+            niftiFileName = [contrast_name,'.nii.gz'];
+            contrastNifti = contrastMap2Nii(hi.map{1},niftiFileName,...
+                                        functionalNifti);
+            % saving nifti under Inplane/GLMs/NiftiMaps
+            cd Inplane/GLMs/NiftiMaps
+            writeFileNifti(contrastNifti);
+            cd ../../..
+            
+            % move to next condition
+            j = j - 1;
+        end
+            
     end
 end
 % for any number of conditions, contrast each individual condition with all

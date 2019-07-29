@@ -98,10 +98,17 @@ save fLocAnalysisParams.mat init_params glm_params
 % this change has been made to account for the problem of mixed up axes in some of
 % the sessions.
 for rr = 1: length(init_params.functionals)
-    unix([ sprintf('mri_convert --force_ras_good %s %s ', init_params.functionals{rr}, init_params.functionals{rr}) ])
+    status = system(sprintf('mri_convert --force_ras_good %s %s ', init_params.functionals{rr}, init_params.functionals{rr}));
+    if status ~= 0
+        error('Could not run mri_convert on %s', init_params.functionals{rr})
+    end
+    
 end
 
-unix([ sprintf('mri_convert --force_ras_good %s %s ', init_params.inplane, init_params.inplane) ])
+status = system(sprintf('mri_convert --force_ras_good %s %s ', init_params.inplane, init_params.inplane));
+if status ~= 0
+    error('Could not run mri_convert on %s', init_params.inplane)
+end
 
 
 nii = readFileNifti(init_params.functionals{1}); nslices = size(nii.data, 3);
@@ -170,10 +177,7 @@ if exist(fullfile(session, 'Between_Scan_Motion.txt'), 'file') ~= 2
     hi = initHiddenInplane('MotionComp', 1);
     baseScan = 1; targetScans = 1:length(init_params.functionals);
     [hi, M] = betweenScanMotComp(hi, 'MotionComp_RefScan1', baseScan, targetScans);
-    %%%%%%%%%%%%%%% changed this to create local paths MN 12/2018 %%%%%%%%
-    % fname = fullfile(session, 'Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
-     fname = fullfile('Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
-     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fname = fullfile(session, 'Inplane', 'MotionComp_RefScan1', 'ScanMotionCompParams');
     save(fname, 'M', 'baseScan', 'targetScans');
     hi = selectDataType(hi, 'MotionComp_RefScan1');
     saveSession; close all;

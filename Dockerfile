@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y --force-yes \
     xfonts-cyrillic \
     zip \
     unzip \
-    python \
     jq \
     bc \
     tar \
@@ -24,9 +23,7 @@ RUN apt-get update && apt-get install -y --force-yes \
     wget \
     gawk \
     tcsh \
-    python \
     libgomp1 \
-    python2.7 \
     perl-modules \
     python-pip
 
@@ -45,7 +42,7 @@ RUN wget -N -qO- ftp://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/free
 ENV DISPLAY :1.0
 
 # Install Flywheel-SDK
-RUN pip install flywheel-sdk
+RUN pip install flywheel-sdk>=12.04
 
 # ADD the Matlab Stand-Alone (MSA) into the container.
 # Must be compiled prior to gear build - this will fail otherwise

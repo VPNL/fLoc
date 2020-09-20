@@ -214,7 +214,7 @@ if __name__ == '__main__':
 
     # Create SDK client
     log.info('  Creating SDK client...')
-    fw = flywheel.Flywheel(config['inputs']['api_key']['key'])
+    fw = flywheel.Client(config['inputs']['api_key']['key'])
 
     # Copy FS license into place
     license_file_path = '/opt/freesurfer/.license'

@@ -2,6 +2,8 @@ function orders = make_orders(num_conds, trials_per_cond, num_orders)
 % Generates counterbalanced order of conditions.
 % Written by KGS Lab
 % Edited by AS 8/2014
+%
+% Edit by AR 9/2021: Change "gethistory" (incorrect spelling) to "get_history" line 35
 
 % check that num_conds is a factor of trials_per_cond
 num_trials = num_conds * trials_per_cond;
@@ -30,7 +32,7 @@ for oo = 1:num_orders
         new = order; a = randi(num_trials); b = randi(num_trials);
         swap = new(a); new(a) = new(b); new(b) = swap;
         % calculate and minimize the energy in the new design
-        new_energy = sum(sum(abs(gethistory(new) - goal)));
+        new_energy = sum(sum(abs(get_history(new) - goal)));
         if new_energy > 13
             if new_energy < old_energy
                 order = new;

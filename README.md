@@ -188,6 +188,7 @@ Follow the instructions below to setup the localizer code for your computer and 
 1. Clone fLoc repository on the computer you will use to present stimuli, and navigate to the functions directory (`~/fLoc/functions/`).
 2. Modify the input registration functions for your local keyboard, button box, and trigger (optional):
     - *get_keyboard_num.m* — Change value of `keyboard_id` to the "Product ID number" of your local keyboard (line 9)
+          - to get "Product ID number" enter PsychHID(‘Devices’) in the command window - then enter ans.productID - the number output should be input as 'keyboard_id' in line 9
     - *get_box_num.m* — Change value of `box_id` to the "Product ID number" of the button box used at your scanner facilities (line 9)
     - *start_scan.m* — Change specifications to be compatible with your local trigger box (line 6)
 3. Add Psychtoolbox to your MATLAB path.
@@ -219,6 +220,7 @@ Follow the instructions below to setup the localizer code for your computer and 
 - Press `[Command + period]` to halt experiment on a Mac or `[Ctrl + period]` on a PC.
 - Enter `sca` to return to MATLAB command line.
 - Please report bugs on GitHub.
+- On Gennari: '[Option + command + esc]' to quit the performance window after run is complete
 
 ## Code
 
